@@ -1,3 +1,9 @@
+eoi (0.1-2) asimov; urgency=low
+
+  * Fix the theme (contents area had height 2px less than required)
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sun, 12 Jul 2009 06:29:59 +0700
+
 eoi (0.1-1) asimov; urgency=low
 
   * Initial release.
