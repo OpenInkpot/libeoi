@@ -1,3 +1,9 @@
+eoi (0.1-2+b1) asimov; urgency=low
+
+  * Rebuild due to EFL upgrade.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Tue, 18 Aug 2009 02:13:55 +0700
+
 eoi (0.1-2) asimov; urgency=low
 
   * Fix the theme (contents area had height 2px less than required)
