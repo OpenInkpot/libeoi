@@ -1,3 +1,10 @@
+eoi (0.1-3) UNRELEASED; urgency=low
+
+  * Replace misleading battery graphics with a more traditional one
+    (OI#430).
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sat, 29 Aug 2009 17:20:34 +0700
+
 eoi (0.1-2+b1) asimov; urgency=low
 
   * Rebuild due to EFL upgrade.
