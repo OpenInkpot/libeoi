@@ -1,4 +1,4 @@
 SUBDIRS=src themes
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = eoi.pc
+pkgconfig_DATA = libeoi.pc

@@ -10,7 +10,7 @@
 #include <Evas.h>
 #include <Edje.h>
 
-#include "eoi.h"
+#include "libeoi.h"
 
 static void die(const char* fmt, ...)
 {

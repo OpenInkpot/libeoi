@@ -1,4 +1,4 @@
-Source: eoi
+Source: libeoi
 Section: gui
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
 Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev, libevas-dev, libedje-dev
@@ -7,27 +7,19 @@ XCS-Cross-Build-Depends: libecore-dev, libevas-dev, libedje-dev
 Priority: optional
 Standards-Version: 3.8.0
 
-Package: libeoi0
+Package: libeoi1
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}, eoi-data (= ${binary:Version})
+Depends: ${shlibs:Depends}
+Conflicts: libeoi0
 Description: FIXME
  FIXME
 
-Package: eoi-dev
+Package: libeoi-dev
 Priority: optional
 Architecture: any
-Depends: libeoi0 (= ${binary:Version}), ${shlibs:Depends}
+Depends: libeoi1 (= ${binary:Version}), ${shlibs:Depends}
 Description: FIXME
  FIXME
  .
  This package contains header files and symlinks necessary to link with library.
-
-Package: eoi-data
-Priority: optional
-Architecture: all
-Depends:
-Description: FIXME
- FIXME
- .
- This package contains data files with default theme.

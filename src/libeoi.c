@@ -1,6 +1,6 @@
 #include <Edje.h>
 
-#include "eoi.h"
+#include "libeoi.h"
 
 #define THEME_EDJ (THEME_DIR "/eoi.edj")
 
