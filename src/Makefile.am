@@ -4,7 +4,7 @@ include_HEADERS = libeoi.h
 
 noinst_PROGRAMS = eoi_test
 
-AM_CFLAGS = -Wall -DTHEME_DIR='"$(pkgdatadir)"'
+AM_CFLAGS = -Wall -DTHEME_DIR='"$(datadir)/eoi"'
 
 INCLUDES = @EFL_CFLAGS@
 libeoi_la_LDFLAGS = -no-undefined -version-info 1:0:0 -Wl,--as-needed
