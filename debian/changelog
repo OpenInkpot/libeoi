@@ -1,3 +1,9 @@
+libeoi (0.2-2) asimov; urgency=low
+
+  * Look for .edj in /usr/share/eoi, not in /usr/share/libeoi.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 03 Sep 2009 08:07:20 +0700
+
 libeoi (0.2-1) asimov; urgency=low
 
   * Change API according to code conventions.
