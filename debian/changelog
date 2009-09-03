@@ -1,7 +1,12 @@
-eoi (0.1-3) UNRELEASED; urgency=low
+libeoi (0.2-1) asimov; urgency=low
 
+  * Change API according to code conventions.
+    - SONAME bump
+    - binary package name bump
   * Replace misleading battery graphics with a more traditional one
     (OI#430).
+  * debian/rules cleanup
+  * Removed -W -Wunused-params, as overly strict.
 
  -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sat, 29 Aug 2009 17:20:34 +0700
 
