@@ -1,11 +1,11 @@
 Source: libeoi
 Section: gui
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev, libevas-dev, libedje-dev
+Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev, libevas-dev, libedje-dev, libefreet-dev
 XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config
-XCS-Cross-Build-Depends: libecore-dev, libevas-dev, libedje-dev
+XCS-Cross-Build-Depends: libecore-dev, libevas-dev, libedje-dev, libefreet-dev
 Priority: optional
-Standards-Version: 3.8.0
+Standards-Version: 3.8.3
 
 Package: libeoi1
 Priority: optional
@@ -23,3 +23,28 @@ Description: FIXME
  FIXME
  .
  This package contains header files and symlinks necessary to link with library.
+
+Package: libeoi1-dbg
+Priority: extra
+Architecture: any
+Depends: libeoi1 (= ${binary:Version})
+Description: FIXME -- debugging symbols
+ FIXME
+ .
+ This package contains debugging symbols for shared library
+
+Package: libeoi-settings-n516
+Priority: optional
+Architecture: any
+Description: FIXME -- Hanvon N516 support
+ FIXME
+ .
+ This package contains settings required for normal operation on Hanvon N516.
+
+Package: libeoi-settings-v3
+Priority: optional
+Architecture: any
+Description: FIXME -- Hanlin V3 support
+ FIXME
+ .
+ This package contains settings required for normal operation on Hanlin V3.

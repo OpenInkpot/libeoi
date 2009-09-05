@@ -19,7 +19,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 
-	./autogen.sh --prefix=/usr $(confflags) CFLGS="$(CFLAGS)"
+	./autogen.sh --prefix=/usr --sysconfdir=/etc $(confflags) CFLAGS="$(CFLAGS)"
 	touch $@
 
 clean:
@@ -43,6 +43,10 @@ install: build
 	dh_installdirs
 
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
+	for i in v3 n516; do \
+	  mkdir -p $(CURDIR)/debian/libeoi-settings-$$i/etc/eoi; \
+	  cp $(CURDIR)/data/$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/etc/eoi/choicebox-numbering.ini; \
+	done
 
 binary-indep:
 
@@ -52,7 +56,7 @@ binary-arch: install
 
 	dh_install -s --sourcedir=debian/tmp
 	dh_link -s
-	dh_strip -s
+	dh_strip -s --dbg-package=libeoi1-dbg
 	dh_compress -s
 	dh_fixperms -s
 	dh_makeshlibs -s
