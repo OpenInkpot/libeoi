@@ -1,3 +1,10 @@
+libeoi (0.2-3) asimov; urgency=low
+
+  * Add support for 'hinting' choicebox: there should be numbers beside
+    the items (OI#343).
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sun, 06 Sep 2009 01:34:29 +0700
+
 libeoi (0.2-2) asimov; urgency=low
 
   * Look for .edj in /usr/share/eoi, not in /usr/share/libeoi.
