@@ -18,8 +18,8 @@
  * Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef EOI_TEXTBOX_H
-#define EOI_TEXTBOX_H
+#ifndef LIBEOI_TEXTBOX_H
+#define LIBEOI_TEXTBOX_H
 
 #include <stdbool.h>
 #include <Evas.h>

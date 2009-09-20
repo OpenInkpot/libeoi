@@ -23,7 +23,7 @@
 #include <Evas.h>
 #include <Edje.h>
 
-#include "eoi_textbox.h"
+#include "libeoi_textbox.h"
 
 typedef struct
 {
