@@ -124,13 +124,13 @@ static void textblock_resize_cb(void* data,
     eina_list_free(eina_list_nth_list(info->pages, 0));
 
     info->pages = paginator(obj);
-    info->cur_page = 1;
+    info->cur_page = 0;
     info->total_pages = eina_list_count(info->pages);
 
     hide_last_line(obj);
 
     if(info->page_handler)
-        info->page_handler(obj, info->cur_page, info->total_pages, NULL);
+        info->page_handler(info->parent, info->cur_page, info->total_pages, NULL);
 }
 
 Evas_Object* eoi_textbox_new(Evas* canvas,
@@ -174,7 +174,15 @@ Evas_Object* eoi_textbox_new(Evas* canvas,
 void eoi_textbox_free(Evas_Object* obj)
 {
     eoi_textblock_info_t* info = evas_object_data_get(obj, "info");
+
+    evas_object_hide(info->mask);
     evas_object_del(info->mask);
+
+    evas_object_hide(info->parent);
+    evas_object_del(info->parent);
+
+    eina_list_free(eina_list_nth_list(info->pages, 0));
+
     free(info);
 }
 
@@ -187,7 +195,7 @@ bool eoi_textbox_page_next(Evas_Object* obj)
 {
     eoi_textblock_info_t* info = evas_object_data_get(obj, "info");
 
-    if(info->cur_page >= info->total_pages)
+    if(info->cur_page + 1 >= info->total_pages)
         return false;
 
     info->cur_page++;
@@ -197,11 +205,11 @@ bool eoi_textbox_page_next(Evas_Object* obj)
     evas_object_geometry_get(info->parent, &parent_x, &parent_y, NULL, NULL);
     evas_object_geometry_get(info->textblock, &x, NULL, NULL, NULL);
     evas_object_move(info->textblock, x,
-            parent_y - (int)eina_list_data_get(eina_list_nth_list(info->pages, info->cur_page - 1)));
+            parent_y - (int)eina_list_data_get(eina_list_nth_list(info->pages, info->cur_page)));
     hide_last_line(obj);
 
     if(info->page_handler)
-        info->page_handler(obj, info->cur_page, info->total_pages, NULL);
+        info->page_handler(info->parent, info->cur_page, info->total_pages, NULL);
 
     return true;
 }
@@ -210,7 +218,7 @@ bool eoi_textbox_page_prev(Evas_Object* obj)
 {
     eoi_textblock_info_t* info = evas_object_data_get(obj, "info");
 
-    if(info->cur_page <= 1)
+    if(info->cur_page <= 0)
         return false;
 
     info->cur_page--;
@@ -220,11 +228,11 @@ bool eoi_textbox_page_prev(Evas_Object* obj)
     evas_object_geometry_get(info->parent, &parent_x, &parent_y, NULL, NULL);
     evas_object_geometry_get(info->textblock, &x, NULL, NULL, NULL);
     evas_object_move(info->textblock, x,
-            parent_y - (int)eina_list_data_get(eina_list_nth_list(info->pages, info->cur_page - 1)));
+            parent_y - (int)eina_list_data_get(eina_list_nth_list(info->pages, info->cur_page)));
     hide_last_line(obj);
 
     if(info->page_handler)
-        info->page_handler(obj, info->cur_page, info->total_pages, NULL);
+        info->page_handler(info->parent, info->cur_page, info->total_pages, NULL);
 
     return true;
 }
