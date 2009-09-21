@@ -1,6 +1,6 @@
 lib_LTLIBRARIES = libeoi.la
-libeoi_la_SOURCES = libeoi.c eoi_textbox.c
-include_HEADERS = libeoi.h libeoi_textbox.h
+libeoi_la_SOURCES = libeoi.c eoi_textbox.c eoi_help.c
+include_HEADERS = libeoi.h libeoi_textbox.h libeoi_help.h
 
 noinst_PROGRAMS = eoi_test
 

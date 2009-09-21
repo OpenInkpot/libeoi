@@ -8,4 +8,4 @@ AM_PROG_LIBTOOL
 PKG_CHECK_MODULES(EFL, [ecore ecore-file ecore-evas evas edje efreet])
 PKG_CHECK_MODULES(LIBCHOICEBOX, [libchoicebox])
 
-AC_OUTPUT([Makefile src/Makefile themes/Makefile libeoi.pc])
+AC_OUTPUT([Makefile src/Makefile data/Makefile themes/Makefile libeoi.pc])
