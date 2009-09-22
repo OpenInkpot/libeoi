@@ -1,3 +1,10 @@
+libeoi (0.2-5) asimov; urgency=low
+
+  * TextBox: hide mask if not used
+  * Help: call closed callback before destroying TextBox
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Tue, 22 Sep 2009 21:25:26 +0200
+
 libeoi (0.2-4) asimov; urgency=low
 
   * Add TextBox and Help widgets
