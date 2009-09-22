@@ -228,10 +228,10 @@ void eoi_help_free(Evas_Object* help)
         free(data);
     eina_list_free(info->history);
 
-    eoi_textbox_free(info->textbox);
-
     if(info->closed)
         info->closed();
+
+    eoi_textbox_free(info->textbox);
 
     free(info);
 }
