@@ -1,6 +1,7 @@
 Source: libeoi
 Section: gui
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
+Uploaders: Alexander Kerner <lunohod@openinkpot.org>
 Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev, libevas-dev, libedje-dev, libefreet-dev, libchoicebox-dev, libkeys-dev
 XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config
 XCS-Cross-Build-Depends: libecore-dev, libevas-dev, libedje-dev, libefreet-dev, libchoicebox-dev, libkeys-dev
