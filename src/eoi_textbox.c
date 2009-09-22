@@ -76,6 +76,8 @@ static void hide_last_line(const Evas_Object* obj)
     evas_object_geometry_get(info->parent, &parent_x, &parent_y, NULL, NULL);
     evas_object_geometry_get(info->textblock, NULL, &y, NULL, NULL);
 
+    evas_object_hide(info->mask);
+
     int cur_y = parent_y - y;
 
     for(int i = 0;
@@ -86,6 +88,7 @@ static void hide_last_line(const Evas_Object* obj)
         {
             evas_object_move(info->mask, parent_x + x, parent_y + y - cur_y);
             evas_object_resize(info->mask, w, h);
+            evas_object_show(info->mask);
 
             return;
         }
@@ -152,7 +155,6 @@ Evas_Object* eoi_textbox_new(Evas* canvas,
     evas_object_name_set(mask, "mask");
     evas_object_color_set(mask, 255, 255, 255, 255);
     evas_object_clip_set(mask, edje);
-    evas_object_show(mask);
 
     eoi_textblock_info_t* info =
         (eoi_textblock_info_t*)malloc(sizeof(eoi_textblock_info_t));
