@@ -1,3 +1,9 @@
+libeoi (0.2-6) asimov; urgency=low
+
+  * Help widget: Fix language detection
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Wed, 23 Sep 2009 21:47:46 +0200
+
 libeoi (0.2-5) asimov; urgency=low
 
   * TextBox: hide mask if not used
