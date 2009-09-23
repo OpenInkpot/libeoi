@@ -24,6 +24,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+#include <locale.h>
 #include <langinfo.h>
 
 #include <Eina.h>
@@ -152,14 +153,23 @@ static char* load_text(const char* filename)
 
 static void load_page(eoi_help_info_t* info, const char* page)
 {
-    char* lang = strdup(nl_langinfo(_NL_ADDRESS_LANG_AB));
+    setlocale(LC_ALL, "");
+    char* lang = strdup(setlocale(LC_ALL, NULL));
     if(!lang)
         lang = strdup("en");
-
-    if(!strlen(lang) || !strcmp(lang, "C"))
+    else
     {
-        free(lang);
-        lang = strdup("en");
+        char* lang_end = lang;
+        while(lang_end[0] != '\0' && lang_end[0] != '_' && lang_end[0] != '@' && lang_end[0] != '.')
+            ++lang_end;
+
+        *lang_end = '\0';
+
+        if(!strlen(lang) || !strcmp(lang, "C") || !strcmp(lang, "POSIX"))
+        {
+            free(lang);
+            lang = strdup("en");
+        }
     }
 
     char* text = NULL;
