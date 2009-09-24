@@ -29,7 +29,7 @@ typedef void (*eoi_help_page_updated_t)(Evas_Object* help,
                                         const char* header,
                                         void* param);
 
-typedef void (*eoi_help_closed_t)();
+typedef void (*eoi_help_closed_t)(Evas_Object* help);
 
 Evas_Object* eoi_help_new(Evas* canvas,
                           const char* application,

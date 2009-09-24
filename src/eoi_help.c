@@ -229,7 +229,7 @@ void eoi_help_free(Evas_Object* help)
     eina_list_free(info->history);
 
     if(info->closed)
-        info->closed();
+        info->closed(help);
 
     eoi_textbox_free(info->textbox);
 
