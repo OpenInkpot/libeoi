@@ -4,6 +4,7 @@ styles {
 		base, "font=sans-serif font_size=24 align=left valign=middle color=#000 wrap=word left_margin=10 right_margin=-10";
 
 		tag, "br" "\n";
+		tag, "p" "\t";
 		tag, "/p" "- \n \n";
 		tag, "b" "+ font=sans-serif:Bold";
 		tag, "h1" "+ font=sans-serif:Bold font_size=30";
