@@ -80,14 +80,14 @@ static void key_handler(void* data, Evas* evas, Evas_Object* obj, void* event_in
     const char* action =
         keys_lookup_by_event(info->navigation, eina_list_data_get(info->history), event_info);
 
-    if(action)
+    if(action && strlen(action))
     {
         load_page(info, action);
         return;
     }
 
     action = keys_lookup_by_event(info->keys, "default", event_info);
-    if(!action)
+    if(!action || !strlen(action))
         return;
 
     if(!strcmp(action, "PageDown"))
