@@ -1,3 +1,9 @@
+libeoi (0.2-9) asimov; urgency=low
+
+  * eoi_help: Fix key handler
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Mon, 16 Nov 2009 13:32:31 +0100
+
 libeoi (0.2-8) asimov; urgency=low
 
   * Help widget: Fix language detection
