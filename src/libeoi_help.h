@@ -22,6 +22,7 @@
 #define LIBEOI_HELP_H
 
 #include <Evas.h>
+#include <libkeys.h>
 
 typedef void (*eoi_help_page_updated_t)(Evas_Object* help,
                                         int cur_page,
@@ -36,5 +37,18 @@ Evas_Object* eoi_help_new(Evas* canvas,
                           eoi_help_page_updated_t page_handler,
                           eoi_help_closed_t closed);
 void eoi_help_free(Evas_Object* help);
+
+/*
+ * Open new help window over canvas
+ *    canvas --  canvas to draw on
+ *    application -- name of current app, used for select help files
+ *    page --- name of page to start with,  "index" if NULL supplied
+ *    app_keys_info -- application keys to be substituted into help text
+ */
+void eoi_help_show(Evas* canvas,
+                   const char* application,
+                   const char* page,
+                   const char* help_win_title,
+                   keys_t* app_keys_info);
 
 #endif
