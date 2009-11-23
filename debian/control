@@ -12,7 +12,7 @@ Package: libeoi1
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}
-Conflicts: libeoi0
+Conflicts: libeoi0, epuzzles (<= 0.1+20090518-15)
 Description: FIXME
  FIXME
 

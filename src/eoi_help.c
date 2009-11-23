@@ -49,6 +49,7 @@ typedef struct
     keys_t* keys;
     keys_t* navigation;
     keys_t* keys_info; /* Keys to substitute in help texts */
+    char* keys_context;
     Eina_List* history;
 } eoi_help_info_t;
 
@@ -191,6 +192,13 @@ static void load_page(eoi_help_info_t* info, const char* page)
     if(!text)
         return;
 
+    if(info->keys_info && info->keys_context)
+    {
+        char* subst = eoi_subst_keys(text, info->keys_info, info->keys_context);
+        free(text);
+        text = subst;
+    }
+
     eoi_textbox_text_set(info->textbox, text);
     free(text);
     info->history = eina_list_last(eina_list_append(info->history, strdup(page)));
@@ -202,7 +210,8 @@ static Evas_Object* _eoi_help_new(Evas* canvas,
                           eoi_help_page_updated_t page_handler,
                           eoi_help_closed_t closed,
                           const char* page,
-                          keys_t* keys_info)
+                          keys_t* keys_info,
+                          const char* context)
 {
     eoi_help_info_t* info =
         (eoi_help_info_t*)malloc(sizeof(eoi_help_info_t));
@@ -219,6 +228,7 @@ static Evas_Object* _eoi_help_new(Evas* canvas,
     info->keys = NULL;
     info->navigation = NULL;
     info->keys_info = keys_info;
+    info->keys_context = context;
 
     evas_object_event_callback_add(info->textbox,
                                    EVAS_CALLBACK_KEY_UP,
@@ -240,7 +250,7 @@ Evas_Object* eoi_help_new(Evas* canvas,
                           eoi_help_closed_t closed)
 {
     return _eoi_help_new(canvas, application, page_handler, closed,
-                        NULL, NULL);
+                        NULL, NULL, NULL);
 }
 
 static void _default_page_updated_handler(Evas_Object* help,
@@ -265,11 +275,12 @@ static void _default_help_closed(Evas_Object* help)
         evas_object_focus_set(focus, 1);
 }
 
-void eoi_help_show(Evas* canvas,
-                   const char* application,
-                   const char* page,
-                   const char* help_win_title,
-                   keys_t* app_keys_info)
+Evas_Object* eoi_help_show(Evas* canvas,
+                           const char* application,
+                           const char* page,
+                           const char* help_win_title,
+                           keys_t* app_keys_info,
+                           const char* context)
 {
     Evas_Object* helpwin = eoi_main_window_create(canvas);
     edje_object_part_text_set(helpwin, "title", help_win_title);
@@ -282,11 +293,12 @@ void eoi_help_show(Evas* canvas,
     evas_object_show(helpwin);
     Evas_Object *help = _eoi_help_new(canvas, application,
         _default_page_updated_handler, _default_help_closed,
-        page, app_keys_info);
+        page, app_keys_info, context);
     Evas_Object* focus = evas_focus_get(canvas);
     evas_object_data_set(helpwin, "prev-focus", focus);
     edje_object_part_swallow(helpwin, "contents", help);
     evas_object_focus_set(help, 1);
+    return helpwin;
 }
 
 

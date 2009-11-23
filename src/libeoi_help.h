@@ -44,11 +44,23 @@ void eoi_help_free(Evas_Object* help);
  *    application -- name of current app, used for select help files
  *    page --- name of page to start with,  "index" if NULL supplied
  *    app_keys_info -- application keys to be substituted into help text
+ *    context -- context in keys
  */
-void eoi_help_show(Evas* canvas,
-                   const char* application,
-                   const char* page,
-                   const char* help_win_title,
-                   keys_t* app_keys_info);
+Evas_Object*  eoi_help_show(Evas* canvas,
+                            const char* application,
+                            const char* page,
+                            const char* help_win_title,
+                            keys_t* app_keys_info,
+                            const char* context);
+
+/*
+ * Substitute key names to text string
+ *
+ *    text -- message text
+ *    keys -- application keys to be substituted
+ *    context -- context in keys
+ */
+char *eoi_subst_keys(const char* text, keys_t* keys, const char* context);
+
 
 #endif
