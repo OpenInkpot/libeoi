@@ -19,7 +19,7 @@ Description: FIXME
 Package: libeoi-dev
 Priority: optional
 Architecture: any
-Depends: libeoi1 (= ${binary:Version}), ${shlibs:Depends}
+Depends: libeoi1 (= ${binary:Version}), ${shlibs:Depends}, libkeys-dev
 Description: FIXME
  FIXME
  .
