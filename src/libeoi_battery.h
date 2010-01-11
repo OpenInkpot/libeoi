@@ -23,4 +23,5 @@ void eoi_get_battery_info(battery_info_t *info);
 
 void eoi_draw_battery_info(Evas_Object *edje);
 
+void eoi_run_battery(Evas_Object*);
 #endif
