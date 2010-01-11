@@ -1,3 +1,10 @@
+libeoi (0.2.1) UNRELEASED; urgency=low
+
+  * New version.
+  * eoi_battery API added.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 11 Jan 2010 06:26:19 +0600
+
 libeoi (0.2-12) asimov; urgency=low
 
   * libeoi-dev depend on libkeys-dev
