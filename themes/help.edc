@@ -41,7 +41,7 @@ collections {
 					text {
 						style, "textblock_style";
 						max, 0 1;
-						text, "blabla";
+						text, "Help is not yet available for this location";
 					}
 					align, 0.5 0.0;
 				}
