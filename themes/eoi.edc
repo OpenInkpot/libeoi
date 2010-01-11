@@ -12,7 +12,10 @@
  * == signals ==
  *
  * battery-level,<N>
- *   N may be 0..100, or -1 (no battery / N/A)
+ *   N may be 0..100
+ * battery-missing
+ * battery-charging
+ * battery-full
  *
  * sort-mode,<mode>
  *   mode = none | name (by name) | namerev (by name, reversed) | date (by date)
@@ -35,6 +38,7 @@ images {
     image, "icon-battery-060.png" COMP;
     image, "icon-battery-080.png" COMP;
     image, "icon-battery-100.png" COMP;
+    image, "icon-battery-charged.png" COMP;
 
     image, "sort-none.png" COMP;
     image, "sort-name.png" COMP;
@@ -193,34 +197,39 @@ collections {
                     }
                 }
                 description {
-                    state, "0/4" 0.0;
+                    state, "0" 0.0;
                     inherit, "default" 0.0;
                     image { normal, "icon-battery-000.png"; }
                 }
                 description {
-                    state, "1/4" 0.0;
+                    state, "20" 0.0;
                     inherit, "default" 0.0;
                     image { normal, "icon-battery-020.png"; }
                 }
                 description {
-                    state, "2/4" 0.0;
+                    state, "40" 0.0;
                     inherit, "default" 0.0;
                     image { normal, "icon-battery-040.png"; }
                 }
                 description {
-                    state, "3/4" 0.0;
+                    state, "60" 0.0;
                     inherit, "default" 0.0;
                     image { normal, "icon-battery-060.png"; }
                 }
                 description {
-                    state, "4/4" 0.0;
+                    state, "80" 0.0;
                     inherit, "default" 0.0;
                     image { normal, "icon-battery-080.png"; }
                 }
                 description {
-                    state, "full" 0.0;
+                    state, "100" 0.0;
                     inherit, "default" 0.0;
                     image { normal, "icon-battery-100.png"; }
+                }
+                description {
+                    state, "full" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-charged.png"; }
                 }
             }
             part {
@@ -293,19 +302,40 @@ collections {
 
 
                     if(level >= 100)
-                        set_state(PART:"battery", "full", 0.0);
+                        set_state(PART:"battery", "100", 0.0);
                     else if(level >= 75)
-                        set_state(PART:"battery", "4/4", 0.0);
+                        set_state(PART:"battery", "80", 0.0);
                     else if(level >= 50)
-                        set_state(PART:"battery", "3/4", 0.0);
+                        set_state(PART:"battery", "60", 0.0);
                     else if(level >= 25)
-                        set_state(PART:"battery", "2/4", 0.0);
+                        set_state(PART:"battery", "40", 0.0);
                     else if(level >= 5)
-                        set_state(PART:"battery", "1/4", 0.0);
+                        set_state(PART:"battery", "20", 0.0);
                     else if(level >= 0)
-                        set_state(PART:"battery", "0/4", 0.0);
+                        set_state(PART:"battery", "0", 0.0);
                     else
                         set_state(PART:"battery", "default", 0.0);
+                }
+            }
+            program {
+                name, "battery-missing";
+                signal, "battery-missing";
+                script {
+                    set_state(PART:"battery", "missing", 0.0);
+                }
+            }
+            program {
+                name, "battery-charging";
+                signal, "battery-charging";
+                script {
+                    set_state(PART:"battery", "charging", 0.0);
+                }
+            }
+            program {
+                name, "battery-full";
+                signal, "battery-full";
+                script {
+                    set_state(PART:"battery", "full", 0.0);
                 }
             }
             program {
