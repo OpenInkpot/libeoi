@@ -1,7 +1,8 @@
-libeoi (0.2.1) UNRELEASED; urgency=low
+libeoi (0.2.1) zelazny; urgency=low
 
   * New version.
   * eoi_battery API added.
+  * eoi_clock API added.
 
  -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 11 Jan 2010 06:26:19 +0600
 
