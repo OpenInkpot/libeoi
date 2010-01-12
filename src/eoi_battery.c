@@ -1,6 +1,9 @@
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
+#include <Edje.h>
+#include <Ecore.h>
 
 #include "libeoi_battery.h"
 
@@ -113,4 +116,27 @@ eoi_draw_battery_info(Evas_Object *edje)
     battery_info_t info;
     eoi_get_battery_info(&info);
     eoi_draw_given_battery_info(&info, edje);
+}
+
+static void
+_detach_battery_timer(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+    Ecore_Timer* timer = (Ecore_Timer*) data;
+    ecore_timer_del(timer);
+}
+
+static int
+_update_batt_cb(void* param)
+{
+    eoi_draw_battery_info((Evas_Object*)param);
+    return 1;
+}
+
+void
+eoi_run_battery(Evas_Object* top)
+{
+    eoi_draw_battery_info(top);
+    Ecore_Timer* timer=ecore_timer_add(5*60, &_update_batt_cb, top);
+    evas_object_event_callback_add(top, EVAS_CALLBACK_DEL,
+            &_detach_battery_timer, timer);
 }
