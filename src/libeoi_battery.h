@@ -21,6 +21,8 @@ typedef struct {
 
 void eoi_get_battery_info(battery_info_t *info);
 
+void eoi_draw_given_battery_info(battery_info_t *info, Evas_Object *edje);
+
 void eoi_draw_battery_info(Evas_Object *edje);
 
 #endif

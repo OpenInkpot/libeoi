@@ -11,6 +11,7 @@
 #include <Edje.h>
 
 #include "libeoi.h"
+#include "libeoi_battery.h"
 
 static void die(const char* fmt, ...)
 {

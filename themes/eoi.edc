@@ -11,11 +11,11 @@
  *
  * == signals ==
  *
+ * battery-unknown
  * battery-level,<N>
  *   N may be 0..100
- * battery-missing
  * battery-charging
- * battery-full
+ * battery-full-charge
  *
  * sort-mode,<mode>
  *   mode = none | name (by name) | namerev (by name, reversed) | date (by date)
@@ -32,13 +32,15 @@
 
 images {
     image, "icon-battery-none.png" COMP;
+    image, "icon-battery-unknown.png" COMP;
     image, "icon-battery-000.png" COMP;
     image, "icon-battery-020.png" COMP;
     image, "icon-battery-040.png" COMP;
     image, "icon-battery-060.png" COMP;
     image, "icon-battery-080.png" COMP;
     image, "icon-battery-100.png" COMP;
-    image, "icon-battery-charged.png" COMP;
+    image, "icon-battery-charging.png" COMP;
+    image, "icon-battery-full-charge.png" COMP;
 
     image, "sort-none.png" COMP;
     image, "sort-name.png" COMP;
@@ -197,6 +199,11 @@ collections {
                     }
                 }
                 description {
+                    state, "unknown" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-unknown.png"; }
+                }
+                description {
                     state, "0" 0.0;
                     inherit, "default" 0.0;
                     image { normal, "icon-battery-000.png"; }
@@ -227,9 +234,14 @@ collections {
                     image { normal, "icon-battery-100.png"; }
                 }
                 description {
-                    state, "full" 0.0;
+                    state, "charging" 0.0;
                     inherit, "default" 0.0;
-                    image { normal, "icon-battery-charged.png"; }
+                    image { normal, "icon-battery-charging.png"; }
+                }
+                description {
+                    state, "full-charge" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-full-charge.png"; }
                 }
             }
             part {
@@ -288,6 +300,13 @@ collections {
 
         programs {
             program {
+                name, "battery-unknown";
+                signal, "battery-unknown";
+                script {
+                    set_state(PART:"battery", "unknown", 0.0);
+                }
+            }
+            program {
                 name, "battery-level";
                 signal, "battery-level,*";
                 script {
@@ -311,17 +330,8 @@ collections {
                         set_state(PART:"battery", "40", 0.0);
                     else if(level >= 5)
                         set_state(PART:"battery", "20", 0.0);
-                    else if(level >= 0)
-                        set_state(PART:"battery", "0", 0.0);
                     else
-                        set_state(PART:"battery", "default", 0.0);
-                }
-            }
-            program {
-                name, "battery-missing";
-                signal, "battery-missing";
-                script {
-                    set_state(PART:"battery", "missing", 0.0);
+                        set_state(PART:"battery", "0", 0.0);
                 }
             }
             program {
@@ -332,10 +342,10 @@ collections {
                 }
             }
             program {
-                name, "battery-full";
-                signal, "battery-full";
+                name, "battery-full-charge";
+                signal, "battery-full-charge";
                 script {
-                    set_state(PART:"battery", "full", 0.0);
+                    set_state(PART:"battery", "full-charge", 0.0);
                 }
             }
             program {

@@ -92,18 +92,25 @@ eoi_get_battery_info(battery_info_t *info)
 }
 
 void
+eoi_draw_given_battery_info(battery_info_t* info, Evas_Object *edje)
+{
+    if (info->status == UNKNOWN) {
+        edje_object_signal_emit(edje, "battery-unknown", "");
+    } else if (info->status == CHARGING) {
+        edje_object_signal_emit(edje, "battery-charging", "");
+    } else if (info->status == FULL_CHARGE || info->status == NOT_CHARGING) {
+        edje_object_signal_emit(edje, "battery-full-charge", "");
+    } else {
+        char signal[256];
+        snprintf(signal, 256, "battery-level,%d", info->charge);
+        edje_object_signal_emit(edje, signal, "");
+    }
+}
+
+void
 eoi_draw_battery_info(Evas_Object *edje)
 {
     battery_info_t info;
     eoi_get_battery_info(&info);
-
-    /* FIXME: handle UNKNOWN, CHARGING, LOW_CHARGE */
-
-    if(info.status == FULL_CHARGE) {
-        edje_object_signal_emit(edje, "battery-full", "");
-    } else {
-        char signal[256];
-        snprintf(signal, 256, "battery-level,%d", info.charge);
-        edje_object_signal_emit(edje, signal, "");
-    }
+    eoi_draw_given_battery_info(&info, edje);
 }
