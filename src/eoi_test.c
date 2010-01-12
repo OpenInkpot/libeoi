@@ -75,19 +75,21 @@ static void key_down(void* param, Evas* e, Evas_Object* o, void* event_info)
     if(!strcmp(ev->keyname, "Escape"))
         ecore_main_loop_quit();
 
-    if(strlen(ev->keyname) >= 4 && isdigit(ev->keyname[3]) && ev->keyname[3] != '0')
-    {
-        // 1..9 - 1 *  -> 0..100
-        int lev = (ev->keyname[3] - '0' - 1) * 25 / 2;
-
-        char p[256];
-        sprintf(p, "battery-level,%d", lev);
-
-        edje_object_signal_emit(rr, p, "");
-    }
-    if(!strcmp(ev->keyname, "KP_0"))
-    {
-        edje_object_signal_emit(rr, "battery-level,-1", "");
+    if (!strcmp(ev->keyname, "KP_0")) {
+        battery_info_t info = { .status = FULL_CHARGE };
+        eoi_draw_given_battery_info(&info, rr);
+    } else if (!strcmp(ev->keyname, "KP_1")) {
+        battery_info_t info = { .status = UNKNOWN };
+        eoi_draw_given_battery_info(&info, rr);
+    } else if (!strcmp(ev->keyname, "KP_2")) {
+        battery_info_t info = { .status = CHARGING };
+        eoi_draw_given_battery_info(&info, rr);
+    } else if (!strcmp(ev->keyname, "KP_9")) {
+        battery_info_t info = { .status = NOT_CHARGING };
+        eoi_draw_given_battery_info(&info, rr);
+    } else if(strlen(ev->keyname) >= 4 && isdigit(ev->keyname[3])) {
+        battery_info_t info = { .status = DISCHARGING, .charge = (ev->keyname[3] - '0' - 3)*20 };
+        eoi_draw_given_battery_info(&info, rr);
     }
 
     if(!strcmp(ev->keyname, "space"))

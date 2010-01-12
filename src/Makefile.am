@@ -10,4 +10,5 @@ INCLUDES = @EFL_CFLAGS@ @LIBCHOICEBOX_CFLAGS@
 libeoi_la_LDFLAGS = -no-undefined -version-info 2:0:1 -Wl,--as-needed
 libeoi_la_LIBADD = @EFL_LIBS@ @LIBCHOICEBOX_LIBS@
 
+eoi_test_SOURCES = eoi_test.c
 eoi_test_LDFLAGS = @EFL_LIBS@ @LIBCHOICEBOX_LIBS@ libeoi.la
