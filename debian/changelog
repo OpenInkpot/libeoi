@@ -1,3 +1,13 @@
+libeoi (0.2.2) zelazny; urgency=low
+
+  * Rebuild due to updated EFL.
+  * Drop unused ecore-file dependency.
+  * Add missing eina-0 dependency.
+  * Split lib-only and testapp-only dependencies.
+  * Use icon-battery-100.png for "fully charged" state
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 14 Jan 2010 10:21:31 +0600
+
 libeoi (0.2.1) zelazny; urgency=low
 
   * New version.
