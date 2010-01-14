@@ -22,6 +22,6 @@
 #include <Edje.h>
 
 void
-eoi_run_clock(Evas_Object *edje);
+ eoi_run_clock(Evas_Object * edje);
 
 #endif

@@ -24,19 +24,18 @@
 #include <stdbool.h>
 #include <Evas.h>
 
-typedef void (*eoi_textbox_page_updated_t)(Evas_Object* textbox,
-                                           int cur_page,
-                                           int total_pages,
-                                           void* param);
-                    
-Evas_Object* eoi_textbox_new(Evas* canvas,
-                             const char* theme_file,
-                             const char* group_name,
-                             eoi_textbox_page_updated_t page_handler);
-void eoi_textbox_free(Evas_Object* textbox);
+typedef void (*eoi_textbox_page_updated_t) (Evas_Object * textbox,
+                                            int cur_page,
+                                            int total_pages, void *param);
 
-void eoi_textbox_text_set(Evas_Object* textbox, const char* text);
-bool eoi_textbox_page_next(Evas_Object* textbox);
-bool eoi_textbox_page_prev(Evas_Object* textbox);
+Evas_Object *eoi_textbox_new(Evas * canvas,
+                             const char *theme_file,
+                             const char *group_name,
+                             eoi_textbox_page_updated_t page_handler);
+void eoi_textbox_free(Evas_Object * textbox);
+
+void eoi_textbox_text_set(Evas_Object * textbox, const char *text);
+bool eoi_textbox_page_next(Evas_Object * textbox);
+bool eoi_textbox_page_prev(Evas_Object * textbox);
 
 #endif

@@ -29,24 +29,28 @@
 
 #define THEME_EDJ (THEME_DIR "/eoi.edj")
 
-static Evas_Object* _eoi_create(Evas* canvas, const char* group)
+static Evas_Object *
+_eoi_create(Evas * canvas, const char *group)
 {
-    Evas_Object* o = edje_object_add(canvas);
+    Evas_Object *o = edje_object_add(canvas);
     edje_object_file_set(o, THEME_EDJ, group);
     return o;
 }
 
-Evas_Object* eoi_main_window_create(Evas* canvas)
+Evas_Object *
+eoi_main_window_create(Evas * canvas)
 {
     return _eoi_create(canvas, "main-window");
 }
 
-Evas_Object* eoi_settings_left_create(Evas* canvas)
+Evas_Object *
+eoi_settings_left_create(Evas * canvas)
 {
     return _eoi_create(canvas, "settings-left");
 }
 
-Evas_Object* eoi_settings_right_create(Evas* canvas)
+Evas_Object *
+eoi_settings_right_create(Evas * canvas)
 {
     return _eoi_create(canvas, "settings-right");
 }
@@ -55,7 +59,7 @@ Evas_Object* eoi_settings_right_create(Evas* canvas)
 
 #define CONFIG_NAME SYSCONFDIR "/eoi/choicebox-numbering.ini"
 
-static Eina_List* choiceboxes;
+static Eina_List *choiceboxes;
 
 static bool numbering_config_read;
 static bool numbering_enabled;
@@ -64,18 +68,19 @@ static int width;
 static int height;
 static Ecore_X_Randr_Rotation rotation;
 
-static void _eoi_numbering_read_config()
+static void
+_eoi_numbering_read_config()
 {
-    if(numbering_config_read) return;
+    if (numbering_config_read)
+        return;
 
     numbering_config_read = true;
 
-    Efreet_Ini* config = efreet_ini_new(CONFIG_NAME);
-    if(!config)
+    Efreet_Ini *config = efreet_ini_new(CONFIG_NAME);
+    if (!config)
         return;
 
-    if(!efreet_ini_section_set(config, "default"))
-    {
+    if (!efreet_ini_section_set(config, "default")) {
         efreet_ini_free(config);
         return;
     }
@@ -87,35 +92,37 @@ static void _eoi_numbering_read_config()
     rotation = efreet_ini_int_get(config, "rotation");
 }
 
-static void _eoi_unregister_fullscreen_choicebox(Evas_Object* choicebox)
+static void
+_eoi_unregister_fullscreen_choicebox(Evas_Object * choicebox)
 {
-    Eina_List* l;
-    Eina_List* l_next;
-    Evas_Object* o;
+    Eina_List *l;
+    Eina_List *l_next;
+    Evas_Object *o;
 
     EINA_LIST_FOREACH_SAFE(choiceboxes, l, l_next, o)
-        if(o == choicebox)
-        {
-            choiceboxes = eina_list_remove_list(choiceboxes, l);
-            return;
-        }
+        if (o == choicebox) {
+        choiceboxes = eina_list_remove_list(choiceboxes, l);
+        return;
+    }
 }
 
-static void _eoi_choicebox_del(void* data, Evas* canvas,
-                               Evas_Object* choicebox, void* event_info)
+static void
+_eoi_choicebox_del(void *data, Evas * canvas,
+                   Evas_Object * choicebox, void *event_info)
 {
     _eoi_unregister_fullscreen_choicebox(choicebox);
 }
 
-static bool _is_currently_hinted()
+static bool
+_is_currently_hinted()
 {
-    if(!numbering_enabled)
+    if (!numbering_enabled)
         return false;
 
-    if(numbering_always)
+    if (numbering_always)
         true;
 
-	Ecore_X_Window root = ecore_x_window_root_first_get();
+    Ecore_X_Window root = ecore_x_window_root_first_get();
     ecore_x_randr_get_screen_info_prefetch(root);
     ecore_x_randr_get_screen_info_fetch();
     Ecore_X_Randr_Rotation r = ecore_x_randr_screen_rotation_get(root);
@@ -124,7 +131,8 @@ static bool _is_currently_hinted()
     return !(width == s.width && height == s.height && rotation == r);
 }
 
-void eoi_register_fullscreen_choicebox(Evas_Object* choicebox)
+void
+eoi_register_fullscreen_choicebox(Evas_Object * choicebox)
 {
     _eoi_numbering_read_config();
 
@@ -132,16 +140,17 @@ void eoi_register_fullscreen_choicebox(Evas_Object* choicebox)
                                    &_eoi_choicebox_del, NULL);
     choiceboxes = eina_list_prepend(choiceboxes, choicebox);
 
-    if(_is_currently_hinted())
+    if (_is_currently_hinted())
         choicebox_set_hinted(choicebox, true);
 }
 
-void eoi_process_resize(Ecore_Evas* window)
+void
+eoi_process_resize(Ecore_Evas * window)
 {
     bool is_hinted = _is_currently_hinted();
 
     Eina_List *l;
-    Evas_Object* o;
+    Evas_Object *o;
 
     EINA_LIST_FOREACH(choiceboxes, l, o)
         choicebox_set_hinted(o, is_hinted);

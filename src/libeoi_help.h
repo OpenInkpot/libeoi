@@ -25,19 +25,18 @@
 #include <Evas.h>
 #include <libkeys.h>
 
-typedef void (*eoi_help_page_updated_t)(Evas_Object* help,
-                                        int cur_page,
-                                        int total_pages,
-                                        const char* header,
-                                        void* param);
+typedef void (*eoi_help_page_updated_t) (Evas_Object * help,
+                                         int cur_page,
+                                         int total_pages,
+                                         const char *header, void *param);
 
-typedef void (*eoi_help_closed_t)(Evas_Object* help);
+typedef void (*eoi_help_closed_t) (Evas_Object * help);
 
-Evas_Object* eoi_help_new(Evas* canvas,
-                          const char* application,
+Evas_Object *eoi_help_new(Evas * canvas,
+                          const char *application,
                           eoi_help_page_updated_t page_handler,
                           eoi_help_closed_t closed);
-void eoi_help_free(Evas_Object* help);
+void eoi_help_free(Evas_Object * help);
 
 /*
  * Open new help window over canvas
@@ -47,12 +46,11 @@ void eoi_help_free(Evas_Object* help);
  *    app_keys_info -- application keys to be substituted into help text
  *    context -- context in keys
  */
-Evas_Object*  eoi_help_show(Evas* canvas,
-                            const char* application,
-                            const char* page,
-                            const char* help_win_title,
-                            keys_t* app_keys_info,
-                            const char* context);
+Evas_Object *eoi_help_show(Evas * canvas,
+                           const char *application,
+                           const char *page,
+                           const char *help_win_title,
+                           keys_t * app_keys_info, const char *context);
 
 /*
  * Substitute key names to text string
@@ -61,7 +59,7 @@ Evas_Object*  eoi_help_show(Evas* canvas,
  *    keys -- application keys to be substituted
  *    context -- context in keys
  */
-char *eoi_subst_keys(const char* text, keys_t* keys, const char* context);
+char *eoi_subst_keys(const char *text, keys_t * keys, const char *context);
 
 
 #endif
