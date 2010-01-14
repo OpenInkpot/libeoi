@@ -1,3 +1,14 @@
+libeoi (0.2.3) UNRELEASED; urgency=low
+
+  * Description of package improved
+  * Coding style fixed
+  * Replaced obsolete dh_clean -k with dh_prep
+  * CFLAGS from dpkg-buildpackage are no longer overwritten
+  * Fixed section of debug package
+  * Updated copyright info
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 14 Jan 2010 12:54:56 +0600
+
 libeoi (0.2.2) zelazny; urgency=low
 
   * Rebuild due to updated EFL.
