@@ -2,6 +2,7 @@
  * eoi_help -- Help object for evas
  *
  * © 2009 Alexander Kerner <lunohod@openinkpot.org>
+ * Copyright © 2009 Alexander V. Nikolaev <avn@daemon.hole.ru>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
