@@ -13,15 +13,25 @@ Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}
 Conflicts: libeoi0, epuzzles (<= 0.1+20090518-15)
-Description: FIXME
- FIXME
+Description: OpenInkpot-specific extensions for EFL libraries
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
 
 Package: libeoi-dev
 Priority: optional
 Architecture: any
 Depends: libeoi1 (= ${binary:Version}), ${shlibs:Depends}, libkeys-dev
-Description: FIXME
- FIXME
+Description: OpenInkpot-specific extensions for EFL libraries -- development files
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
  .
  This package contains header files and symlinks necessary to link with library.
 
@@ -30,23 +40,38 @@ Priority: extra
 Architecture: any
 Section: debug
 Depends: libeoi1 (= ${binary:Version})
-Description: FIXME -- debugging symbols
- FIXME
+Description: OpenInkpot-specific extensions for EFL libraries -- debugging symbols
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
  .
  This package contains debugging symbols for shared library
 
 Package: libeoi-settings-n516
 Priority: optional
 Architecture: any
-Description: FIXME -- Hanvon N516 support
- FIXME
+Description: OpenInkpot-specific extensions for EFL libraries -- Hanvon N516 support
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
  .
  This package contains settings required for normal operation on Hanvon N516.
 
 Package: libeoi-settings-v3
 Priority: optional
 Architecture: any
-Description: FIXME -- Hanlin V3 support
- FIXME
+Description: OpenInkpot-specific extensions for EFL libraries -- Hanlin V3 support
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
  .
  This package contains settings required for normal operation on Hanlin V3.
