@@ -28,6 +28,7 @@ Description: FIXME
 Package: libeoi1-dbg
 Priority: extra
 Architecture: any
+Section: debug
 Depends: libeoi1 (= ${binary:Version})
 Description: FIXME -- debugging symbols
  FIXME
