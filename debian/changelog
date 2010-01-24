@@ -1,5 +1,7 @@
 libeoi (0.2.3) zelazny; urgency=low
 
+  * Fixed getting battery info in "Not charging" and "Low charge" states
+    (OI#765)
   * Description of package improved
   * Coding style fixed
   * Replaced obsolete dh_clean -k with dh_prep
