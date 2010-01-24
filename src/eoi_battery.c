@@ -65,7 +65,7 @@ _read_status_file(const char *filename)
     FILE *f = fopen(filename, "r");
     if (!f)
         return UNKNOWN;
-    if (1 != fscanf(f, "%255s", buf))
+    if (!fgets(buf, 255, f))
         *buf = '\0';
     fclose(f);
 
