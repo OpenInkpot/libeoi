@@ -1,3 +1,10 @@
+libeoi (0.2.4) zelazny; urgency=low
+
+  * Fix scaling battery icon to avoid blurriness.
+  * Remove pre-compiled .edj from repository (OI#131)
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 25 Jan 2010 01:11:26 +0600
+
 libeoi (0.2.3) zelazny; urgency=low
 
   * Fixed getting battery info in "Not charging" and "Low charge" states
