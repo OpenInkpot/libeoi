@@ -193,7 +193,7 @@ collections {
                 description {
                     state, "default" 0.0;
                     rel1 { to, "footer-rect"; relative, 1.0 1.0; offset, -51 -34; }
-                    rel2 { to, "footer-rect"; relative, 1.0 1.0; offset, -16 -16; }
+                    rel2 { to, "footer-rect"; relative, 1.0 1.0; offset, -17 -17; }
                     image {
                         normal, "icon-battery-none.png";
                     }
