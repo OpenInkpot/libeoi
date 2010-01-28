@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
+#include <signal.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -137,12 +138,19 @@ eoi_draw_battery_info(Evas_Object * edje)
     eoi_draw_given_battery_info(&info, edje);
 }
 
+/* Edje bound to signal handler */
+static Evas_Object *_bound = NULL;
+
 static void
 _detach_battery_timer(void *data, Evas * e, Evas_Object * obj,
                       void *event_info)
 {
     Ecore_Timer *timer = (Ecore_Timer *) data;
     ecore_timer_del(timer);
+
+    /* also unbound self from signal handler */
+    if(obj == _bound)
+        _bound = NULL;
 }
 
 static int
@@ -152,6 +160,14 @@ _update_batt_cb(void *param)
     return 1;
 }
 
+static void
+_sigusr(int signo)
+{
+    if(_bound)
+        eoi_draw_battery_info(_bound);
+    signal(signo, _sigusr);
+}
+
 void
 eoi_run_battery(Evas_Object * top)
 {
@@ -159,4 +175,8 @@ eoi_run_battery(Evas_Object * top)
     Ecore_Timer *timer = ecore_timer_add(5 * 60, &_update_batt_cb, top);
     evas_object_event_callback_add(top, EVAS_CALLBACK_DEL,
                                    &_detach_battery_timer, timer);
+
+    _bound = top;
+    signal(SIGUSR1, _sigusr);
+    signal(SIGUSR2, _sigusr);
 }
