@@ -1,3 +1,9 @@
+libeoi (0.2.5) zelazny; urgency=low
+
+  * Handle SIGUSR1/SIGUSR2 signals for battery "charging" state
+
+ -- Alexander V. Nikolaev <avn@daemon.hole.ru>  Tue, 26 Jan 2010 18:55:44 +0200
+
 libeoi (0.2.4) zelazny; urgency=low
 
   * Fix scaling battery icon to avoid blurriness.
