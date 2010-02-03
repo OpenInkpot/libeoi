@@ -31,4 +31,10 @@ Evas_Object *eoi_settings_right_create(Evas * canvas);
 void eoi_register_fullscreen_choicebox(Evas_Object * choicebox);
 void eoi_process_resize(Ecore_Evas * window);
 
+/* Resize callbacks */
+void eoi_resize_callback_add(Evas *window,
+    void(*callback)(Evas *, int, int));
+void eoi_resize_callback_del(Evas *window,
+    void(*callback)(Evas *, int, int));
+
 #endif
