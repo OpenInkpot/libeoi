@@ -1,3 +1,10 @@
+libeoi (0.2.6) zelazny; urgency=low
+
+  * Textbox: stop using unpredictable
+    evas_textblock_cursor_node_text_length_get
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Wed, 03 Feb 2010 11:44:54 +0100
+
 libeoi (0.2.5) zelazny; urgency=low
 
   * Handle SIGUSR1/SIGUSR2 signals for battery "charging" state
