@@ -56,8 +56,7 @@ paginator(const Evas_Object * obj)
                                                         &h); i++) {
         evas_textblock_cursor_line_set(c, i);
 
-        if (cur_y + info->parent_h < y + h
-            && evas_textblock_cursor_node_text_length_get(c)) {
+        if (cur_y + info->parent_h < y + h) {
             cur_y = y;
             pages = eina_list_append(pages, (const void *) y);
         }
