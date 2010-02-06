@@ -179,6 +179,7 @@ eoi_textbox_free(Evas_Object * obj)
 {
     eoi_textblock_info_t *info = evas_object_data_get(obj, "info");
 
+    evas_object_clip_unset(info->mask);
     evas_object_hide(info->mask);
     evas_object_del(info->mask);
 

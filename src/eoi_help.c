@@ -268,11 +268,20 @@ _default_page_updated_handler(Evas_Object * help,
 }
 
 static void
+_help_resized(Evas *evas, int w, int h)
+{
+    Evas_Object *helpwin = evas_object_name_find(evas, HELP_WINDOW_ID);
+    evas_object_resize(helpwin, w, h);
+    evas_object_raise(helpwin);
+}
+
+static void
 _default_help_closed(Evas_Object * help)
 {
     Evas *evas = evas_object_evas_get(help);
     Evas_Object *helpwin = evas_object_name_find(evas, HELP_WINDOW_ID);
     Evas_Object *focus = evas_object_data_get(helpwin, "prev-focus");
+    eoi_resize_callback_del(evas, _help_resized);
     evas_object_hide(helpwin);
     evas_object_del(helpwin);
     if (focus)
@@ -302,6 +311,7 @@ eoi_help_show(Evas * canvas,
     Evas_Object *focus = evas_focus_get(canvas);
     evas_object_data_set(helpwin, "prev-focus", focus);
     edje_object_part_swallow(helpwin, "contents", help);
+    eoi_resize_callback_add(canvas, _help_resized);
     evas_object_focus_set(help, 1);
     return helpwin;
 }
@@ -320,6 +330,7 @@ eoi_help_free(Evas_Object * help)
     EINA_LIST_FOREACH(info->history, l, data)
         free(data);
     eina_list_free(info->history);
+
 
     if (info->closed)
         info->closed(help);

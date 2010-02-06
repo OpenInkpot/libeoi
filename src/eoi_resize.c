@@ -36,6 +36,9 @@ void eoi_resize_callback_del(Evas *window,
 
     Ecore_Evas *ee = ecore_evas_ecore_evas_get(window);
     Eina_List *callbacks = ecore_evas_data_get(ee, CALLBACK_LIST);
-    callbacks = eina_list_remove(callbacks, callback);
-    ecore_evas_data_set(ee, CALLBACK_LIST, callbacks);
+    if(callbacks)
+    {
+        callbacks = eina_list_remove(callbacks, callback);
+        ecore_evas_data_set(ee, CALLBACK_LIST, callbacks);
+    }
 }
