@@ -26,6 +26,9 @@ Evas_Object *eoi_main_window_create(Evas * canvas);
 Evas_Object *eoi_settings_left_create(Evas * canvas);
 Evas_Object *eoi_settings_right_create(Evas * canvas);
 
+void eoi_main_window_footer_show(Evas_Object *window);
+void eoi_main_window_footer_hide(Evas_Object *window);
+
 /* Choicebox numbering */
 
 void eoi_register_fullscreen_choicebox(Evas_Object * choicebox);

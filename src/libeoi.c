@@ -55,6 +55,18 @@ eoi_settings_right_create(Evas * canvas)
     return _eoi_create(canvas, "settings-right");
 }
 
+void
+eoi_main_window_footer_show(Evas_Object *window)
+{
+    edje_object_signal_emit(window, "footer,show", "");
+}
+
+void
+eoi_main_window_footer_hide(Evas_Object *window)
+{
+    edje_object_signal_emit(window, "footer,hide", "");
+}
+
 /* Choicebox numbering */
 
 #define CONFIG_NAME SYSCONFDIR "/eoi/choicebox-numbering.ini"
