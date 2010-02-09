@@ -39,7 +39,7 @@
 #include "libeoi_textbox.h"
 #include "libeoi_help.h"
 
-#define THEME_EDJ (THEME_DIR "/help.edj")
+#define THEME_EDJ "eoi-help"
 
 #define HELP_WINDOW_ID "libeoi-help-window"
 

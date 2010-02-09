@@ -26,33 +26,26 @@
 #include <libchoicebox.h>
 
 #include "libeoi.h"
+#include "libeoi_themes.h"
 
-#define THEME_EDJ (THEME_DIR "/eoi.edj")
-
-static Evas_Object *
-_eoi_create(Evas * canvas, const char *group)
-{
-    Evas_Object *o = edje_object_add(canvas);
-    edje_object_file_set(o, THEME_EDJ, group);
-    return o;
-}
+#define THEME_EDJ "eoi-main-window"
 
 Evas_Object *
 eoi_main_window_create(Evas * canvas)
 {
-    return _eoi_create(canvas, "main-window");
+    return eoi_create_themed_edje(canvas, THEME_EDJ, "main-window");
 }
 
 Evas_Object *
 eoi_settings_left_create(Evas * canvas)
 {
-    return _eoi_create(canvas, "settings-left");
+    return eoi_create_themed_edje(canvas, THEME_EDJ, "settings-left");
 }
 
 Evas_Object *
 eoi_settings_right_create(Evas * canvas)
 {
-    return _eoi_create(canvas, "settings-right");
+    return eoi_create_themed_edje(canvas, THEME_EDJ, "settings-right");
 }
 
 void
