@@ -1,12 +1,12 @@
 lib_LTLIBRARIES = libeoi.la
 libeoi_la_SOURCES = libeoi.c eoi_textbox.c eoi_help.c eoi_subst.c \
-		eoi_battery.c eoi_clock.c
+		eoi_battery.c eoi_clock.c eoi_themes.c
 include_HEADERS = libeoi.h libeoi_textbox.h libeoi_help.h libeoi_battery.h \
-		libeoi_clock.h
+		libeoi_clock.h libeoi_themes.h
 
 noinst_PROGRAMS = eoi_test
 
-AM_CFLAGS = -Wall -DTHEME_DIR='"$(datadir)/eoi"' -DSYSCONFDIR='"$(sysconfdir)"'
+AM_CFLAGS = --std=gnu99 -Wall -DDATADIR='"$(datadir)"' -DSYSCONFDIR='"$(sysconfdir)"'
 
 INCLUDES = @EFL_CFLAGS@ @LIBKEYS_CFLAGS@ @LIBCHOICEBOX_CFLAGS@ @ECORE_EVAS_CFLAGS@
 libeoi_la_LDFLAGS = -no-undefined -version-info 2:0:1 -Wl,--as-needed

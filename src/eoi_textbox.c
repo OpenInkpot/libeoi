@@ -142,8 +142,7 @@ eoi_textbox_new(Evas * canvas,
                 const char *group_name,
                 eoi_textbox_page_updated_t page_handler)
 {
-    Evas_Object *edje = edje_object_add(canvas);
-    edje_object_file_set(edje, theme_file, group_name);
+    Evas_Object *edje = eoi_create_themed_edje(canvas, theme_file, group_name);
     evas_object_show(edje);
 
     Evas_Object *t =
