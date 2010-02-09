@@ -40,4 +40,11 @@ void eoi_resize_callback_add(Evas *window,
 void eoi_resize_callback_del(Evas *window,
     void(*callback)(Evas *, int, int));
 
+/* destroy callbacks */
+void
+eoi_evas_destroy_callback_add(Evas *window, void (*callback)(Evas*));
+
+void
+eoi_evas_destroy_callback_del(Evas *window, void (*callback)(Evas*));
+
 #endif
