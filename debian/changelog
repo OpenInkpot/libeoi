@@ -1,9 +1,12 @@
-libeoi (0.2.7) UNRELEASED; urgency=low
+libeoi (0.2.7) zelazny; urgency=low
+
+  [ Alexander V. Nikolaev]
+  * Callbacks on canvas resizing and destroying
 
   [ Mikhail Gusarov ]
   * Add theming support (OI#265)
 
- -- Mikhail Gusarov <dottedmag@dottedmag.net>  Tue, 09 Feb 2010 18:03:19 +0100
+ -- Alexander V. Nikolaev <avn@daemon.hole.ru>  Tue, 09 Feb 2010 18:03:19 +0100
 
 libeoi (0.2.6) zelazny; urgency=low
 
