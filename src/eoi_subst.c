@@ -34,7 +34,7 @@ eoi_subst_keys(const char *text, keys_t * keys, const char *context)
     while (*text) {
         if (*text == '@') {
             text += 1;
-            char *end = text;
+            const char *end = text;
             while (*end != '@') {
                 if (!*end) {
                     fputs(text, stream);

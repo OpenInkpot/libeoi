@@ -3,6 +3,7 @@
  *
  * © 2009 Alexander Kerner <lunohod@openinkpot.org>
  * © 2009 Alexander V. Nikolaev <avn@daemon.hole.ru>
+ * Copyright © 2010 Mikhail Gusarov <dottedmag@dottedmag.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -27,6 +28,7 @@
 #include <string.h>
 #include <locale.h>
 #include <langinfo.h>
+#include <err.h>
 
 #include <Eina.h>
 #include <Evas.h>
@@ -51,7 +53,7 @@ typedef struct {
     keys_t *keys;
     keys_t *navigation;
     keys_t *keys_info;          /* Keys to substitute in help texts */
-    char *keys_context;
+    const char *keys_context;
     Eina_List *history;
 } eoi_help_info_t;
 
@@ -75,7 +77,8 @@ key_handler(void *data, Evas * evas, Evas_Object * obj, void *event_info)
 
     if (!info->navigation) {
         char *app;
-        asprintf(&app, "help/%s", info->application);
+        if (!asprintf(&app, "help/%s", info->application))
+            err(1, "asprintf");
         info->navigation = keys_alloc(app);
         free(app);
     }
