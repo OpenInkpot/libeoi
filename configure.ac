@@ -5,9 +5,11 @@ AM_INIT_AUTOMAKE(foreign)
 AC_PROG_CC_C99
 AM_PROG_LIBTOOL
 
-PKG_CHECK_MODULES(EFL, [eina-0 ecore-x ecore evas edje efreet])
+PKG_CHECK_MODULES(EFL, [eina-0 evas edje])
+PKG_CHECK_MODULES(ECORE, [ecore])
+PKG_CHECK_MODULES(ECORE_X, [ecore-x])
+PKG_CHECK_MODULES(EFREET, [efreet])
 PKG_CHECK_MODULES(ECORE_EVAS, [ecore-evas])
 PKG_CHECK_MODULES(LIBKEYS, [libkeys])
-PKG_CHECK_MODULES(LIBCHOICEBOX, [libchoicebox])
 
-AC_OUTPUT([Makefile src/Makefile data/Makefile themes/Makefile libeoi.pc])
+AC_OUTPUT([Makefile src/Makefile data/Makefile themes/Makefile libeoi.pc libchoicebox.pc])

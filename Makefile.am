@@ -1,4 +1,5 @@
 SUBDIRS=src themes data
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libeoi.pc
+pkgconfig_DATA = libeoi.pc libchoicebox.pc
+

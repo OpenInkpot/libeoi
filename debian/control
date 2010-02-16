@@ -2,17 +2,19 @@ Source: libeoi
 Section: gui
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
 Uploaders: Alexander Kerner <lunohod@openinkpot.org>
-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev, libevas-dev, libedje-dev, libefreet-dev, libchoicebox-dev, libkeys-dev, libedje-bin
+Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev, libevas-dev, libedje-dev, libefreet-dev, libkeys-dev, libedje-bin
 XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libedje-bin
-XCS-Cross-Build-Depends: libecore-dev, libevas-dev, libedje-dev, libefreet-dev, libchoicebox-dev, libkeys-dev
+XCS-Cross-Build-Depends: libecore-dev, libevas-dev, libedje-dev, libefreet-dev, libkeys-dev
 Priority: optional
 Standards-Version: 3.8.3
 
-Package: libeoi1
+Package: libeoi2
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}
-Conflicts: libeoi0, epuzzles (<= 0.1+20090518-15)
+Conflicts: libeoi0, libeoi1, epuzzles (<= 0.1+20090518-15)
+Provides: libchoicebox1
+Replaces: libchoicebox1
 Description: OpenInkpot-specific extensions for EFL libraries
  This package provides EFL-based widgets and tools specific for OpenInkpot:
    - battery handling and drawing
@@ -24,7 +26,9 @@ Description: OpenInkpot-specific extensions for EFL libraries
 Package: libeoi-dev
 Priority: optional
 Architecture: any
-Depends: libeoi1 (= ${binary:Version}), ${shlibs:Depends}, libkeys-dev
+Depends: libeoi2 (= ${binary:Version}), ${shlibs:Depends}, libkeys-dev
+Provides: libchoicebox-dev
+Replaces: libchoicebox-dev
 Description: OpenInkpot-specific extensions for EFL libraries -- development files
  This package provides EFL-based widgets and tools specific for OpenInkpot:
    - battery handling and drawing
@@ -35,11 +39,11 @@ Description: OpenInkpot-specific extensions for EFL libraries -- development fil
  .
  This package contains header files and symlinks necessary to link with library.
 
-Package: libeoi1-dbg
+Package: libeoi2-dbg
 Priority: extra
 Architecture: any
 Section: debug
-Depends: libeoi1 (= ${binary:Version})
+Depends: libeoi2 (= ${binary:Version})
 Description: OpenInkpot-specific extensions for EFL libraries -- debugging symbols
  This package provides EFL-based widgets and tools specific for OpenInkpot:
    - battery handling and drawing
@@ -66,6 +70,8 @@ Description: OpenInkpot-specific extensions for EFL libraries -- Hanvon N516 sup
 Package: libeoi-settings-v3
 Priority: optional
 Architecture: any
+Conflicts: libchoicebox1-settings-v3
+Replaces: libchoicebox-settings-v3
 Description: OpenInkpot-specific extensions for EFL libraries -- Hanlin V3 support
  This package provides EFL-based widgets and tools specific for OpenInkpot:
    - battery handling and drawing
@@ -75,3 +81,18 @@ Description: OpenInkpot-specific extensions for EFL libraries -- Hanlin V3 suppo
    - choicebox and frame window glue code
  .
  This package contains settings required for normal operation on Hanlin V3.
+
+Package: libeoi-settings-azbooka
+Priority: optional
+Architecture: any
+Conflicts: libchoicebox1-settings-azbooka
+Replaces: libchoicebox1-settings-azbooka
+Description: OpenInkpot-specific extensions for EFL libraries -- Azbooka support
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
+ .
+ This package contains settings required for normal operation on Azbooka.
