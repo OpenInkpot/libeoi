@@ -1,3 +1,11 @@
+libeoi (0.3.0) zelazny; urgency=low
+
+  * libchoicebox merged into libeoi.
+  * Resize callbacks redone to be more usable.
+  * Various bugfixes and cleanups.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Tue, 16 Feb 2010 23:33:11 +0100
+
 libeoi (0.2.7) zelazny; urgency=low
 
   [ Alexander V. Nikolaev]
