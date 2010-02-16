@@ -31,16 +31,43 @@ void eoi_main_window_footer_hide(Evas_Object *window);
 
 /* Choicebox numbering */
 
-void eoi_register_fullscreen_choicebox(Evas_Object * choicebox);
-void eoi_process_resize(Ecore_Evas * window);
+void eoi_register_fullscreen_choicebox(Evas_Object *choicebox);
 
-/* Resize callbacks */
-void eoi_resize_callback_add(Evas *window,
-    void(*callback)(Evas *, int, int));
-void eoi_resize_callback_del(Evas *window,
-    void(*callback)(Evas *, int, int));
+/* "simple" resize callbacks */
+
+typedef int eoi_resize_callback_token_t;
+typedef void (*eoi_resize_handler_t)(Ecore_Evas *window,
+                                     int w, int h, void *param);
+
+eoi_resize_callback_token_t
+eoi_resize_callback_add(Ecore_Evas *window,
+                        eoi_resize_handler_t callback,
+                        void *param);
+
+void eoi_resize_callback_del(Ecore_Evas *window,
+                             eoi_resize_callback_token_t token);
+
+/* "object" resize callbacks */
+
+typedef void (*eoi_object_resize_handler_t)(
+    Ecore_Evas *window, Evas_Object *object, int w, int h, void *param);
+
+/*
+ * Passed callback will be called with given Evas_Object* and unregistered when
+ * object is destroyed.
+ */
+void
+eoi_resize_object_register(Ecore_Evas *window, Evas_Object *object,
+                           eoi_object_resize_handler_t handler, void *param);
+
+/* Passed object will be resized to the full size of window each time window
+   is resized. Object deletion is handled too. */
+void
+eoi_fullwindow_object_register(Ecore_Evas *window, Evas_Object *object);
+
 
 /* destroy callbacks */
+
 void
 eoi_evas_destroy_callback_add(Evas *window, void (*callback)(Evas*));
 

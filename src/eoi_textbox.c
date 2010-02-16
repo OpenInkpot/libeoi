@@ -24,6 +24,7 @@
 #include <Edje.h>
 
 #include "libeoi_textbox.h"
+#include "libeoi_themes.h"
 
 typedef struct {
     Evas_Object *parent;

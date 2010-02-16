@@ -64,8 +64,6 @@ eoi_main_window_footer_hide(Evas_Object *window)
 
 #define CONFIG_NAME SYSCONFDIR "/eoi/choicebox-numbering.ini"
 
-static Eina_List *choiceboxes;
-
 static bool numbering_config_read;
 static bool numbering_enabled;
 static bool numbering_always;
@@ -97,27 +95,6 @@ _eoi_numbering_read_config()
     rotation = efreet_ini_int_get(config, "rotation");
 }
 
-static void
-_eoi_unregister_fullscreen_choicebox(Evas_Object * choicebox)
-{
-    Eina_List *l;
-    Eina_List *l_next;
-    Evas_Object *o;
-
-    EINA_LIST_FOREACH_SAFE(choiceboxes, l, l_next, o)
-        if (o == choicebox) {
-        choiceboxes = eina_list_remove_list(choiceboxes, l);
-        return;
-    }
-}
-
-static void
-_eoi_choicebox_del(void *data, Evas * canvas,
-                   Evas_Object * choicebox, void *event_info)
-{
-    _eoi_unregister_fullscreen_choicebox(choicebox);
-}
-
 static bool
 _is_currently_hinted()
 {
@@ -125,7 +102,7 @@ _is_currently_hinted()
         return false;
 
     if (numbering_always)
-        true;
+        return true;
 
     Ecore_X_Window root = ecore_x_window_root_first_get();
     ecore_x_randr_get_screen_info_prefetch(root);
@@ -136,27 +113,35 @@ _is_currently_hinted()
     return !(width == s.width && height == s.height && rotation == r);
 }
 
+static void
+_fullscreen_choicebox_cb(Ecore_Evas *window, int w, int h, void *param)
+{
+    choicebox_set_hinted((Evas_Object*)param, _is_currently_hinted());
+}
+
+static void
+_fullscreen_choicebox_del(void *data, Evas *canvas,
+                   Evas_Object *choicebox, void *event_info)
+{
+    eoi_resize_callback_token_t token = (eoi_resize_callback_token_t)data;
+    Ecore_Evas *window = ecore_evas_ecore_evas_get(canvas);
+
+    eoi_resize_callback_del(window, token);
+}
+
+
 void
-eoi_register_fullscreen_choicebox(Evas_Object * choicebox)
+eoi_register_fullscreen_choicebox(Evas_Object *choicebox)
 {
     _eoi_numbering_read_config();
+    Evas *canvas = evas_object_evas_get(choicebox);
+    Ecore_Evas *window = ecore_evas_ecore_evas_get(canvas);
 
+    eoi_resize_callback_token_t token
+        = eoi_resize_callback_add(window, &_fullscreen_choicebox_cb, choicebox);
     evas_object_event_callback_add(choicebox, EVAS_CALLBACK_DEL,
-                                   &_eoi_choicebox_del, NULL);
-    choiceboxes = eina_list_prepend(choiceboxes, choicebox);
+                                   &_fullscreen_choicebox_del, (void*)token);
 
     if (_is_currently_hinted())
         choicebox_set_hinted(choicebox, true);
-}
-
-void
-eoi_process_resize(Ecore_Evas * window)
-{
-    bool is_hinted = _is_currently_hinted();
-
-    Eina_List *l;
-    Evas_Object *o;
-
-    EINA_LIST_FOREACH(choiceboxes, l, o)
-        choicebox_set_hinted(o, is_hinted);
 }

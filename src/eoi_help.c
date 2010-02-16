@@ -271,11 +271,10 @@ _default_page_updated_handler(Evas_Object * help,
 }
 
 static void
-_help_resized(Evas *evas, int w, int h)
+_help_resized(Ecore_Evas *win, Evas_Object *object, int w, int h, void *param)
 {
-    Evas_Object *helpwin = evas_object_name_find(evas, HELP_WINDOW_ID);
-    evas_object_resize(helpwin, w, h);
-    evas_object_raise(helpwin);
+    evas_object_resize(object, w, h);
+    evas_object_raise(object); /* ? */
 }
 
 static void
@@ -284,7 +283,6 @@ _default_help_closed(Evas_Object * help)
     Evas *evas = evas_object_evas_get(help);
     Evas_Object *helpwin = evas_object_name_find(evas, HELP_WINDOW_ID);
     Evas_Object *focus = evas_object_data_get(helpwin, "prev-focus");
-    eoi_evas_resize_callback_del(evas, _help_resized);
     evas_object_hide(helpwin);
     evas_object_del(helpwin);
     if (focus)
@@ -314,7 +312,9 @@ eoi_help_show(Evas * canvas,
     Evas_Object *focus = evas_focus_get(canvas);
     evas_object_data_set(helpwin, "prev-focus", focus);
     edje_object_part_swallow(helpwin, "contents", help);
-    eoi_evas_resize_callback_add(canvas, _help_resized);
+
+    Ecore_Evas *window = ecore_evas_ecore_evas_get(canvas);
+    eoi_resize_object_register(window, helpwin, _help_resized, NULL);
     evas_object_focus_set(help, 1);
     return helpwin;
 }
