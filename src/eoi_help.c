@@ -161,38 +161,43 @@ load_text(const char *filename)
     return text;
 }
 
+static char *
+load_page_text(const char *application, const char *lang, const char *page)
+{
+    char *filename;
+    if (!asprintf(&filename, "/usr/share/help/%s/%s/%s.help",
+                  application, lang, page))
+        err(1, "asprintf");
+
+    char *text = load_text(filename);
+    free(filename);
+    return text;
+}
+
 static void
 load_page(eoi_help_info_t * info, const char *page)
 {
-    setlocale(LC_ALL, "");
-    char *lang = strdup(setlocale(LC_ALL, NULL));
-    if (!lang)
-        lang = strdup("en");
-    else {
+    char *lang = setlocale(LC_ALL, "");
+    if (lang) {
+        lang = strdup(lang);
+
         char *lang_end = lang;
         while (lang_end[0] != '\0' && lang_end[0] != '_'
                && lang_end[0] != '@' && lang_end[0] != '.')
             ++lang_end;
-
         *lang_end = '\0';
 
-        if (!strlen(lang) || !strcmp(lang, "C") || !strcmp(lang, "POSIX")) {
+        if (!lang[0] || !strcmp(lang, "C") || !strcmp(lang, "POSIX")) {
             free(lang);
             lang = strdup("en");
         }
-    }
+    } else
+        lang = strdup("en");
 
-    char *text = NULL;
-    for (int i = 0; i < 2 && !text; i++, lang = strdup("en")) {
-        char *filename;
-        asprintf(&filename, "/usr/share/help/%s/%s/%s.help",
-                 info->application, lang, page);
-
-        text = load_text(filename);
-
-        free(lang);
-        free(filename);
-    }
+    char *text = load_page_text(info->application, lang, page);
+    if (!text)
+        text = load_page_text(info->application, "en", page);
+    free(lang);
 
     if (!text)
         return;
