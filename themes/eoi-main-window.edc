@@ -8,6 +8,7 @@
  * contents      SWALLOW for window contents
  * left-overlay  SWALLOW for overlay at the left (such as context menu)
  * right-overlay SWALLOW for overlay at the right (such as context menu)
+ * state-icons   SWALLOW for small number of icons at footer
  *
  * == signals ==
  *
@@ -18,12 +19,6 @@
  * battery-full-charge
  *
  * === settings-{left,right} ===
- *
- * == objects ==
- *
- * title    TEXT
- * footer   TEXT
- * contents SWALLOW for window contents
  *
  */
 
@@ -454,26 +449,4 @@ collections {
             }
         }
     }
-
-/* part { */
-/*     name, "background"; */
-/*     type, RECT; */
-/*     mouse_events, 0; */
-/*     description { */
-/*         state, "default" 0.0; */
-/*         color, 0 0 0 255; */
-/*         rel1 { relative, 0.0 0.0; offset, 0 0; } */
-/*         rel2 { relative, 1.0 1.0; offset, -1 -1; } */
-/*     } */
-/* } */
-/* part { */
-/*    name, "contents-background"; */
-/*    type, RECT; */
-/*    mouse_events, 0; */
-/*    description { */
-/*       state, "default" 0.0; */
-/*       color, 255 255 255 255; */
-/*       rel1 { relative, 0.0 0.0; offset, 0 49; } */
-/*       rel2 { relative, 1.0 1.0; offset, -1 -50; } */
-/*    } */
-/* } */
+}
