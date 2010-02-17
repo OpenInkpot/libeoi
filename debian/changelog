@@ -1,3 +1,10 @@
+libeoi (0.3.1) zelazny; urgency=low
+
+  * "sort icon" in theme turned into generic SWALLOW container
+  * .edj files are built/cleaned properly
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Wed, 17 Feb 2010 10:36:37 +0100
+
 libeoi (0.3.0) zelazny; urgency=low
 
   * libchoicebox merged into libeoi.
