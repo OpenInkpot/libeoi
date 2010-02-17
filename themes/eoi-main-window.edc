@@ -17,9 +17,6 @@
  * battery-charging
  * battery-full-charge
  *
- * sort-mode,<mode>
- *   mode = none | name (by name) | namerev (by name, reversed) | date (by date)
- *
  * === settings-{left,right} ===
  *
  * == objects ==
@@ -42,10 +39,6 @@ images {
     image, "icon-battery-charging.png" COMP;
     image, "icon-battery-full-charge.png" COMP;
 
-    image, "sort-none.png" COMP;
-    image, "sort-name.png" COMP;
-    image, "sort-namerev.png" COMP;
-    image, "sort-date.png" COMP;
 }
 
 #define BACKGROUND(LEFT_OFFSET, RIGHT_OFFSET)                    \
@@ -281,33 +274,18 @@ collections {
                 }
             }
             part {
-                name, "sort-icon";
-                type, IMAGE;
-                mouse_events, 0;
+                name, "state-icons";
+                type, SWALLOW;
                 description {
                     state, "default" 0.0;
-                    rel1 { to, "footer-rect"; relative, 0.0 1.0; offset, 9 -40; }
-                    rel2 { to, "footer-rect"; relative, 0.0 1.0; offset, 39 -10; }
-                    image { normal, "sort-none.png"; }
-                }
-                description {
-                    state, "name" 0.0;
-                    inherit, "default" 0.0;
-                    image { normal, "sort-name.png"; }
-                }
-                description {
-                    state, "namerev" 0.0;
-                    inherit, "default" 0.0;
-                    image { normal, "sort-namerev.png"; }
-                }
-                description {
-                    state, "date" 0.0;
-                    inherit, "default" 0.0;
-                    image { normal, "sort-date.png"; }
+                    rel1 {
+                        to, "footer-rect"; relative, 0.0 0.0; offset, 0 0;
+                    }
+                    rel2 {
+                        to, "footer-rect"; relative, 1.0 1.0; offset, -1 -1;
+                    }
                 }
             }
-
-
 
             /* overlays slightly overlap due to 2-pixel wide border at the edges
                of settings-{left,right} */
@@ -382,18 +360,6 @@ collections {
                 signal, "battery-full-charge";
                 script {
                     set_state(PART:"battery", "full-charge", 0.0);
-                }
-            }
-            program {
-                name, "sort-mode";
-                signal, "sort-mode,*";
-
-                script {
-                    new name_arg[100], name[100];
-                    getsarg(0, name_arg, 100);
-                    strcut(name, name_arg, 10, 100);
-
-                    set_state(PART:"sort-icon", name, 0.0);
                 }
             }
             program {
