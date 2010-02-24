@@ -57,6 +57,7 @@ Description: OpenInkpot-specific extensions for EFL libraries -- debugging symbo
 Package: libeoi-settings-n516
 Priority: optional
 Architecture: any
+Conflicts: libeoi-settings-n516
 Description: OpenInkpot-specific extensions for EFL libraries -- Hanvon N516 support
  This package provides EFL-based widgets and tools specific for OpenInkpot:
    - battery handling and drawing
