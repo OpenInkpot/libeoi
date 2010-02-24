@@ -1,3 +1,9 @@
+libeoi (0.3.2) zelazny; urgency=low
+
+  * Added missing Conflicts to libeoi-settings-n516 package.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 25 Feb 2010 05:30:45 +0600
+
 libeoi (0.3.1) zelazny; urgency=low
 
   * "sort icon" in theme turned into generic SWALLOW container
