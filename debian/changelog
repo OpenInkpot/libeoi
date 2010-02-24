@@ -1,3 +1,9 @@
+libeoi (0.3.3) zelazny; urgency=low
+
+  * Add missing Conflicts and Provides to upgrade from libchoicebox.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 25 Feb 2010 05:40:43 +0600
+
 libeoi (0.3.2) zelazny; urgency=low
 
   * Added missing Conflicts to libeoi-settings-n516 package.
