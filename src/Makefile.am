@@ -1,9 +1,9 @@
 lib_LTLIBRARIES = libeoi.la
 libeoi_la_SOURCES = libeoi.c eoi_textbox.c eoi_help.c eoi_subst.c \
 		eoi_battery.c eoi_clock.c eoi_callbacks.c eoi_themes.c \
-		libchoicebox.c libchoicebox-aux.c
+		libchoicebox.c libchoicebox-aux.c eoi_utils.c
 include_HEADERS = libeoi.h libeoi_textbox.h libeoi_help.h libeoi_battery.h \
-		libeoi_clock.h libeoi_themes.h libchoicebox.h
+		libeoi_clock.h libeoi_themes.h libchoicebox.h libeoi_utils.h
 
 noinst_PROGRAMS = eoi_test
 

@@ -22,6 +22,8 @@
 #include <Ecore_Evas.h>
 #include <Evas.h>
 
+#include "libeoi_utils.h"
+
 Evas_Object *eoi_main_window_create(Evas * canvas);
 Evas_Object *eoi_settings_left_create(Evas * canvas);
 Evas_Object *eoi_settings_right_create(Evas * canvas);
@@ -73,5 +75,23 @@ eoi_evas_destroy_callback_add(Evas *window, void (*callback)(Evas*));
 
 void
 eoi_evas_destroy_callback_del(Evas *window, void (*callback)(Evas*));
+
+/* Trimming in text blocks */
+
+/*
+ * Sets given text etry in edje to prefix + str + suffix, probably trimming str
+ * at left if text entry is too narrow
+ */
+void
+eoi_edje_text_trim_left(Evas_Object *edje, char *part, const char *prefix,
+                        const char *str, const char* suffix);
+
+/*
+ * Sets given text entry in edje to prefix + str + suffix, probably trimming str
+ * at right if text entry is too narrow
+ */
+void
+eoi_edje_text_trim_right(Evas_Object *edje, char *part, const char *prefix,
+                         const char *str, const char *suffix);
 
 #endif

@@ -17,6 +17,7 @@
  * 02110-1301, USA.
  */
 #include <stdbool.h>
+#include <string.h>
 
 #include <Edje.h>
 #include <Eina.h>
@@ -144,4 +145,82 @@ eoi_register_fullscreen_choicebox(Evas_Object *choicebox)
 
     if (_is_currently_hinted())
         choicebox_set_hinted(choicebox, true);
+}
+
+/* Trimming */
+
+void
+eoi_edje_text_trim_left(Evas_Object *edje, char *part, const char *prefix,
+                        const char *str, const char* suffix)
+{
+    const Evas_Object *part_obj = edje_object_part_object_get(edje, part);
+
+    int width;
+    bool trim = false;
+
+    edje_object_part_geometry_get(edje, part, NULL, NULL, &width, NULL);
+    for (;;) {
+        char *s = xasprintf("%s%s%s%s", prefix, trim ? "..." : "", str, suffix);
+        edje_object_part_text_set(edje, part, s);
+        free(s);
+
+        int advance = evas_object_text_horiz_advance_get(part_obj);
+
+        /* FIXME? */
+        if (width > advance + width / 20)
+            break;
+        trim = true;
+
+        int d;
+        int p = evas_string_char_next_get(str, 0, &d);
+        if (d == 0) {
+            char *s = xasprintf("%s...%s", prefix, suffix);
+            edje_object_part_text_set(edje, part, s);
+            free(s);
+            break;
+        }
+        str += p;
+    }
+}
+
+void
+eoi_edje_text_trim_right(Evas_Object *edje, char *part, const char *prefix,
+                         const char *str, const char *suffix)
+{
+    const Evas_Object *part_obj = edje_object_part_object_get(edje, part);
+
+    /* For modifications */
+    char *d = strdup(str);
+    int pos = strlen(d);
+
+    int width;
+    bool trim = false;
+
+    edje_object_part_geometry_get(edje, part, NULL, NULL, &width, NULL);
+    for (;;) {
+        char *s = xasprintf("%s%s%s%s", prefix, d, trim ? "..." : "", suffix);
+        edje_object_part_text_set(edje, part, s);
+        free(s);
+
+        int advance = evas_object_text_horiz_advance_get(part_obj);
+
+        /* FIXME? */
+        if (width > advance + width / 20)
+            break;
+        trim = true;
+
+        /* Step one character back */
+        int c;
+        pos = evas_string_char_prev_get(d, pos, &c);
+        d[pos] = '\0';
+
+        /* Whole string was cut */
+        if (pos == 0) {
+            char *s = xasprintf("%s...%s", prefix, suffix);
+            edje_object_part_text_set(edje, part, s);
+            break;
+        }
+    }
+
+    free(d);
 }
