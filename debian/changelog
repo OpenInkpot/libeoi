@@ -1,3 +1,10 @@
+libeoi (0.3.4) zelazny; urgency=low
+
+  * background-azbooka.edj was installed in two packages which conflicted
+    as a result.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 25 Feb 2010 06:10:08 +0600
+
 libeoi (0.3.3) zelazny; urgency=low
 
   * Add missing Conflicts and Provides to upgrade from libchoicebox.
