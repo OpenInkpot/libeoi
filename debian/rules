@@ -45,6 +45,9 @@ install: build
 	  cp $(CURDIR)/debian/choicebox-$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys/choicebox.ini; \
 	done
 
+	mv $(CURDIR)/debian/tmp/usr/share/eoi/themes/default/background-azbooka.edj \
+		$(CURDIR)/debian/libeoi-settings-azbooka/usr/share/eoi/themes/default
+
 binary-indep:
 
 binary-arch: install
