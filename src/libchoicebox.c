@@ -66,6 +66,10 @@ typedef struct {
     char *filler_frame_theme_group;
     int item_minh;
     int filler_h;
+    long margin_top;
+    long margin_right;
+    long margin_bottom;
+    long margin_left;
 
     char *item_theme_file;
     char *item_theme_group;
@@ -220,6 +224,14 @@ _choicebox_display(Evas_Object * o, int ox, int oy, int ow, int oh)
     evas_object_resize(data->clipper, ow, oh);
 
     /** Update items **/
+
+    /* Adjust x/y/w/h according to margins */
+    ox += data->margin_left;
+    oy += data->margin_top;
+    ow -= data->margin_left + data->margin_right;
+    oh -= data->margin_top + data->margin_bottom;
+    if (ow < 0) ow = 0;
+    if (oh < 0) oh = 0;
 
     /* Calculate pagesize */
     new.pagesize = (oh + data->filler_h) / (data->item_minh + data->filler_h);
@@ -537,6 +549,11 @@ choicebox_new(Evas * evas, choicebox_info_t * info, void *param)
         data->frame_theme_group);
     if (!tmpitem)
         goto err;
+
+    data->margin_left = edje_object_data_get_long(tmpitem, "margin_left");
+    data->margin_right = edje_object_data_get_long(tmpitem, "margin_right");
+    data->margin_top = edje_object_data_get_long(tmpitem, "margin_top");
+    data->margin_bottom = edje_object_data_get_long(tmpitem, "margin_bottom");
 
     hack_update_min_height(tmpitem);
     evas_object_size_hint_min_get(tmpitem, NULL, &data->item_minh);

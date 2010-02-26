@@ -71,6 +71,10 @@ styles {
    data {                                          \
       /* HACK: until edje fetches size_hints */    \
       item, "min_height" 78;                       \
+      item, "margin_left" 0;                       \
+      item, "margin_right" 0;                      \
+      item, "margin_top" 0;                        \
+      item, "margin_bottom" 0;                      \
    }
 
 #define STD_PROGRAMS(EVEN_STYLE, ODD_STYLE)                             \
