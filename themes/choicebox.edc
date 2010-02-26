@@ -451,6 +451,14 @@ collections {
       MIN_HEIGHT_HACK
       STD_PROGRAMS("default", "alternate")
    }
+   group {
+       name, "full-filler";
+       parts {
+       }
+       data {
+           item, "height" 0;
+       }
+   }
 
    group {
       name, "settings-left";
@@ -505,15 +513,42 @@ collections {
    }
 
    group {
+       name, "settings-left-filler";
+       parts {
+       }
+       data {
+           item, "height" 0;
+       }
+   }
+
+   group {
       name, "settings-right";
       RIGHT_ITEM
       STD_PROGRAMS("default", "alternate")
    }
 
    group {
+       name, "settings-right-filler";
+       parts {
+       }
+       data {
+           item, "height" 0;
+       }
+   }
+
+   group {
       name, "settings-right-alt";
       RIGHT_ITEM
       STD_PROGRAMS("alternate", "default")
+   }
+
+   group {
+       name, "settings-right-alt-filler";
+       parts {
+       }
+       data {
+           item, "height" 0;
+       }
    }
 
    group {

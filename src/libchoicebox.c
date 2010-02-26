@@ -31,6 +31,7 @@
 #include <err.h>
 
 #include "libeoi_themes.h"
+#include "libeoi_utils.h"
 
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
 #define MAX(x, y) ((x) > (y) ? (x) : (y))
@@ -62,7 +63,9 @@ typedef struct {
     /* Theme info */
     char *frame_theme_file;
     char *frame_theme_group;
+    char *filler_frame_theme_group;
     int item_minh;
+    int filler_h;
 
     char *item_theme_file;
     char *item_theme_group;
@@ -71,6 +74,7 @@ typedef struct {
     Evas_Object *clipper;
     Evas_Object *background;
     Eina_Array *frames;
+    Eina_Array *fillers;
 
 } choicebox_t;
 
@@ -193,6 +197,15 @@ _frame_del(Evas_Object * frame)
 }
 
 static void
+_filler_del(Evas_Object *filler)
+{
+    if (filler) {
+        evas_object_smart_member_del(filler);
+        evas_object_del(filler);
+    }
+}
+
+static void
 _choicebox_display(Evas_Object * o, int ox, int oy, int ow, int oh)
 {
     choicebox_t *data = evas_object_smart_data_get(o);
@@ -209,7 +222,7 @@ _choicebox_display(Evas_Object * o, int ox, int oy, int ow, int oh)
     /** Update items **/
 
     /* Calculate pagesize */
-    new.pagesize = oh / data->item_minh;
+    new.pagesize = (oh + data->filler_h) / (data->item_minh + data->filler_h);
 
     /* Fix the widgets amount */
     int curitems = eina_array_count_get(data->frames);
@@ -252,12 +265,32 @@ _choicebox_display(Evas_Object * o, int ox, int oy, int ow, int oh)
             edje_object_part_swallow(frame, "contents", item);
 
             eina_array_push(data->frames, frame);
+
+            if (curitems > 0 || i > 0) {
+                Evas_Object *filler
+                    = eoi_create_themed_edje(evas, data->frame_theme_file,
+                                             data->filler_frame_theme_group);
+                if (!filler) {
+                    errx(1,"Unable to open theme %s(%s)",data->frame_theme_file,
+                         data->filler_frame_theme_group);
+                }
+                evas_object_smart_member_add(filler, o);
+                snprintf(f, 256, "choicebox/%p/filler/%d", o, i);
+                evas_object_name_set(filler, f);
+
+                evas_object_show(filler);
+                evas_object_clip_set(filler, data->clipper);
+
+                eina_array_push(data->fillers, filler);
+            }
         }
     }
     if (new.pagesize < curitems) {
         int i;
-        for (i = 0; i < curitems - new.pagesize; ++i)
+        for (i = 0; i < curitems - new.pagesize; ++i) {
             _frame_del(eina_array_pop(data->frames));
+            _filler_del(eina_array_pop(data->fillers));
+        }
     }
 
     /* Ajust selection if necessary */
@@ -267,21 +300,19 @@ _choicebox_display(Evas_Object * o, int ox, int oy, int ow, int oh)
     if (new.pagesize != 0) {
         /* Fix the widgets position */
 
-        int item_h = oh / new.pagesize;
-        int gap = oh - item_h * new.pagesize;   /* To be spread amongst the items */
-
-        int i;
-        int item_x = ox;
-        int item_y = oy;
-        int item_w = ow;
-        for (i = 0; i < new.pagesize; ++i) {
+        for (int i = 0; i < new.pagesize; ++i) {
             Evas_Object *frame = eina_array_data_get(data->frames, i);
-            evas_object_move(frame, item_x, item_y);
-            evas_object_resize(frame, item_w, item_h);
 
-            item_y += item_h;
-            if (i == new.pagesize - gap - 1)    /* gaps */
-                item_h++;
+            evas_object_move(frame, ox,
+                             oy + i * (data->item_minh + data->filler_h));
+            evas_object_resize(frame, ow, data->item_minh);
+
+            if (i != new.pagesize - 1) {
+                Evas_Object *filler = eina_array_data_get(data->fillers, i);
+                evas_object_move(filler, ox, oy + data->item_minh
+                                 + i * (data->item_minh + data->filler_h));
+                evas_object_resize(filler, ow, data->filler_h);
+            }
         }
     }
 
@@ -300,6 +331,12 @@ _choicebox_add(Evas_Object * o)
         return;
     }
 
+    if (!(data->fillers = eina_array_new(10))) {
+        free(data);
+        eina_array_free(data->frames);
+        return;
+    }
+
     evas_object_smart_data_set(o, data);
 }
 
@@ -310,9 +347,12 @@ _choicebox_del(Evas_Object * o)
     if (data) {
         if (data->frames) {
             int size = eina_array_count_get(data->frames);
-            while (size--)
+            while (size--) {
                 _frame_del(eina_array_pop(data->frames));
+                _filler_del(eina_array_pop(data->fillers));
+            }
             eina_array_free(data->frames);
+            eina_array_free(data->fillers);
         }
 
         evas_object_del(data->background);
@@ -320,6 +360,7 @@ _choicebox_del(Evas_Object * o)
 
         free(data->frame_theme_file);
         free(data->frame_theme_group);
+        free(data->filler_frame_theme_group);
         free(data->item_theme_file);
         free(data->item_theme_group);
 
@@ -401,6 +442,13 @@ _choicebox_smart_get()
     return smart;
 }
 
+static long
+edje_object_data_get_long(Evas_Object *o, const char *name)
+{
+    const char *data = edje_object_data_get(o, name);
+    return data ? atoi(data) : 0;
+}
+
 static void
 hack_update_min_height(Evas_Object * o)
 {
@@ -408,12 +456,9 @@ hack_update_min_height(Evas_Object * o)
      * HACK: Right now Edje does not set a size_hints on a group object, so
      * let's query it from the "data" section and set manually.
      */
-    const char *min_height = edje_object_data_get(o, "min_height");
-    if (min_height) {
-        long minh = atoi(min_height);
-        if (minh)
-            edje_extern_object_min_size_set(o, 0, minh);
-    }
+    long minh = edje_object_data_get_long(o, "min_height");
+    if (minh)
+        edje_extern_object_min_size_set(o, 0, minh);
 }
 
 Evas_Object *
@@ -448,6 +493,8 @@ choicebox_new(Evas * evas, choicebox_info_t * info, void *param)
     data->frame_theme_group = strdup(info->frame_theme_group);
     if (!data->frame_theme_group)
         goto err;
+    data->filler_frame_theme_group
+        = xasprintf("%s-filler", info->frame_theme_group);
     data->item_theme_file = strdup(info->item_theme_file);
     if (!data->item_theme_file)
         goto err;
@@ -495,9 +542,21 @@ choicebox_new(Evas * evas, choicebox_info_t * info, void *param)
     evas_object_size_hint_min_get(tmpitem, NULL, &data->item_minh);
     evas_object_del(tmpitem);
 
+    Evas_Object *tmpfiller
+        = eoi_create_themed_edje(evas, data->frame_theme_file,
+                                 data->filler_frame_theme_group);
+    if (!tmpfiller)
+        goto err2;
+    data->filler_h = edje_object_data_get_long(tmpfiller, "height");
+    evas_object_del(tmpfiller);
+
     return o;
 
-  err:
+err2:
+    evas_object_del(tmpfiller);
+    return NULL;
+
+err:
     evas_object_del(o);
     return NULL;
 }
