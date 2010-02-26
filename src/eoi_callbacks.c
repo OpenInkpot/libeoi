@@ -119,7 +119,7 @@ eoi_resize_callback_add(Ecore_Evas *window, eoi_resize_handler_t callback,
         ecore_evas_callback_resize_set(window, &_resize_event);
         callbacks = eina_hash_int32_new(EINA_FREE_CB(free));
         ecore_evas_data_set(window, RESIZE_CALLBACK_LIST, callbacks);
-        ecore_evas_data_set(window, RESIZE_CALLBACK_NEXT_ID, 1);
+        ecore_evas_data_set(window, RESIZE_CALLBACK_NEXT_ID, (void *)1);
     }
     int next_id = (int)ecore_evas_data_get(window, RESIZE_CALLBACK_NEXT_ID);
 
