@@ -26,22 +26,11 @@
 #include <Edje.h>
 
 #include "libeoi_themes.h"
+#include "libeoi_utils.h"
 
 #define SYS_THEMES_DIR DATADIR "/eoi/themes"
 #define USER_THEMES_DIR "/.e/themes"
 #define THEME_VAR "EOI_THEME"
-
-static char *
-xasprintf(const char *fmt, ...)
-{
-    char *ret;
-    va_list ap;
-    va_start(ap, fmt);
-    if (-1 == vasprintf(&ret, fmt, ap))
-        err(255, "xasprintf");
-    va_end(ap);
-    return ret;
-}
 
 Evas_Object *
 eoi_create_themed_edje(Evas *canvas, const char *edje, const char *group)
