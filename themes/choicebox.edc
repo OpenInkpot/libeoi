@@ -404,6 +404,19 @@ styles {
 
 collections {
    group {
+      name, "full-background";
+      parts {
+         part {
+            name, "background";
+            type, RECT;
+            description {
+               state, "default" 0.0;
+               color, 255 255 255 255;
+            }
+         }
+      }
+   }
+   group {
       name, "full";
       parts {
          CLIPPER
@@ -464,6 +477,19 @@ collections {
        }
    }
 
+   group {
+      name, "settings-left-background";
+      parts {
+         part {
+            name, "background";
+            type, RECT;
+            description {
+               state, "default" 0.0;
+               color, 255 255 255 255;
+            }
+         }
+      }
+   }
    group {
       name, "settings-left";
       parts {
@@ -526,11 +552,23 @@ collections {
    }
 
    group {
+      name, "settings-right-background";
+      parts {
+         part {
+            name, "background";
+            type, RECT;
+            description {
+               state, "default" 0.0;
+               color, 255 255 255 255;
+            }
+         }
+      }
+   }
+   group {
       name, "settings-right";
       RIGHT_ITEM
       STD_PROGRAMS("default", "alternate")
    }
-
    group {
        name, "settings-right-filler";
        parts {
@@ -541,11 +579,23 @@ collections {
    }
 
    group {
+      name, "settings-right-alt-background";
+      parts {
+         part {
+            name, "background";
+            type, RECT;
+            description {
+               state, "default" 0.0;
+               color, 255 255 255 255;
+            }
+         }
+      }
+   }
+   group {
       name, "settings-right-alt";
       RIGHT_ITEM
       STD_PROGRAMS("alternate", "default")
    }
-
    group {
        name, "settings-right-alt-filler";
        parts {

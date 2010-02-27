@@ -523,15 +523,13 @@ choicebox_new(Evas * evas, choicebox_info_t * info, void *param)
     snprintf(f, 256, "choicebox/%p/clipper", o);
     evas_object_name_set(data->clipper, f);
 
+    snprintf(f, 256, "%s-background", info->frame_theme_group);
+
     if (info->background)
         data->background = info->background;
     else {
         data->background = eoi_create_themed_edje(evas,
-                                                  "background", "background");
-        if (!data->background) {
-            data->background = evas_object_rectangle_add(evas);
-            evas_object_color_set(data->background, 255, 255, 255, 255);
-        }
+                                                  info->frame_theme_file, f);
     }
 
     if (!data->background)
