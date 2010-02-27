@@ -1,3 +1,3 @@
 usr/lib/*.so.*
-usr/share/eoi/*
+usr/share/eoi/themes/default
 usr/share/keys/*

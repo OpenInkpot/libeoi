@@ -1,0 +1,478 @@
+/*
+ * === main-window ===
+ *
+ * == objects ==
+ * title         TEXT
+ * footer        TEXT
+ * clock         TEXT
+ * contents      SWALLOW for window contents
+ * left-overlay  SWALLOW for overlay at the left (such as context menu)
+ * right-overlay SWALLOW for overlay at the right (such as context menu)
+ * state-icons   SWALLOW for small number of icons at footer
+ *
+ * == signals ==
+ *
+ * battery-unknown
+ * battery-level,<N>
+ *   N may be 0..100
+ * battery-charging
+ * battery-full-charge
+ *
+ * === settings-{left,right} ===
+ *
+ */
+
+images {
+    image, "icon-battery-none.png" COMP;
+    image, "icon-battery-unknown.png" COMP;
+    image, "icon-battery-000.png" COMP;
+    image, "icon-battery-020.png" COMP;
+    image, "icon-battery-040.png" COMP;
+    image, "icon-battery-060.png" COMP;
+    image, "icon-battery-080.png" COMP;
+    image, "icon-battery-100.png" COMP;
+    image, "icon-battery-charging.png" COMP;
+    image, "icon-battery-full-charge.png" COMP;
+
+}
+
+#define BACKGROUND(LEFT_OFFSET, RIGHT_OFFSET)                    \
+    part {                                                       \
+    name, "background";                                          \
+        type, RECT;                                              \
+        description {                                            \
+            state, "default" 0.0;                                \
+            color, 0 0 0 255;                                    \
+            rel1 { relative, 0.0 0.0; offset, LEFT_OFFSET 0; }   \
+            rel2 { relative, 1.0 1.0; offset, RIGHT_OFFSET -1; } \
+        }                                                        \
+    }
+
+#define HEADER                                                          \
+    part {                                                              \
+        name, "header";                                                 \
+        type, RECT;                                                     \
+        description {                                                   \
+            state, "default" 0.0;                                       \
+            color, 85 85 85 255;                                        \
+            rel1 { to, "background"; relative, 0.0 0.0; offset, 0 0; }  \
+            rel2 { to, "background"; relative, 1.0 0.0; offset, -1 51; } \
+        }                                                               \
+    }                                                                   \
+    part {                                                              \
+        name, "header-line";                                            \
+        type, RECT;                                                     \
+        description {                                                   \
+            state, "default" 0.0;                                       \
+            color, 255 255 255 255;                                     \
+            rel1 { to, "background"; offset, 0 49; }                    \
+            rel2 { to, "background"; relative, 1.0 0.0; offset, -1 51; } \
+        }                                                               \
+    }
+
+#define SETTINGS_TITLE_TEXT                     \
+    part {                                      \
+        name, "title";                          \
+        type, TEXT;                             \
+        description {                           \
+            state, "default" 0.0;               \
+            color, 255 255 255 255;             \
+            text {                              \
+                font, sans-serif;               \
+                size, 28;                       \
+                align, 0.0 0.5;                 \
+            }                                   \
+            rel1 {                              \
+                to, "header";                   \
+                relative, 0.0 0.0;              \
+                offset, 10 0;                   \
+            }                                   \
+            rel2 {                              \
+                to, "header";                   \
+                relative, 1.0 1.0;              \
+                offset, -1 -1;                  \
+            }                                   \
+        }                                       \
+    }
+
+#define CONTENTS_SWALLOW                                                    \
+    part {                                                                  \
+        name, "contents";                                                   \
+        type, SWALLOW;                                                      \
+        description {                                                       \
+            state, "default" 0.0;                                           \
+            rel1 { to, "header"; relative, 0.0 1.0; offset, 0 -1; }         \
+            rel2 { to, "footer-rect"; relative, 1.0 0.0; offset, -1 -1; }   \
+        }                                                                   \
+        description {                                                       \
+            state, "footerless" 0.0;                                        \
+            rel1 { to, "header"; relative, 0.0 1.0; offset, 0 -1; }         \
+            rel2 { to, "background"; relative, 1.0 1.0; offset, -1 -1; }    \
+        }                                                                   \
+    }
+
+#define FOOTER                                                              \
+    part {                                                                  \
+        name, "footer-rect";                                                \
+        type, RECT;                                                         \
+        mouse_events, 1;    \
+        description {                                                       \
+            state, "default" 0.0;                                           \
+            color, 85 85 85 255;                                                 \
+            rel1 { to, "background"; relative, 0.0 1.0; offset, 0 -51; }    \
+            rel2 { to, "background"; relative, 1.0 1.0; offset, -1 -1; }    \
+        }                                                                   \
+        description {                                                       \
+            state, "footerless" 0.0;                                        \
+            inherit, "default" 0.0;                                         \
+            visible, 0;                                                     \
+            rel1 { to, "background"; relative, 0.0 1.0; offset, 0 0; }      \
+            rel2 { to, "background"; relative, 1.0 1.0; offset, 0 0; }      \
+        }                                                                   \
+    }                                                                   \
+    part {                                                              \
+        name, "footer-line";                                                \
+        type, RECT;                                                     \
+        description { \
+            state, "default" 0.0; \
+            color, 255 255 255 255; \
+            rel1 { to, "footer-rect"; } \
+            rel2 { to, "footer-rect"; relative, 1.0 0.0; offset, -1 2; } \
+        } \
+        description { \
+            state, "footeless" 0.0; \
+            inherit, "default" 0.0; \
+            visible, 0; \
+        } \
+    }
+
+
+#define FOOTER_TEXT                             \
+    part {                                      \
+        name, "footer";                         \
+        type, TEXT;                             \
+        description {                           \
+            state, "default" 0.0;               \
+            color, 255 255 255 255;             \
+            text {                              \
+                font, sans-serif;               \
+                size, 28;                       \
+            }                                   \
+            rel1 {                              \
+                to, "footer-rect";              \
+                relative, 0.0 0.0;              \
+                offset, 0 0;                    \
+            }                                   \
+            rel2 {                              \
+                to, "footer-rect";              \
+                relative, 1.0 1.0;              \
+                offset, -1 -1;                  \
+            }                                   \
+        }                                       \
+        description {                           \
+            state, "footerless" 0.0;            \
+            color, 0 0 0 0;                     \
+            visible, 0;                         \
+        }                                       \
+    }
+
+collections {
+    group {
+        name, "main-window";
+        parts {
+            BACKGROUND(0,-1)
+            HEADER
+            part {
+                name, "title";
+                type, TEXT;
+                description {
+                    state, "default" 0.0;
+                    color, 255 255 255 255;
+                    text {
+                        font, sans-senrif;
+                        size, 28;
+                        align, 0.0 0.5;
+                    }
+                    rel1 { to, "header"; relative, 0.0 0.0; offset, 10 0; }
+                    rel2 { to, "clock"; relative, 0.0 1.0; offset, 0 0; }
+                }
+            }
+            part {
+                name, "clock";
+                type, TEXT;
+                description {
+                    state, "default" 0.0;
+                    color, 255 255 255 255;
+                    text {
+                        font, sans-serif;
+                        size, 28;
+                        align, 1.0 0.5;
+                    }
+                    rel1 { to, "header"; relative, 1.0 0.0; offset, -100 0; }
+                    rel2 { to, "header"; relative, 1.0 1.0; offset, -10 -1; }
+                }
+            }
+
+            CONTENTS_SWALLOW
+
+            FOOTER
+            FOOTER_TEXT
+
+            part {
+                name, "battery_widget";
+                type, RECT;
+                mouse_events, 0;
+                description {
+                    state, "default" 0.0;
+                    color, 0 0 0 0;
+                    rel1 { to, "footer-rect"; relative, 1.0 1.0; offset, -51 -34; }
+                    rel2 { to, "footer-rect"; relative, 1.0 1.0; offset, -17 -17; }
+                }
+                description {
+                    state, "footerless" 0.0;
+                    color, 0 0 0 0;
+                    rel1 { to, "header"; relative, 1.0 1.0; offset, -151 -34; }
+                    rel2 { to, "header"; relative, 1.0 1.0; offset, -117 -17; }
+                }
+            }
+
+            part {
+                name, "battery";
+                type, IMAGE;
+                mouse_events, 0;
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "battery_widget"; relative, 0.0 0.0; offset, 0 0; }
+                    rel2 { to, "battery_widget"; relative, 1.0 1.0; offset, 0 0; }
+                    image {
+                        normal, "icon-battery-none.png";
+                    }
+                }
+                description {
+                    state, "unknown" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-unknown.png"; }
+                }
+                description {
+                    state, "0" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-000.png"; }
+                }
+                description {
+                    state, "20" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-020.png"; }
+                }
+                description {
+                    state, "40" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-040.png"; }
+                }
+                description {
+                    state, "60" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-060.png"; }
+                }
+                description {
+                    state, "80" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-080.png"; }
+                }
+                description {
+                    state, "100" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-100.png"; }
+                }
+                description {
+                    state, "charging" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-charging.png"; }
+                }
+                description {
+                    state, "full-charge" 0.0;
+                    inherit, "default" 0.0;
+                    image { normal, "icon-battery-full-charge.png"; }
+                }
+            }
+            part {
+                name, "state-icons";
+                type, SWALLOW;
+                description {
+                    state, "default" 0.0;
+                    rel1 {
+                        to, "footer-rect"; relative, 0.0 0.0; offset, 0 0;
+                    }
+                    rel2 {
+                        to, "footer-rect"; relative, 1.0 1.0; offset, -1 -1;
+                    }
+                }
+            }
+
+            /* overlays slightly overlap due to 2-pixel wide border at the edges
+               of settings-{left,right} */
+
+            part {
+                name, "left-overlay";
+                type, SWALLOW;
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 0.0 0.0; offset, 0 0; }
+                    rel2 { relative, 0.5 1.0; offset, 0 -1; }
+                }
+            }
+            part {
+                name, "right-overlay";
+                type, SWALLOW;
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 0.5 0.0; offset, -1 0; }
+                    rel2 { relative, 1.0 1.0; offset, -1 -1; }
+                }
+            }
+        }
+
+
+
+        programs {
+            program {
+                name, "battery-unknown";
+                signal, "battery-unknown";
+                script {
+                    set_state(PART:"battery", "unknown", 0.0);
+                }
+            }
+            program {
+                name, "battery-level";
+                signal, "battery-level,*";
+                script {
+                    new level_arg[100];
+                    getsarg(0, level_arg, 100);
+                    new level_s[100];
+                    strcut(level_s, level_arg, 14, 100);
+                    new level = atoi(level_s);
+
+                    new z[100];
+                    snprintf(z, 100, "%d", level);
+
+
+                    if(level >= 100)
+                        set_state(PART:"battery", "100", 0.0);
+                    else if(level >= 75)
+                        set_state(PART:"battery", "80", 0.0);
+                    else if(level >= 50)
+                        set_state(PART:"battery", "60", 0.0);
+                    else if(level >= 25)
+                        set_state(PART:"battery", "40", 0.0);
+                    else if(level >= 5)
+                        set_state(PART:"battery", "20", 0.0);
+                    else
+                        set_state(PART:"battery", "0", 0.0);
+                }
+            }
+            program {
+                name, "battery-charging";
+                signal, "battery-charging";
+                script {
+                    set_state(PART:"battery", "charging", 0.0);
+                }
+            }
+            program {
+                name, "battery-full-charge";
+                signal, "battery-full-charge";
+                script {
+                    set_state(PART:"battery", "full-charge", 0.0);
+                }
+            }
+            program {
+                name, "footer-show";
+                signal, "footer,show";
+
+                script {
+                    set_state(PART:"footer-rect", "default", 0.0);
+                    set_state(PART:"footer", "default", 0.0);
+                    set_state(PART:"contents", "default", 0.0);
+                    set_state(PART:"battery_widget", "default", 0.0);
+                }
+            }
+            program {
+                name, "footer-hide";
+                signal, "footer,hide";
+
+                script {
+                    set_state(PART:"footer-rect", "footerless", 0.0);
+                    set_state(PART:"footer", "footerless", 0.0);
+                    set_state(PART:"contents", "footerless", 0.0);
+                    set_state(PART:"battery_widget", "footerless", 0.0);
+                }
+            }
+        }
+    }
+    group {
+        name, "settings-left";
+        parts {
+            BACKGROUND(0, -3)
+            HEADER
+            SETTINGS_TITLE_TEXT
+
+            CONTENTS_SWALLOW
+
+            FOOTER
+            FOOTER_TEXT
+
+            part {
+                name, "right-divider";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 255 255 255 255;
+                    rel1 { relative, 1.0 0.0; offset, -2 0; }
+                    rel2 { relative, 1.0 1.0; offset, -1 -1; }
+                }
+            }
+            part {
+                name, "right-divider-contents";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 162 162 162 255;
+                    rel1 { to, "contents"; relative, 1.0 0.0; offset, 0 0; }
+                    rel2 { to, "contents"; relative, 1.0 1.0; offset, 1 -1; }
+                }
+            }
+        }
+    }
+    group {
+        name, "settings-right";
+        parts {
+            BACKGROUND(2, -1)
+            HEADER
+            SETTINGS_TITLE_TEXT
+
+            CONTENTS_SWALLOW
+
+            FOOTER
+            FOOTER_TEXT
+
+            part {
+                name, "left-divider";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 255 255 255 255;
+                    rel1 { relative, 0.0 0.0; offset, 0 0; }
+                    rel2 { relative, 0.0 1.0; offset, 1 -1; }
+                }
+            }
+            part {
+                name, "left-divider-contents";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 162 162 162 255;
+                    rel1 { to, "contents"; relative, 0.0 0.0; offset, -2 0; }
+                    rel2 { to, "contents"; relative, 0.0 1.0; offset, -1 -1; }
+                }
+            }
+        }
+    }
+}
