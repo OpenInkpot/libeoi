@@ -158,12 +158,16 @@ eoi_edje_text_trim_left(Evas_Object *edje, char *part, const char *prefix,
     int width;
     bool trim = false;
 
+    edje_object_part_text_set(edje, part, "");
+    edje_object_calc_force(edje);
+
     edje_object_part_geometry_get(edje, part, NULL, NULL, &width, NULL);
     for (;;) {
         char *s = xasprintf("%s%s%s%s", prefix, trim ? "..." : "", str, suffix);
         edje_object_part_text_set(edje, part, s);
         free(s);
 
+        edje_object_calc_force(edje);
         int advance = evas_object_text_horiz_advance_get(part_obj);
 
         /* FIXME? */
@@ -196,12 +200,16 @@ eoi_edje_text_trim_right(Evas_Object *edje, char *part, const char *prefix,
     int width;
     bool trim = false;
 
+    edje_object_part_text_set(edje, part, "");
+    edje_object_calc_force(edje);
+
     edje_object_part_geometry_get(edje, part, NULL, NULL, &width, NULL);
     for (;;) {
         char *s = xasprintf("%s%s%s%s", prefix, d, trim ? "..." : "", suffix);
         edje_object_part_text_set(edje, part, s);
         free(s);
 
+        edje_object_calc_force(edje);
         int advance = evas_object_text_horiz_advance_get(part_obj);
 
         /* FIXME? */

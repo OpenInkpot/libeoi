@@ -81,6 +81,8 @@ eoi_evas_destroy_callback_del(Evas *window, void (*callback)(Evas*));
 /*
  * Sets given text etry in edje to prefix + str + suffix, probably trimming str
  * at left if text entry is too narrow
+ *
+ * NOTE: *edje must be properly resized before eoi_edje_text_trim_left() call
  */
 void
 eoi_edje_text_trim_left(Evas_Object *edje, char *part, const char *prefix,
@@ -89,6 +91,8 @@ eoi_edje_text_trim_left(Evas_Object *edje, char *part, const char *prefix,
 /*
  * Sets given text entry in edje to prefix + str + suffix, probably trimming str
  * at right if text entry is too narrow
+ *
+ * NOTE: *edje must be properly resized before eoi_edje_text_trim_right() call
  */
 void
 eoi_edje_text_trim_right(Evas_Object *edje, char *part, const char *prefix,
