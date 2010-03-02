@@ -1,3 +1,9 @@
+libeoi (0.3.5) zelazny; urgency=low
+
+  * Force edje recalculation in eoi_edje_text_trim_left()/_right()
+
+ -- Alexander V. Nikolaev <avn@daemon.hole.ru>  Tue, 02 Mar 2010 09:17:07 +0200
+
 libeoi (0.3.4) zelazny; urgency=low
 
   * background-azbooka.edj was installed in two packages which conflicted
