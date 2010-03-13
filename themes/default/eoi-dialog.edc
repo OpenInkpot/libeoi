@@ -1,0 +1,69 @@
+images {
+    image, "dialog.png" COMP;
+}
+
+styles {
+    style {
+        name, "title";
+        base, "font=DejaVu\\ Sans\\ Condensed:style=bold font_size=22 align=center color=#000 wrap=word";
+    }
+}
+
+collections {
+    group {
+        name, "dialog";
+        parts {
+            part {
+                name, "background-rect";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 0.0 0.0; offset, 0 0; }
+                    rel2 { relative, 1.0 1.0; offset, 0 0; }
+                }
+            }
+            part {
+                name, "background-image";
+                type, IMAGE;
+                description {
+                    state, "default" 0.0;
+                    min, 600 377;
+                    max, 600 377;
+                    rel1 { to, "background-rect"; }
+                    rel2 {
+                        relative, 1.0 0.0; offset, -1 377;
+                        to, "background-rect";
+                    }
+                    image { normal, "dialog.png"; }
+                }
+            }
+            part {
+                name, "title";
+                type, TEXTBLOCK;
+                description {
+                    state, "default" 0.0;
+                    text { style, "title"; }
+                    rel1 { offset, 11 40; to, "background-image"; }
+                    rel2 {
+                        relative, 1.0 0.0;
+                        offset, -12 73; to, "background-image";
+                    }
+                }
+            }
+            part {
+                name, "contents";
+                type, SWALLOW;
+                description {
+                    state, "default" 0.0;
+                    rel1 {
+                        offset, 0 100;
+                        to, "background-image";
+                    }
+                    rel2 {
+                        to, "background-image";
+                    }
+                }
+            }
+        }
+    }
+}

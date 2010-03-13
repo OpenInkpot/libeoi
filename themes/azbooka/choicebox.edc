@@ -30,162 +30,17 @@ images {
 styles {
     style {
         name, "titles";
-        base, "font=sans-serif font_size=24 color=#000 align=left valign=top wrap=word";
-        tag, "inactive" "+color=#888";
-        tag, "/inactive" "-";
-    };
-    style {
-        name, "values";
-        base, "font=sans-serif font_size=20 color=#000 align=right valign=bottom";
-        tag, "inactive" "+color=#888";
-        tag, "/inactive" "-";
-    }
-
-    style {
-        name, "item-texts";
-        base, "font=sans-serif font_size=28 color=#000 align=left valign=middle";
+        base, "font=DejaVu\\ Sans:style=Condensed\\ Bold font_size=22 color=#000 align=left valign=top wrap=word";
         tag, "inactive" "+color=#888";
         tag, "/inactive" "-";
     }
 }
 
-#define MIN_HEIGHT_HACK                            \
-    data {                                         \
-       /* HACK: until edje fetches size_hints */   \
-      item, "min_height" 76;                       \
-      item, "margin_left" 39;                      \
-      item, "margin_right" 7;                      \
-      item, "margin_top" 0;                        \
-      item, "margin_bottom" 0;                     \
-   }
-
-#define BACKGROUND_IMG(LEFT_OFFSET, RIGHT_OFFSET, LEFT_HINT_OFFSET, RIGHT_HINT_OFFSET, RIGHT_HINT_REL) \
-         part { \
-            name, "background-img"; \
-            type, IMAGE; \
-            clip_to, "clipper"; \
-            description { \
-               state, "default" 0.0; \
-               rel1 { relative, 0.0 0.0; offset, LEFT_OFFSET 0; } \
-               rel2 { relative, 1.0 1.0; offset, RIGHT_OFFSET -1; } \
-               image { normal, "grid1-body.png"; } \
-               fill { \
-                  size { relative, 0.0 0.0; offset, 600 78; } \
-               } \
-            } \
-            description { \
-               state, "alternate" 0.0; \
-               inherit, "default" 0.0; \
-               image { normal, "grid2-body.png"; } \
-            } \
-         } \
-         part { \
-            name, "hint-background-img"; \
-            type, IMAGE; \
-            clip_to, "clipper"; \
-            description { \
-               state, "default" 0.0; \
-               rel1 { relative, RIGHT_HINT_REL 0.0; offset, LEFT_HINT_OFFSET 0; } \
-               rel2 { relative, RIGHT_HINT_REL 1.0; offset, RIGHT_HINT_OFFSET -1; } \
-               image { normal, "grid2-body.png"; } \
-            } \
-            description { \
-               state, "alternate" 0.0; \
-               inherit, "default" 0.0; \
-               image { normal, "grid1-body.png"; } \
-               fill { \
-                  size { relative, 0.0 0.0; offset, 600 78; } \
-               } \
-            } \
-            description { \
-               state, "disabled" 0.0; \
-               visible, 0; \
-            } \
-         } \
-
-#define RIGHT_ITEM \
-      parts { \
-         CLIPPER \
-         part { \
-            name, "left-side"; \
-            type, RECT; \
-            mouse_events, 0; \
-            clip_to, "clipper"; \
-            description { \
-               state, "default" 0.0; \
-               color, 238 238 238 255; \
-               rel1 { relative, 0.0 0.0; offset, 0 0; } \
-               rel2 { relative, 0.0 1.0; offset, 0 -1; } \
-            } \
-            description { \
-               state, "alternate" 0.0; \
-            } \
-         } \
-         part { \
-            name, "right-side"; \
-            type, IMAGE; \
-            mouse_events, 0; \
-            clip_to, "clipper"; \
-            description { \
-               state, "default" 0.0; \
-               rel1 { relative, 1.0 0.0; offset, -15 0; } \
-               rel2 { relative, 1.0 1.0; offset, -1 -1; } \
-               image { \
-                  normal, "grid1-side-right.png"; \
-               } \
-               fill { \
-                  size { \
-                     relative, 0.0 0.0; \
-                     offset, 15 78; \
-                  } \
-               } \
-            } \
-            description { \
-               state, "alternate" 0.0; \
-               inherit, "default" 0.0; \
-               image { \
-                  normal, "grid2-side-right.png"; \
-               } \
-            } \
-         } \
-         BACKGROUND_IMG(1, -15, -72, -15, 1.0)                              \
-         NUMBERS(1.0, -68, 1.0, -19) \
-         SELECTION_PARTS(0, -15) \
-         CONTENTS_SWALLOW(1, 1, -16, -75)                               \
-      } \
-      MIN_HEIGHT_HACK
-
-#define NUMBERS(LEFT_ALIGN, LEFT_OFFSET, RIGHT_ALIGN, RIGHT_OFFSET)      \
-    part { \
-        name, "number"; \
-        type, TEXT; \
-        clip_to, "clipper"; \
-        description { \
-            state, "default" 0.0; \
-            color, 128 128 128 255; \
-            rel1 { \
-                relative, LEFT_ALIGN 0.0; \
-                offset, LEFT_OFFSET 0; \
-            } \
-            rel2 { \
-                relative, RIGHT_ALIGN 1.0; \
-                offset, RIGHT_OFFSET -5; \
-            } \
-            text { \
-                font, "sans-serif:bold";         \
-                size, 78; \
-            } \
-        } \
-        description { \
-            state, "hidden" 0.0; \
-            inherit, "default" 0.0; \
-            color, 0 0 0 0; \
-        } \
-    }
-
 collections {
    group {
       name, "full-background";
+      alias, "settings-left-background";
+
       parts {
          part {
             name, "background";
@@ -236,6 +91,7 @@ collections {
    }
    group {
       name, "full";
+      alias, "settings-left";
       parts {
          part {
             name, "clipper";
@@ -294,8 +150,13 @@ collections {
              }
          }
       }
-      MIN_HEIGHT_HACK
-
+      data {
+          item, "min_height" 76; /* HACK: until edje fetches size_hints */
+          item, "margin_left" 39;
+          item, "margin_right" 7;
+          item, "margin_top" 0;
+          item, "margin_bottom" 0;
+      }
       programs {
           program {
               name, "select";
@@ -329,6 +190,8 @@ collections {
    }
    group {
        name, "full-filler";
+       alias, "settings-left-filler";
+       alias, "settings-right-filler";
        parts {
           part {
              name, "filler";
@@ -366,6 +229,42 @@ collections {
                }
                align, 0 0.5;
                rel1 { relative, 0.0 0.0; offset, 3 0; }
+               rel2 { relative, 1.0 1.0; offset, -4 -1; }
+            }
+         }
+      }
+   }
+
+   group {
+      name, "item-settings";
+      parts {
+         part {
+            name, "title";
+            type, TEXTBLOCK;
+            multiline, 1;
+            description {
+               state, "default" 0.0;
+               text {
+                  style, "titles";
+                  min, 0 1;
+               }
+               align, 0.0 0.0;
+               rel1 { relative, 0.0 0.0; offset, 3 0; }
+               rel2 { relative, 1.0 0.0; offset, -4 0; }
+            }
+         }
+         part {
+            name, "value";
+            type, TEXTBLOCK;
+            multiline, 1;
+            description {
+               state, "default" 0.0;
+               text {
+                  style, "values";
+                  min, 0 1;
+               }
+               align, 1.0 1.0;
+               rel1 { relative, 0.0 1.0; offset, 3 -1; }
                rel2 { relative, 1.0 1.0; offset, -4 -1; }
             }
          }

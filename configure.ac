@@ -12,4 +12,4 @@ PKG_CHECK_MODULES(EFREET, [efreet])
 PKG_CHECK_MODULES(ECORE_EVAS, [ecore-evas])
 PKG_CHECK_MODULES(LIBKEYS, [libkeys])
 
-AC_OUTPUT([Makefile src/Makefile data/Makefile themes/Makefile themes/azbooka/Makefile libeoi.pc libchoicebox.pc])
+AC_OUTPUT([Makefile src/Makefile data/Makefile themes/Makefile themes/azbooka/Makefile themes/default/Makefile libeoi.pc libchoicebox.pc])
