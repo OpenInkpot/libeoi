@@ -10,9 +10,9 @@ noinst_PROGRAMS = eoi_test
 
 AM_CFLAGS = --std=gnu99 -Wall -DDATADIR='"$(datadir)"' -DSYSCONFDIR='"$(sysconfdir)"'
 
-INCLUDES = @EFL_CFLAGS@ @LIBKEYS_CFLAGS@ @ECORE_EVAS_CFLAGS@ @EFREET_CFLAGS@
+INCLUDES = @EFL_CFLAGS@ @LIBKEYS_CFLAGS@ @ECORE_EVAS_CFLAGS@ @EFREET_CFLAGS@ @ECORE_X_CFLAGS@ @ECORE_CFLAGS@
 libeoi_la_LDFLAGS = -no-undefined -version-info 4:0:1 -Wl,--as-needed
-libeoi_la_LIBADD = @EFL_LIBS@ @LIBKEYS_LIBS@ @EFREET_LIBS@
+libeoi_la_LIBADD = @EFL_LIBS@ @LIBKEYS_LIBS@ @EFREET_LIBS@ @ECORE_EVAS_LIBS@ @ECORE_X_LIBS@ @ECORE_LIBS@
 
 eoi_test_SOURCES = eoi_test.c
 eoi_test_LDFLAGS = @EFL_LIBS@ @ECORE_EVAS_LIBS@ libeoi.la
