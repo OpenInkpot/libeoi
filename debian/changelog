@@ -1,3 +1,10 @@
+libeoi (0.3.5) zelazny; urgency=low
+
+  * Added separate Azbooka theme
+  * Added support for "margins" in choicebox (OI#466)
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sat, 13 Mar 2010 06:06:58 +0600
+
 libeoi (0.3.4) zelazny; urgency=low
 
   * background-azbooka.edj was installed in two packages which conflicted
