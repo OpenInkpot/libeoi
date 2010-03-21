@@ -1,0 +1,116 @@
+images {
+    image, "dialog.png" COMP;
+}
+
+styles {
+    style {
+        name, "title";
+        base, "font=DejaVu\\ Sans\\ Condensed:style=bold font_size=22 align=center color=#555 wrap=word";
+    }
+    style {
+        name, "text";
+        base, "font=DejaVu\\ Sans\\ Condensed font_size=22 align=center color=#000 wrap=word";
+        tag, "b" "+font=DejaVu\\ Sans\\ Condensed:style=bold";
+        tag, "/b" "-";
+        tag, "br" "\n";
+    }
+}
+
+collections {
+    group {
+        name, "dialog";
+
+        images {
+            image, "ornament-left.png" COMP;
+            image, "ornament-right.png" COMP;
+            image, "dialog-decoration.png" COMP;
+        }
+
+        parts {
+            part {
+                name, "background-rect";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 204 204 204 255;
+                }
+            }
+            part {
+                name, "header-up";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 78 78 78 255;
+                    rel2 { relative, 1.0 0.0; offset, -1 14; }
+                }
+            }
+            part {
+                name, "header-line";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 255 255 255 255;
+                    rel1 { offset, 0 15; }
+                    rel2 { relative, 1.0 0.0; offset, -1 16; }
+                }
+            }
+            part {
+                name, "decoration";
+                description {
+                    state, "default" 0.0;
+                    rel1 { offset, 0 61; }
+                    rel2 { relative, 1.0 0.0; offset, -1 88; }
+                    image { normal, "dialog-decoration.png"; }
+                    fill { size { relative, 0 0; offset, 20 29; } }
+                }
+            }
+            part {
+                name, "ornament-left";
+                description {
+                    state, "default" 0.0;
+                    rel1 { offset, 14 106; }
+                    rel2 { relative, 0.0 0.0; offset, 135 794; }
+                    image { normal, "ornament-left.png"; }
+                }
+            }
+            part {
+                name, "ornament-right";
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 1.0 0.0; offset, -136 106; }
+                    rel2 { relative, 1.0 0.0; offset, -15 794; }
+                    image { normal, "ornament-right.png"; }
+                }
+            }
+            part {
+                name, "title";
+                type, TEXTBLOCK;
+                description {
+                    state, "title" 0.0;
+                    text { style, "title"; }
+                    rel1 { offset, 0 24; }
+                    rel2 { relative, 1.0 0.0; offset, -1 55; }
+                }
+            }
+            part {
+                name, "icon";
+                type, SWALLOW;
+                description {
+                    state, "default" 0.0;
+                    max, 220 220;
+                    min, 220 220;
+                    rel1 { offset, 0 230; }
+                    rel2 { relative, 1.0 1.0; offset, -1 -351; }
+                }
+            }
+            part {
+                name, "contents";
+                type, SWALLOW;
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 0 1.0; offset, 0 -280; }
+                }
+            }
+        }
+    }
+}
