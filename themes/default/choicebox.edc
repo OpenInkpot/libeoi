@@ -613,7 +613,6 @@ collections {
             type, TEXTBLOCK;
             description {
                state, "default" 0.0;
-               color, 0 0 0 255;
                text {
                   style, "item-texts";
                   max, 0 1;

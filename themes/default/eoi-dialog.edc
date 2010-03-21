@@ -29,11 +29,8 @@ collections {
                     state, "default" 0.0;
                     min, 600 377;
                     max, 600 377;
-                    rel1 { to, "background-rect"; }
-                    rel2 {
-                        relative, 1.0 0.0; offset, -1 377;
-                        to, "background-rect";
-                    }
+                    rel1 { to, "background-rect"; relative, 0.0 1.0; offset, 0 -378; }
+                    rel2 { to, "background-rect"; }
                     image { normal, "dialog.png"; }
                 }
             }
