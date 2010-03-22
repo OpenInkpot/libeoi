@@ -1,3 +1,9 @@
+libeoi (0.3.8) zelazny; urgency=low
+
+  * Fixed Azbooka skin: added linewrap for half-screen menus
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 22 Mar 2010 06:25:46 +0600
+
 libeoi (0.3.7) zelazny; urgency=low
 
   * New Azbooka skin implemented
