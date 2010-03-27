@@ -45,11 +45,6 @@ install: build
 	  cp $(CURDIR)/debian/choicebox-$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys/choicebox.ini; \
 	  cp $(CURDIR)/debian/evk.$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys/evk.ini; \
 	done
-	for i in azbooka; do \
-	  mkdir -p $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys; \
-	  cp $(CURDIR)/debian/evk.$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys/evk.ini; \
-	done
-
 
 binary-indep:
 
