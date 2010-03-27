@@ -219,7 +219,7 @@ key_handler(void *data, Evas *evas UNUSED, Evas_Object *obj UNUSED,
         if (!strcmp(action, "BackSpace")
                 || !strcmp(action, "Return")
                 || !strcmp(action, "Escape")) {
-            (info->input_callback) (event->keyname, strlen(event->keyname),
+            (info->input_callback) (action, strlen(action),
                     info->data);
             return;
         }
