@@ -18,6 +18,10 @@
  * Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifndef MIN_HEIGHT_VALUE
+#define MIN_HEIGHT_VALUE 78
+#endif
+
 images {
     image, "grid1-side-right.png" COMP;
     image, "grid1-body.png" COMP;
@@ -70,7 +74,7 @@ styles {
 #define MIN_HEIGHT_HACK                            \
    data {                                          \
       /* HACK: until edje fetches size_hints */    \
-      item, "min_height" 78;                       \
+      item, "min_height" MIN_HEIGHT_VALUE;         \
       item, "margin_left" 0;                       \
       item, "margin_right" 0;                      \
       item, "margin_top" 0;                        \

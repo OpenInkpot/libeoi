@@ -21,6 +21,7 @@ Description: OpenInkpot-specific extensions for EFL libraries
    - "frame" window
    - "help" widget
    - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
 
 Package: libeoi-dev
 Priority: optional
@@ -34,6 +35,7 @@ Description: OpenInkpot-specific extensions for EFL libraries -- development fil
    - "frame" window
    - "help" widget
    - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
  .
  This package contains header files and symlinks necessary to link with library.
 
@@ -49,6 +51,7 @@ Description: OpenInkpot-specific extensions for EFL libraries -- debugging symbo
    - "frame" window
    - "help" widget
    - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
  .
  This package contains debugging symbols for shared library
 
@@ -63,6 +66,7 @@ Description: OpenInkpot-specific extensions for EFL libraries -- Hanvon N516 sup
    - "frame" window
    - "help" widget
    - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
  .
  This package contains settings required for normal operation on Hanvon N516.
 
@@ -78,6 +82,7 @@ Description: OpenInkpot-specific extensions for EFL libraries -- Hanlin V3 suppo
    - "frame" window
    - "help" widget
    - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
  .
  This package contains settings required for normal operation on Hanlin V3.
 
@@ -93,5 +98,6 @@ Description: OpenInkpot-specific extensions for EFL libraries -- Azbooka support
    - "frame" window
    - "help" widget
    - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
  .
  This package contains settings required for normal operation on Azbooka.

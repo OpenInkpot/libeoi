@@ -18,6 +18,10 @@
  * Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifndef MIN_HEIGHT_VALUE
+#define MIN_HEIGHT_VALUE 76
+#endif
+
 images {
     image, "marker.png" COMP;
     image, "filler.png" COMP;
@@ -149,7 +153,7 @@ collections {
          }
       }
       data {
-          item, "min_height" 76; /* HACK: until edje fetches size_hints */
+          item, "min_height" MIN_HEIGHT_VALUE; /* HACK: until edje fetches size_hints */
           item, "margin_left" 39;
           item, "margin_right" 7;
           item, "margin_top" 0;
@@ -237,7 +241,7 @@ collections {
          }
       }
       data {
-          item, "min_height" 76; /* HACK: until edje fetches size_hints */
+          item, "min_height" MIN_HEIGHT_VALUE; /* HACK: until edje fetches size_hints */
           item, "margin_left" 39;
           item, "margin_right" 7;
           item, "margin_top" 0;
@@ -324,7 +328,7 @@ collections {
             }
         }
         data {
-            item, "min_height" 76; /* HACK: until edje fetches size_hints */
+            item, "min_height" MIN_HEIGHT_VALUE; /* HACK: until edje fetches size_hints */
             item, "margin_left" 7;
             item, "margin_right" 39;
             item, "margin_top" 0;
