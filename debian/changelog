@@ -1,3 +1,9 @@
+libeoi (0.3.9) zelazny; urgency=low
+
+  * Add text entry widget with virtual keyboard
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Sat, 27 Mar 2010 14:54:28 +0100
+
 libeoi (0.3.8) zelazny; urgency=low
 
   * Fixed Azbooka skin: added linewrap for half-screen menus
