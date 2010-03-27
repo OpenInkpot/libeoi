@@ -31,7 +31,7 @@ collections {
 					state, "default" 0.0;
 					color, 255 255 255 255;
 					rel1 { relative, 0.0 0.0; offset, 10 0; }
-					rel2 { relative, 1.0 0.5; offset, 10 0; }
+					rel2 { relative, 1.0 0.5; offset, -10 0; }
 					text {
 						style, "textblock_style";
 						max, 0 1;
@@ -49,7 +49,7 @@ collections {
 					state, "default" 0.0;
 					color, 255 255 255 255;
 					rel1 { relative, 0.0 0.5; offset, 10 0; }
-					rel2 { relative, 1.0 1.0; offset, 10 0; }
+					rel2 { relative, 1.0 1.0; offset, -10 0; }
 					text {
 						style, "textblock_style";
 						max, 0 1;
