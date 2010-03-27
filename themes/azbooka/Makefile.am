@@ -8,6 +8,6 @@ theme_DATA=$(COMPILED_THEMES)
 	edje_cc -id .. $< $@
 
 choicebox_vk.edj: choicebox.edc
-	edje_cc -DMIN_HEIGHT_VALUE=55 -id .. $< $@
+	edje_cc -DMIN_HEIGHT_VALUE=53 -id .. $< $@
 
 CLEANFILES=$(COMPILED_THEMES)
