@@ -483,6 +483,8 @@ collections {
                    style {
                        name, "value";
                        base, "font=DejaVu\\ Sans\\ Condensed font_size=18 color=#000 align=right";
+                       tag, "inactive" "+color=#888";
+                       tag, "/inactive" "-";
                    }
                }
                description {
