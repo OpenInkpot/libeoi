@@ -92,6 +92,7 @@ hide_last_line(const Evas_Object * obj)
                              parent_y + y - cur_y);
             evas_object_resize(info->mask, w, h);
             evas_object_show(info->mask);
+            evas_object_raise(info->mask);
 
             return;
         }
@@ -151,10 +152,14 @@ eoi_textbox_new(Evas * canvas,
     evas_object_clip_set(t, edje);
     evas_object_intercept_resize_callback_add(t,
                                               textblock_resize_cb, NULL);
+    Evas_Object *bg =
+        (Evas_Object *) edje_object_part_object_get(edje, "bg");
 
     Evas_Object *mask = evas_object_rectangle_add(canvas);
     evas_object_name_set(mask, "mask");
-    evas_object_color_set(mask, 255, 255, 255, 255);
+    int r, g, b, a;
+    evas_object_color_get(bg, &r, &g, &b, &a);
+    evas_object_color_set(mask, r, g, b, a);
     evas_object_clip_set(mask, edje);
 
     eoi_textblock_info_t *info =
