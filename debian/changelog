@@ -1,3 +1,9 @@
+libeoi (0.3.13) zelazny; urgency=low
+
+  * eoi_textbox: fix hiding last line
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Mon, 29 Mar 2010 01:10:38 +0200
+
 libeoi (0.3.12) zelazny; urgency=low
 
   * Fix entry theme
