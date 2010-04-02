@@ -1,3 +1,10 @@
+libeoi (0.3.15) zelazny; urgency=low
+
+  * Azbooka: add separate 'item-settings-fullscreen' group and re-align
+    'item-settings' text
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sat, 03 Apr 2010 03:18:10 +0700
+
 libeoi (0.3.14) zelazny; urgency=low
 
   * Add inactive tag to 'settings-left' style.

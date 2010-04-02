@@ -38,6 +38,19 @@ styles {
         tag, "inactive" "+color=#888";
         tag, "/inactive" "-";
     }
+
+    style {
+        name, "item-settings-title";
+        base, "font=DejaVu\\ Sans\\ Condensed:style=bold font_size=22 color=#000 align=left wrap=word";
+        tag, "inactive" "+color=#888";
+            tag, "/inactive" "-";
+    }
+    style {
+        name, "item-settings-value";
+        base, "font=DejaVu\\ Sans\\ Condensed font_size=18 color=#000 align=right";
+        tag, "inactive" "+color=#888";
+        tag, "/inactive" "-";
+    }
 }
 
 collections {
@@ -457,15 +470,7 @@ collections {
    }
 
    group {
-       name, "item-settings";
-       styles {
-           style {
-               name, "title";
-               base, "font=DejaVu\\ Sans\\ Condensed:style=bold font_size=22 color=#000 align=left wrap=word";
-               tag, "inactive" "+color=#555";
-               tag, "/inactive" "-";
-           }
-       }
+       name, "item-settings-fullscreen";
        parts {
            /* Big text in the center of item */
            part {
@@ -474,7 +479,7 @@ collections {
                multiline, 1;
                description {
                    state, "default" 0.0;
-                   text { style, "title"; max, 0 1; }
+                   text { style, "item-settings-title"; max, 0 1; }
                }
            }
            /* Smallish text at the bottom right */
@@ -482,16 +487,38 @@ collections {
                name, "value";
                type, TEXTBLOCK;
                styles {
-                   style {
-                       name, "value";
-                       base, "font=DejaVu\\ Sans\\ Condensed font_size=18 color=#000 align=right";
-                       tag, "inactive" "+color=#888";
-                       tag, "/inactive" "-";
-                   }
                }
                description {
                    state, "default" 0.0;
-                    text { style, "value"; }
+                    text { style, "item-settings-value"; }
+                    rel1 { offset, 0 49; }
+               }
+           }
+       }
+   }
+   group {
+       name, "item-settings";
+       parts {
+           /* Big text in the center of item */
+           part {
+               name, "title";
+               type, TEXTBLOCK;
+               multiline, 1;
+               description {
+                   state, "default" 0.0;
+                   text { style, "item-settings-title"; }
+                   rel1 { offset, 0 2; }
+               }
+           }
+           /* Smallish text at the bottom right */
+           part {
+               name, "value";
+               type, TEXTBLOCK;
+               styles {
+               }
+               description {
+                   state, "default" 0.0;
+                    text { style, "item-settings-value"; }
                     rel1 { offset, 0 49; }
                }
            }
