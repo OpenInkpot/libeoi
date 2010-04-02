@@ -60,6 +60,8 @@ eoi_create_themed_edje(Evas *canvas, const char *edje, const char *group)
 
     if (!edje_loaded) {
         evas_object_del(o);
+        fprintf(stderr, "libeoi: Can't load theme '%s' (group '%s')\n",
+                edje, group);
         o = NULL;
     }
 
