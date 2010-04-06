@@ -23,3 +23,5 @@ stamp-h1
 *.lo
 *.la
 src/eoi_test
+*-stamp
+
