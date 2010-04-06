@@ -164,6 +164,16 @@ _choicebox_update(Evas_Object * o, const choicebox_state_t * new)
     choicebox_state_t old = data->st;
     data->st = *new;
 
+    if (old.need_hints != new->need_hints) {
+        edje_object_signal_emit(data->background,
+                                new->need_hints ? "hinted" : "non-hinted", "");
+        for(int i = 0; i < new->pagesize - 1; ++i) {
+            Evas_Object *filler = eina_array_data_get(data->fillers, i);
+            edje_object_signal_emit(filler,
+                                    new->need_hints ? "hinted": "non-hinted", "");
+        }
+    }
+
     int i;
     for (i = 0; i < new->pagesize; ++i) {
         _choicebox_item_info_t old_i = _choicebox_calc_item_info(i, &old);
@@ -294,6 +304,9 @@ _choicebox_display(Evas_Object * o, int ox, int oy, int ow, int oh)
                 evas_object_clip_set(filler, data->clipper);
 
                 eina_array_push(data->fillers, filler);
+
+                edje_object_signal_emit(filler, data->st.need_hints
+                                        ? "hinted" : "non-hinted", "");
             }
         }
     }

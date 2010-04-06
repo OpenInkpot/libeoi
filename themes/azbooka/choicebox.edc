@@ -67,10 +67,26 @@ collections {
             }
          }
          part {
+             name, "left-side";
+             type, RECT;
+             description {
+                 state, "default" 0.0;
+                 color, 0 0 0 0;
+                 rel2 { relative, 0.0 1.0; offset, -1 -1; }
+             }
+             description {
+                 state, "hinted" 0.0;
+                 inherit, "default" 0.0;
+                 rel2 { relative, 0.0 1.0; offset, 48 -1; }
+             }
+         }
+
+         part {
             name, "left-border";
             description {
                state, "default" 0.0;
-               rel2 { relative, 0.0 1.0; offset, 39 0; }
+               rel1 { to, "left-side"; relative, 1.0 0.0; }
+               rel2 { to, "left-side"; relative, 1.0 1.0; offset, 39 0; }
                image { normal, "full-left-border.png"; }
                fill {
                   size {
@@ -84,8 +100,8 @@ collections {
             name, "decoration";
             description {
                state, "default" 0.0;
-               rel1 { offset, 11 9; }
-               rel2 { relative, 0.0 1.0; offset, 33 -1; }
+               rel1 { to, "left-side"; relative, 1.0 0.0; offset, 11 9; }
+               rel2 { to, "left-side"; relative, 1.0 1.0; offset, 33 -1; }
                image { normal, "decoration.png"; }
                fill {
                   size { relative, 0.0 0.0; offset, 23 16; }
@@ -103,6 +119,22 @@ collections {
                }
             }
          }
+      }
+      programs {
+          program {
+              name, "non-hinted";
+              signal, "non-hinted";
+              script {
+                  set_state(PART:"left-side", "default", 0.0);
+              }
+          }
+          program {
+              name, "hinted";
+              signal, "hinted";
+              script {
+                  set_state(PART:"left-side", "hinted", 0.0);
+              }
+          }
       }
    }
    group {
@@ -138,9 +170,15 @@ collections {
              clip_to, "sel-clipper";
              description {
                  state, "default" 0.0;
-                 rel1 { offset, 0 3; }
-                 rel2 { relative, 0.0 1.0; offset, 10 -4; }
+                 rel1 { offset, 39 3; }
+                 rel2 { relative, 0.0 1.0; offset, 49 -4; }
                  image { normal, "marker.png"; }
+             }
+             description {
+                 state, "numbered" 0.0;
+                 inherit, "default" 0.0;
+                 rel1 { offset, 88 3; }
+                 rel2 { relative, 0.0 1.0; offset, 98 -4; }
              }
          }
          part {
@@ -160,24 +198,115 @@ collections {
              clip_to, "clipper";
              description {
                  state, "default" 0.0;
-                 rel1 { offset, 16 0; }
+                 rel1 { offset, 55 0; }
                  rel2 { offset, -24 -1; }
+             }
+             description {
+                 state, "numbered" 0.0;
+                 rel1 { offset, 104 0; }
+                 rel2 { offset, -24 -1; }
+             }
+         }
+         part {
+             name, "marks";
+             images {
+                 image, "1.png" COMP;
+                 image, "2.png" COMP;
+                 image, "3.png" COMP;
+                 image, "4.png" COMP;
+                 image, "5.png" COMP;
+                 image, "6.png" COMP;
+                 image, "7.png" COMP;
+                 image, "8.png" COMP;
+                 image, "9.png" COMP;
+                 image, "none.png" COMP;
+             }
+             clip_to, "clipper";
+             description {
+                 state, "default" 0.0;
+                 rel1 { offset, 15 20; }
+                 rel2 { relative, 0.0 0.0; offset, 50 55; }
+                 image { normal, "none.png"; }
+             }
+             description {
+                 state, "0,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "1.png"; }
+             }
+             description {
+                 state, "1,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "2.png"; }
+             }
+             description {
+                 state, "2,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "3.png"; }
+             }
+             description {
+                 state, "3,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "4.png"; }
+             }
+             description {
+                 state, "4,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "5.png"; }
+             }
+             description {
+                 state, "5,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "6.png"; }
+             }
+             description {
+                 state, "6,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "7.png"; }
+             }
+             description {
+                 state, "7,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "8.png"; }
+             }
+             description {
+                 state, "8,hinted" 0.0;
+                 inherit, "default" 0.0;
+                 image { normal, "9.png"; }
              }
          }
       }
       data {
           item, "min_height" MIN_HEIGHT_VALUE; /* HACK: until edje fetches size_hints */
-          item, "margin_left" 39;
+          item, "margin_left" 0;
           item, "margin_right" 7;
           item, "margin_top" 0;
           item, "margin_bottom" 0;
       }
       programs {
           program {
-              name, "select";
-              signal, "select";
+              name, "set_number";
+              signal, "set_number,*";
               script {
-                  set_state(PART:"sel-clipper", "enabled", 0.0);
+                  new number_arg[100];
+                  getsarg(0, number_arg, 100);
+                  new number_s[100];
+                  strcut(number_s, number_arg, 11, 100);
+
+                  getsarg(0, number_arg, 100);
+                  new is_hinted_s[100];
+                  strcut(is_hinted_s, number_arg, 13, 100);
+
+                  if (!strcmp(is_hinted_s, "hinted")) {
+                      set_state(PART:"marks", number_s, 0.0);
+                      set_state(PART:"sel-left", "numbered", 0.0);
+                      set_state(PART:"contents", "numbered", 0.0);
+                  } else {
+                      set_state(PART:"marks", "default", 0.0);
+                      set_state(PART:"sel-left", "default", 0.0);
+                      set_state(PART:"contents", "default", 0.0);
+                  }
+
+                  set_state(PART:"clipper", "enabled", 0.0);
               }
           }
           program {
@@ -188,10 +317,10 @@ collections {
               }
           }
           program {
-             name, "set_number";
-             signal, "set_number,*";
+             name, "select";
+             signal, "select";
              script {
-                set_state(PART:"clipper", "enabled", 0.0);
+                set_state(PART:"sel-clipper", "enabled", 0.0);
              }
           }
           program {
@@ -386,7 +515,7 @@ collections {
                 name, "filler";
                 description {
                     state, "default" 0.0;
-                    rel1 { offset, 12 0; }
+                    rel1 { offset, 51 0; }
                     rel2 { offset, -19 -1; }
                     image { normal, "filler.png"; }
                     fill {
@@ -396,10 +525,31 @@ collections {
                         }
                     }
                 }
+                description {
+                    state, "hinted" 0.0;
+                    inherit, "default" 0.0;
+                    rel1 { offset, 100 0; }
+                }
             }
         }
         data {
             item, "height" 2;
+        }
+        programs {
+            program {
+                name, "non-hinted";
+                signal, "non-hinted";
+                script {
+                    set_state(PART:"filler", "default", 0.0);
+                }
+            }
+            program {
+                name, "hinted";
+                signal, "hinted";
+                script {
+                    set_state(PART:"filler", "hinted", 0.0);
+                }
+            }
         }
     }
 
