@@ -464,151 +464,6 @@ collections {
             }
             SETTINGS_TITLE_TEXT
 
-            /* Main part */
-            part {
-                name, "bg";
-                type, RECT;
-                description {
-                    state, "default" 0.0;
-                    color, 255 255 255 255;
-                    rel1 {
-                        to, "background";
-                        offset, 40 64;
-                    }
-                    rel2 {
-                        to, "background";
-                        offset, -15 -65;
-                    }
-                }
-            }
-
-            part {
-                name, "left-top";
-                images { image, "left-overlay-left-top.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; offset, 0 50; }
-                    rel2 { to, "background"; relative, 0.0 0.0; offset, 39 63; }
-                    image { normal, "left-overlay-left-top.png"; }
-                }
-            }
-
-            part {
-                name, "left-bottom";
-                images { image, "left-overlay-left-bottom.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; relative, 0.0 1.0; offset, 0 -64; }
-                    rel2 { to, "background"; relative, 0.0 1.0; offset, 39 -51; }
-                    image { normal, "left-overlay-left-bottom.png"; }
-                }
-            }
-
-            part {
-                name, "right-top";
-                images { image, "left-overlay-right-top.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; relative, 1.0 0.0; offset, -14 50; }
-                    rel2 { to, "background"; relative, 1.0 0.0; offset, -1 63; }
-                    image { normal, "left-overlay-right-top.png"; }
-                }
-            }
-
-            part {
-                name, "right-bottom";
-                images {
-                    image, "left-overlay-right-bottom.png" COMP;
-                }
-                description {
-                    state, "default" 0.0;
-                    rel1 {
-                        to, "background";
-                        relative, 1.0 1.0;
-                        offset, -14 -64;
-                    }
-                    rel2 {
-                        to, "background";
-                        relative, 1.0 1.0;
-                        offset, -1 -51;
-                    }
-                    image { normal, "left-overlay-right-bottom.png"; }
-                }
-            }
-
-            part {
-                name, "left";
-                images { image, "left-overlay-left.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; offset, 0 64; }
-                    rel2 { relative, 0.0 1.0; offset, 39 -65; }
-                    image { normal, "left-overlay-left.png"; }
-                    fill { size { relative, 0.0 0.0; offset, 40 16; } }
-                }
-            }
-            part {
-                name, "top";
-                images { image, "left-overlay-top.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 {
-                        to, "background";
-                        offset, 40 50;
-                    }
-                    rel2 {
-                        to, "background";
-                        relative, 1.0 0.0;
-                        offset, -14 63;
-                    }
-                    image {
-                        normal, "left-overlay-top.png";
-                    }
-                }
-            }
-            part {
-                name, "right";
-                images {
-                    image, "left-overlay-right.png" COMP;
-                }
-                description {
-                    state, "default" 0.0;
-                    rel1 {
-                        to, "background";
-                        relative, 1.0 0.0;
-                        offset, -14 64;
-                    }
-                    rel2 {
-                        to, "background";
-                        offset, -1 -65;
-                    }
-                    image {
-                        normal, "left-overlay-right.png";
-                    }
-                }
-            }
-            part {
-                name, "bottom";
-                images {
-                    image, "left-overlay-bottom.png" COMP;
-                }
-                description {
-                    state, "default" 0.0;
-                    rel1 {
-                        to, "background";
-                        relative, 0.0 1.0;
-                        offset, 40 -64;
-                    }
-                    rel2 {
-                        to, "background";
-                        offset, -15 -51;
-                    }
-                    image {
-                        normal, "left-overlay-bottom.png";
-                    }
-                }
-            }
-
             CONTENTS_SWALLOW;
 
             /* Footer */
@@ -618,7 +473,7 @@ collections {
                 description {
                     state, "default" 0.0;
                     color, 0 0 0 0;
-                    rel1 { to, "background"; relative, 0.0 1.0; offset, 0 -49; }
+                    rel1 { to, "background"; relative, 0.0 1.0; offset, 0 -50; }
                     rel2 { to, "background"; }
                 }
             }
@@ -629,7 +484,7 @@ collections {
                     state, "default" 0.0;
                     max, 8 49;
                     min, 8 49;
-                    rel1 { to, "footer-rect"; relative, 1.0 0.0; offset, -8 0; }
+                    rel1 { to, "footer-rect"; relative, 1.0 0.0; offset, -8 1; }
                     rel2 { to, "footer-rect"; offset, -1 -1; }
                     image { normal, "popup-header-right.png"; }
                 }
@@ -640,7 +495,7 @@ collections {
                 description {
                     state, "default" 0.0;
                     color, 119 119 119 255;
-                    rel1 { to, "footer-rect"; }
+                    rel1 { to, "footer-rect"; offset, 0 1; }
                     rel2 { to, "footer-rect"; offset, -8 -1; }
                 }
             }
@@ -695,110 +550,6 @@ collections {
             }
             SETTINGS_TITLE_TEXT
 
-            /* Main part */
-            part {
-                name, "bg";
-                type, RECT;
-                description {
-                    state, "default" 0.0;
-                    color, 255 255 255 255;
-                    rel1 {
-                        to, "background";
-                        offset, 14 64;
-                    }
-                    rel2 {
-                        to, "background";
-                        offset, -41 -65;
-                    }
-                }
-            }
-
-            part {
-                name, "left-top";
-                images { image, "right-overlay-left-top.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; offset, 0 50; }
-                    rel2 { to, "background"; relative, 0.0 0.0; offset, 13 63; }
-                    image { normal, "right-overlay-left-top.png"; }
-                }
-            }
-
-            part {
-                name, "left-bottom";
-                images { image, "right-overlay-left-bottom.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; relative, 0.0 1.0; offset, 0 -64; }
-                    rel2 { to, "background"; relative, 0.0 1.0; offset, 13 -51; }
-                    image { normal, "right-overlay-left-bottom.png"; }
-                }
-            }
-
-            part {
-                name, "right-top";
-                images { image, "right-overlay-right-top.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; relative, 1.0 0.0; offset, -40 50; }
-                    rel2 { to, "background"; relative, 1.0 0.0; offset, -1 63; }
-                    image { normal, "right-overlay-right-top.png"; }
-                }
-            }
-
-            part {
-                name, "right-bottom";
-                images { image, "right-overlay-right-bottom.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; relative, 1.0 1.0; offset, -40 -64; }
-                    rel2 { to, "background"; relative, 1.0 1.0; offset, -1 -51; }
-                    image { normal, "right-overlay-right-bottom.png"; }
-                }
-            }
-
-            part {
-                name, "left";
-                images { image, "right-overlay-left.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; offset, 0 64; }
-                    rel2 { relative, 0.0 1.0; offset, 13 -65; }
-                    image { normal, "right-overlay-left.png"; }
-                }
-            }
-            part {
-                name, "top";
-                images { image, "right-overlay-top.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; offset, 14 50; }
-                    rel2 { to, "background"; relative, 1.0 0.0; offset, -40 63; }
-                    image { normal, "right-overlay-top.png"; }
-                }
-            }
-            part {
-                name, "right";
-                images { image, "right-overlay-right.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; relative, 1.0 0.0; offset, -40 64; }
-                    rel2 { to, "background"; offset, -1 -65; }
-                    image { normal, "right-overlay-right.png"; }
-                    fill { size { relative, 0.0 0.0; offset, 40 16; } }
-                }
-            }
-            part {
-                name, "bottom";
-                images { image, "right-overlay-bottom.png" COMP; }
-                description {
-                    state, "default" 0.0;
-                    rel1 { to, "background"; relative, 0.0 1.0; offset, 14 -64; }
-                    rel2 { to, "background"; offset, -41 -51; }
-                    image { normal, "right-overlay-bottom.png"; }
-                }
-            }
-
             CONTENTS_SWALLOW;
 
             /* Footer */
@@ -808,7 +559,7 @@ collections {
                 description {
                     state, "default" 0.0;
                     color, 0 0 0 0;
-                    rel1 { to, "background"; relative, 0.0 1.0; offset, 0 -49; }
+                    rel1 { to, "background"; relative, 0.0 1.0; offset, 0 -50; }
                     rel2 { to, "background"; }
                 }
             }
@@ -819,7 +570,7 @@ collections {
                     state, "default" 0.0;
                     max, 8 49;
                     min, 8 49;
-                    rel1 { to, "footer-rect"; relative, 0.0 0.0; }
+                    rel1 { to, "footer-rect"; relative, 0.0 0.0; offset, 0 1; }
                     rel2 { to, "footer-rect"; relative, 0.0 1.0; offset, 8 -1; }
                     image { normal, "popup-header-left.png"; }
                 }
@@ -830,7 +581,7 @@ collections {
                 description {
                     state, "default" 0.0;
                     color, 119 119 119 255;
-                    rel1 { to, "footer-rect"; offset, 8 0; }
+                    rel1 { to, "footer-rect"; offset, 8 1; }
                     rel2 { to, "footer-rect"; }
                 }
             }

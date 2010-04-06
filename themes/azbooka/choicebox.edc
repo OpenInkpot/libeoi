@@ -22,6 +22,144 @@
 #define MIN_HEIGHT_VALUE 76
 #endif
 
+#define MARKS(RX1, RY1, X1, Y1, RX2, RY2, X2, Y2)        \
+    part { \
+             name, "marks"; \
+             images { \
+                 image, "1.png" COMP; \
+                 image, "2.png" COMP; \
+                 image, "3.png" COMP; \
+                 image, "4.png" COMP; \
+                 image, "5.png" COMP; \
+                 image, "6.png" COMP; \
+                 image, "7.png" COMP; \
+                 image, "8.png" COMP; \
+                 image, "9.png" COMP; \
+                 image, "none.png" COMP; \
+             } \
+             clip_to, "clipper"; \
+             description { \
+                 state, "default" 0.0; \
+                 rel1 { relative, RX1 RY1; offset, X1 Y1; }  \
+                 rel2 { relative, RX2 RY2; offset, X2 Y2; } \
+                 image { normal, "none.png"; } \
+             } \
+             description { \
+                 state, "0,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "1.png"; } \
+             } \
+             description { \
+                 state, "1,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "2.png"; } \
+             } \
+             description { \
+                 state, "2,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "3.png"; } \
+             } \
+             description { \
+                 state, "3,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "4.png"; } \
+             } \
+             description { \
+                 state, "4,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "5.png"; } \
+             } \
+             description { \
+                 state, "5,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "6.png"; } \
+             } \
+             description { \
+                 state, "6,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "7.png"; } \
+             } \
+             description { \
+                 state, "7,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "8.png"; } \
+             } \
+             description { \
+                 state, "8,hinted" 0.0; \
+                 inherit, "default" 0.0; \
+                 image { normal, "9.png"; } \
+             } \
+         }
+
+
+
+#define STD_PROGRAMS \
+          program { \
+              name, "set_number"; \
+              signal, "set_number,*"; \
+              script { \
+                  new number_arg[100]; \
+                  getsarg(0, number_arg, 100); \
+                  new number_s[100]; \
+                  strcut(number_s, number_arg, 11, 100); \
+                                                         \
+                  getsarg(0, number_arg, 100); \
+                  new is_hinted_s[100]; \
+                  strcut(is_hinted_s, number_arg, 13, 100); \
+                                                            \
+                  if (!strcmp(is_hinted_s, "hinted")) { \
+                      set_state(PART:"marks", number_s, 0.0)
+
+#define STD_PROGRAMS_2 \
+                      set_state(PART:"contents", "numbered", 0.0); \
+                  } else { \
+                      set_state(PART:"marks", "default", 0.0);
+
+#define STD_PROGRAMS_3 \
+                      set_state(PART:"contents", "default", 0.0); \
+                  } \
+                                                                \
+                  set_state(PART:"clipper", "enabled", 0.0); \
+              } \
+          } \
+          program { \
+              name, "deselect"; \
+              signal, "deselect"; \
+              script { \
+                  set_state(PART:"sel-clipper", "default", 0.0); \
+              } \
+          } \
+          program { \
+             name, "select"; \
+             signal, "select"; \
+             script { \
+                set_state(PART:"sel-clipper", "enabled", 0.0); \
+             } \
+          } \
+          program { \
+             name, "empty"; \
+             signal, "empty"; \
+             script { \
+                set_state(PART:"clipper", "default", 0.0); \
+             } \
+          }
+
+#define FILLER_PROGRAMS \
+            program { \
+                name, "non-hinted"; \
+                signal, "non-hinted"; \
+                script { \
+                    set_state(PART:"filler", "default", 0.0); \
+                } \
+            } \
+            program { \
+                name, "hinted"; \
+                signal, "hinted"; \
+                script { \
+                    set_state(PART:"filler", "hinted", 0.0); \
+                } \
+            } \
+
 images {
     image, "marker.png" COMP;
     image, "filler.png" COMP;
@@ -207,73 +345,7 @@ collections {
                  rel2 { offset, -24 -1; }
              }
          }
-         part {
-             name, "marks";
-             images {
-                 image, "1.png" COMP;
-                 image, "2.png" COMP;
-                 image, "3.png" COMP;
-                 image, "4.png" COMP;
-                 image, "5.png" COMP;
-                 image, "6.png" COMP;
-                 image, "7.png" COMP;
-                 image, "8.png" COMP;
-                 image, "9.png" COMP;
-                 image, "none.png" COMP;
-             }
-             clip_to, "clipper";
-             description {
-                 state, "default" 0.0;
-                 rel1 { offset, 15 20; }
-                 rel2 { relative, 0.0 0.0; offset, 50 55; }
-                 image { normal, "none.png"; }
-             }
-             description {
-                 state, "0,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "1.png"; }
-             }
-             description {
-                 state, "1,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "2.png"; }
-             }
-             description {
-                 state, "2,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "3.png"; }
-             }
-             description {
-                 state, "3,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "4.png"; }
-             }
-             description {
-                 state, "4,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "5.png"; }
-             }
-             description {
-                 state, "5,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "6.png"; }
-             }
-             description {
-                 state, "6,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "7.png"; }
-             }
-             description {
-                 state, "7,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "8.png"; }
-             }
-             description {
-                 state, "8,hinted" 0.0;
-                 inherit, "default" 0.0;
-                 image { normal, "9.png"; }
-             }
-         }
+         MARKS(0.0, 0.0, 15, 20, 0.0, 0.0, 50, 55);
       }
       data {
           item, "min_height" MIN_HEIGHT_VALUE; /* HACK: until edje fetches size_hints */
@@ -283,53 +355,13 @@ collections {
           item, "margin_bottom" 0;
       }
       programs {
-          program {
-              name, "set_number";
-              signal, "set_number,*";
-              script {
-                  new number_arg[100];
-                  getsarg(0, number_arg, 100);
-                  new number_s[100];
-                  strcut(number_s, number_arg, 11, 100);
-
-                  getsarg(0, number_arg, 100);
-                  new is_hinted_s[100];
-                  strcut(is_hinted_s, number_arg, 13, 100);
-
-                  if (!strcmp(is_hinted_s, "hinted")) {
-                      set_state(PART:"marks", number_s, 0.0);
-                      set_state(PART:"sel-left", "numbered", 0.0);
-                      set_state(PART:"contents", "numbered", 0.0);
-                  } else {
-                      set_state(PART:"marks", "default", 0.0);
-                      set_state(PART:"sel-left", "default", 0.0);
-                      set_state(PART:"contents", "default", 0.0);
-                  }
-
-                  set_state(PART:"clipper", "enabled", 0.0);
-              }
-          }
-          program {
-              name, "deselect";
-              signal, "deselect";
-              script {
-                  set_state(PART:"sel-clipper", "default", 0.0);
-              }
-          }
-          program {
-             name, "select";
-             signal, "select";
-             script {
-                set_state(PART:"sel-clipper", "enabled", 0.0);
-             }
-          }
-          program {
-             name, "empty";
-             signal, "empty";
-             script {
-                set_state(PART:"clipper", "default", 0.0);
-             }
-          }
+          STD_PROGRAMS
+              set_state(PART:"sel-left", "numbered", 0.0);
+              set_state(PART:"sel-right", "numbered", 0.0);
+          STD_PROGRAMS_2
+              set_state(PART:"sel-left", "default", 0.0);
+              set_state(PART:"sel-right", "default", 0.0);
+          STD_PROGRAMS_3;
       }
    }
 
@@ -366,9 +398,15 @@ collections {
              clip_to, "sel-clipper";
              description {
                  state, "default" 0.0;
-                 rel1 { offset, 0 3; }
-                 rel2 { relative, 0.0 1.0; offset, 10 -4; }
+                 rel1 { offset, 39 3; }
+                 rel2 { relative, 0.0 1.0; offset, 49 -4; }
                  image { normal, "marker.png"; }
+             }
+             description {
+                 state, "numbered" 0.0;
+                 inherit, "default" 0.0;
+                 rel1 { offset, 88 3; }
+                 rel2 { relative, 0.0 1.0; offset, 98 -4; }
              }
          }
          part {
@@ -377,47 +415,30 @@ collections {
              clip_to, "clipper";
              description {
                  state, "default" 0.0;
-                 rel1 { offset, 16 0; }
+                 rel1 { offset, 55 0; }
                  rel2 { offset, -4 -1; }
              }
+             description {
+                 state, "numbered" 0.0;
+                 inherit, "default" 0.0;
+                 rel1 { offset, 104 0; }
+             }
          }
+         MARKS(0.0, 0.0, 15, 20, 0.0, 0.0, 50, 55);
       }
       data {
           item, "min_height" MIN_HEIGHT_VALUE; /* HACK: until edje fetches size_hints */
-          item, "margin_left" 39;
+          item, "margin_left" 0;
           item, "margin_right" 7;
           item, "margin_top" 0;
           item, "margin_bottom" 0;
       }
       programs {
-          program {
-              name, "select";
-              signal, "select";
-              script {
-                  set_state(PART:"sel-clipper", "enabled", 0.0);
-              }
-          }
-          program {
-              name, "deselect";
-              signal, "deselect";
-              script {
-                  set_state(PART:"sel-clipper", "default", 0.0);
-              }
-          }
-          program {
-             name, "set_number";
-             signal, "set_number,*";
-             script {
-                set_state(PART:"clipper", "enabled", 0.0);
-             }
-          }
-          program {
-             name, "empty";
-             signal, "empty";
-             script {
-                set_state(PART:"clipper", "default", 0.0);
-             }
-          }
+          STD_PROGRAMS
+              set_state(PART:"sel-left", "numbered", 0.0);
+          STD_PROGRAMS_2
+              set_state(PART:"sel-left", "default", 0.0);
+          STD_PROGRAMS_3;
       }
    }
     group {
@@ -453,9 +474,20 @@ collections {
                 clip_to, "sel-clipper";
                 description {
                     state, "default" 0.0;
-                    rel1 { relative, 1.0 0.0; offset, -12 3; }
-                    rel2 { offset, -1 -4; }
+                    rel1 { relative, 1.0 0.0; offset, -50 3; }
+                    rel2 { offset, -40 -4; }
                     image { normal, "marker.png"; }
+                }
+                description {
+                    state, "numbered" 0.0;
+                    inherit, "default" 0.0;
+                    rel1 {
+                        relative, 1.0 0.0;
+                        offset, -99 3;
+                    }
+                    rel2 {
+                        offset, -89 -4;
+                    }
                 }
             }
             part {
@@ -468,43 +500,21 @@ collections {
                     rel2 { offset, -17 -1; }
                 }
             }
+            MARKS(1.0, 0.0, -51, 20, 1.0, 0.0, -16, 55);
         }
         data {
             item, "min_height" MIN_HEIGHT_VALUE; /* HACK: until edje fetches size_hints */
             item, "margin_left" 7;
-            item, "margin_right" 39;
+            item, "margin_right" 0;
             item, "margin_top" 0;
             item, "margin_bottom" 0;
         }
         programs {
-            program {
-                name, "select";
-                signal, "select";
-                script {
-                    set_state(PART:"sel-clipper", "enabled", 0.0);
-                }
-            }
-            program {
-                name, "deselect";
-                signal, "deselect";
-                script {
-                    set_state(PART:"sel-clipper", "default", 0.0);
-                }
-            }
-            program {
-                name, "set_number";
-                signal, "set_number,*";
-                script {
-                    set_state(PART:"clipper", "enabled", 0.0);
-                }
-            }
-            program {
-                name, "empty";
-                signal, "empty";
-                script {
-                    set_state(PART:"clipper", "default", 0.0);
-                }
-            }
+          STD_PROGRAMS
+              set_state(PART:"sel-right", "numbered", 0.0);
+          STD_PROGRAMS_2
+              set_state(PART:"sel-right", "default", 0.0);
+          STD_PROGRAMS_3;
         }
     }
 
@@ -536,27 +546,321 @@ collections {
             item, "height" 2;
         }
         programs {
-            program {
-                name, "non-hinted";
-                signal, "non-hinted";
-                script {
-                    set_state(PART:"filler", "default", 0.0);
-                }
-            }
-            program {
-                name, "hinted";
-                signal, "hinted";
-                script {
-                    set_state(PART:"filler", "hinted", 0.0);
-                }
-            }
+            FILLER_PROGRAMS;
         }
     }
 
     group {
         name, "settings-left-background";
-        alias, "settings-right-background";
-        parts {}
+        parts {
+            /* Main part */
+            part {
+                name, "bg";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 255 255 255 255;
+                    rel1 {
+                        to, "left-side";
+                        relative, 1.0 0.0;
+                        offset, 40 14;
+                    }
+                    rel2 {
+                        offset, -15 -15;
+                    }
+                }
+            }
+
+            part {
+                name, "left-side";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 204 204 204 255;
+                    rel2 { relative, 0.0 1.0; offset, -1 -1; }
+                }
+                description {
+                    state, "hinted" 0.0;
+                    inherit, "default" 0.0;
+                    rel2 { relative, 0.0 1.0; offset, 48 -1; }
+                }
+            }
+
+            part {
+                name, "left-top";
+                images { image, "left-overlay-left-top.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "left-side"; relative, 1.0 0.0; offset, 0 0; }
+                    rel2 { to, "left-side"; relative, 1.0 0.0; offset, 39 13; }
+                    image { normal, "left-overlay-left-top.png"; }
+                }
+            }
+
+            part {
+                name, "left-bottom";
+                images { image, "left-overlay-left-bottom.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "left-side"; relative, 1.0 1.0; offset, 0 -14; }
+                    rel2 { to, "left-side"; relative, 1.0 1.0; offset, 39 -1; }
+                    image { normal, "left-overlay-left-bottom.png"; }
+                }
+            }
+
+            part {
+                name, "right-top";
+                images { image, "left-overlay-right-top.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 1.0 0.0; offset, -14 0; }
+                    rel2 { relative, 1.0 0.0; offset, -1 13; }
+                    image { normal, "left-overlay-right-top.png"; }
+                }
+            }
+
+            part {
+                name, "right-bottom";
+                images {
+                    image, "left-overlay-right-bottom.png" COMP;
+                }
+                description {
+                    state, "default" 0.0;
+                    rel1 {
+                        relative, 1.0 1.0;
+                        offset, -14 -14;
+                    }
+                    rel2 {
+                        relative, 1.0 1.0;
+                        offset, -1 -1;
+                    }
+                    image { normal, "left-overlay-right-bottom.png"; }
+                }
+            }
+
+            part {
+                name, "left";
+                images { image, "left-overlay-left.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "left-side"; relative, 1.0 0.0; offset, 0 14; }
+                    rel2 { to, "left-side"; relative, 1.0 1.0; offset, 39 -15; }
+                    image { normal, "left-overlay-left.png"; }
+                    fill { size { relative, 0.0 0.0; offset, 40 16; } }
+                }
+            }
+            part {
+                name, "top";
+                images { image, "left-overlay-top.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 {
+                        to, "left-side";
+                        relative, 1.0 0.0;
+                        offset, 40 0;
+                    }
+                    rel2 {
+                        relative, 1.0 0.0;
+                        offset, -14 13;
+                    }
+                    image {
+                        normal, "left-overlay-top.png";
+                    }
+                }
+            }
+            part {
+                name, "right";
+                images {
+                    image, "left-overlay-right.png" COMP;
+                }
+                description {
+                    state, "default" 0.0;
+                    rel1 {
+                        relative, 1.0 0.0;
+                        offset, -14 14;
+                    }
+                    rel2 {
+                        offset, -1 -15;
+                    }
+                    image {
+                        normal, "left-overlay-right.png";
+                    }
+                }
+            }
+            part {
+                name, "bottom";
+                images {
+                    image, "left-overlay-bottom.png" COMP;
+                }
+                description {
+                    state, "default" 0.0;
+                    rel1 {
+                        to, "left-side";
+                        relative, 1.0 1.0;
+                        offset, 40 -14;
+                    }
+                    rel2 {
+                        offset, -15 -1;
+                    }
+                    image {
+                        normal, "left-overlay-bottom.png";
+                    }
+                }
+            }
+        }
+        programs {
+            program {
+              name, "non-hinted";
+              signal, "non-hinted";
+              script {
+                  set_state(PART:"left-side", "default", 0.0);
+              }
+          }
+          program {
+              name, "hinted";
+              signal, "hinted";
+              script {
+                  set_state(PART:"left-side", "hinted", 0.0);
+              }
+          }
+        }
+    }
+
+    group {
+        name, "settings-right-background";
+        parts {
+            /* Main part */
+            part {
+                name, "bg";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 255 255 255 255;
+                    rel1 {
+                        offset, 14 14;
+                    }
+                    rel2 {
+                        offset, -41 -15;
+                    }
+                }
+            }
+
+            part {
+                name, "right-side";
+                type, RECT;
+                description {
+                    state, "default" 0.0;
+                    color, 204 204 204 255;
+                    rel1 { relative, 1.0 0.0; offset, 0 0; }
+                }
+                description {
+                    state, "hinted" 0.0;
+                    inherit, "default" 0.0;
+                    rel1 { relative, 1.0 0.0; offset, -49 0; }
+                }
+            }
+
+            part {
+                name, "left-top";
+                images { image, "right-overlay-left-top.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel2 { relative, 0.0 0.0; offset, 13 13; }
+                    image { normal, "right-overlay-left-top.png"; }
+                }
+            }
+
+            part {
+                name, "left-bottom";
+                images { image, "right-overlay-left-bottom.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 0.0 1.0; offset, 0 -14; }
+                    rel2 { relative, 0.0 1.0; offset, 13 -1; }
+                    image { normal, "right-overlay-left-bottom.png"; }
+                }
+            }
+
+            part {
+                name, "right-top";
+                images { image, "right-overlay-right-top.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "right-side"; relative, 0.0 0.0; offset, -40 0; }
+                    rel2 { to, "right-side"; relative, 0.0 0.0; offset, -1 13; }
+                    image { normal, "right-overlay-right-top.png"; }
+                }
+            }
+
+            part {
+                name, "right-bottom";
+                images { image, "right-overlay-right-bottom.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "right-side"; relative, 0.0 1.0; offset, -40 -14; }
+                    rel2 { to, "right-side"; relative, 0.0 1.0; }
+                    image { normal, "right-overlay-right-bottom.png"; }
+                }
+            }
+
+            part {
+                name, "left";
+                images { image, "right-overlay-left.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { offset, 0 14; }
+                    rel2 { relative, 0.0 1.0; offset, 13 -15; }
+                    image { normal, "right-overlay-left.png"; }
+                }
+            }
+            part {
+                name, "top";
+                images { image, "right-overlay-top.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { offset, 14 0; }
+                    rel2 { to, "right-side"; relative, 0.0 0.0; offset, -40 13; }
+                    image { normal, "right-overlay-top.png"; }
+                }
+            }
+            part {
+                name, "right";
+                images { image, "right-overlay-right.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "right-side"; offset, -40 14; }
+                    rel2 { to, "right-side"; relative, 0.0 1.0; offset, -1 -15; }
+                    image { normal, "right-overlay-right.png"; }
+                    fill { size { relative, 0.0 0.0; offset, 40 16; } }
+                }
+            }
+            part {
+                name, "bottom";
+                images { image, "right-overlay-bottom.png" COMP; }
+                description {
+                    state, "default" 0.0;
+                    rel1 { relative, 0.0 1.0; offset, 14 -14; }
+                    rel2 { to, "right-side"; relative, 0.0 1.0; offset, -41 -1; }
+                    image { normal, "right-overlay-bottom.png"; }
+                }
+            }
+        }
+        programs {
+            program {
+              name, "non-hinted";
+              signal, "non-hinted";
+              script {
+                  set_state(PART:"right-side", "default", 0.0);
+              }
+          }
+          program {
+              name, "hinted";
+              signal, "hinted";
+              script {
+                  set_state(PART:"right-side", "hinted", 0.0);
+              }
+          }
+        }
     }
 
     group {
@@ -568,12 +872,20 @@ collections {
                 description {
                     state, "default" 0.0;
                     color, 85 85 85 255;
-                    rel1 { offset, 12 0; }
+                    rel1 { offset, 51 0; }
                     rel2 { offset, -4 -1; }
+                }
+                description {
+                    state, "hinted" 0.0;
+                    inherit, "default" 0.0;
+                    rel1 { offset, 100 0; }
                 }
             }
         }
         data { item, "height" 2; }
+        programs {
+            FILLER_PROGRAMS;
+        }
     }
     group {
         name, "settings-right-filler";
@@ -585,11 +897,21 @@ collections {
                     state, "default" 0.0;
                     color, 85 85 85 255;
                     rel1 { offset, 3 0; }
-                    rel2 { offset, -13 -1; }
+                    rel2 { offset, -52 -1; }
+                }
+                description {
+                    state, "hinted" 0.0;
+                    inherit, "default" 0.0;
+                    rel2 {
+                        offset, -101 -1;
+                    }
                 }
             }
         }
         data { item, "height" 2; }
+        programs {
+            FILLER_PROGRAMS;
+        }
     }
 
    group {
