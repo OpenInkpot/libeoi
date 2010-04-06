@@ -1,3 +1,16 @@
+libeoi (0.3.17) zelazny; urgency=low
+
+  [ Alexander Kerner ]
+  * Fixed background of main window
+  * Entrybox label removed
+  
+  [ Mikhail Gusarov ]
+  * Added "hinting" support to Azbooka skin
+  * Fixed choicebox-numbering-n516.ini as framebuffer was rotated "back"
+    to proper position on N516
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Wed, 07 Apr 2010 00:28:54 +0700
+
 libeoi (0.3.16) zelazny; urgency=low
 
   [ Mikhail Gusarov ]

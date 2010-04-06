@@ -140,17 +140,24 @@ entry_new(Evas *canvas, entry_handler_t handler,
     evas_object_data_set(obj, "custom-data", data);
     evas_object_data_set(obj, "prev-focus", evas_focus_get(canvas));
 
+    /*
     char *t;
     asprintf(&t, "%s: ", text);
     edje_object_part_text_set(obj, "entrylabel", t);
     free(t);
-    edje_object_part_text_set(obj, "entrytext", "");
+    */
+    edje_object_part_text_set(obj, "entrytext", "ABC");
 
     Evas_Coord x, y, w, h, w2, h2;
     evas_object_geometry_get(edje_object_part_object_get
-                             (obj, "entrylabel"), &x, &y, &w, &h);
+                             (obj, "entrytext"), &x, &y, &w, &h);
 
+    edje_object_part_text_set(obj, "entrytext", "");
+
+    /*
     h *= 2;
+    h += 20;
+    */
     h += 20;
     evas_object_data_set(obj, "_height_", (void *) h);
     evas_output_size_get(canvas, &w2, &h2);
