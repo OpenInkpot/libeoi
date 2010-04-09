@@ -497,7 +497,14 @@ collections {
                 description {
                     state, "default" 0.0;
                     rel1 { offset, 3 0; }
-                    rel2 { offset, -17 -1; }
+                    rel2 { offset, -56 -1; }
+                }
+                description {
+                    state, "numbered" 0.0;
+                    inherit, "default" 0.0;
+                    rel2 {
+                        offset, -105 -1;
+                    }
                 }
             }
             MARKS(1.0, 0.0, -51, 20, 1.0, 0.0, -16, 55);
