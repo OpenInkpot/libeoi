@@ -1,3 +1,9 @@
+libeoi (0.3.19) zelazny; urgency=low
+
+  * Fixed wrapping in popup right-side menu (OI#881)
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Fri, 09 Apr 2010 20:32:35 +0700
+
 libeoi (0.3.18) zelazny; urgency=low
 
   * Fixed choicebox-numbering-n516.ini for real this time
