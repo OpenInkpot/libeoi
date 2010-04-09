@@ -141,7 +141,9 @@ load_text(const char *filename)
     if (len <= 0)
         return NULL;
 
-    char *text = (char *) malloc(len + 1);
+    len++;
+
+    char *text = (char *) malloc(len);
     char *ptr = text;
 
     f = fopen(filename, "r");
