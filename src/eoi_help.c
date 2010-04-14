@@ -167,7 +167,7 @@ static char *
 load_page_text(const char *application, const char *lang, const char *page)
 {
     char *filename;
-    if (!asprintf(&filename, "/usr/share/help/%s/%s/%s.help",
+    if (!asprintf(&filename, DATADIR "/help/%s/%s/%s.help",
                   application, lang, page))
         err(1, "asprintf");
 

@@ -407,7 +407,7 @@ open_vk(Evas *canvas, input_cb_t input_callback, const char *title,
     evk_info->data = data;
 
     evk_info->layouts =
-        load_layouts_from_path(evk_info->layouts, "/usr/share/keys",
+        load_layouts_from_path(evk_info->layouts, DATADIR "/keys",
                                "evk");
 
     char *user_path;
