@@ -1,0 +1,23 @@
+# libeoi.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: libeoi 0.1\n"
+"Report-Msgid-Bugs-To: dottedmag@dottedmag.net\n"
+"POT-Creation-Date: 2010-04-25 23:45+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/eoi_entry.c:178
+msgid ""
+"M - Change layout<br>OK - Accept text<br>Left - Delete last symbol<br>Right "
+"- Add space after last symbol<br><br>Press number key multiple times to "
+"enter the corresponding symbol"
+msgstr ""

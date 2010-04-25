@@ -1,14 +1,82 @@
 styles {
 	style {
+		name, "entry_style";
+		base, "font=DejaVu\\ Sans\\ Condensed:style=bold font_size=22 align=left valign=middle color=#000 wrap=word left_margin=10 right_margin=-10 ellipsis=left";
+    }
+	style {
 		name, "textblock_style";
-		base, "font=DejaVu\ Sans\ Condensed:bold font_size=22 align=left valign=middle color=#ffffff wrap=word left_margin=10 right_margin=-10 ellipsis=left";
+		base, "font=DejaVu\\ Sans\\ Condensed font_size=22 align=left valign=middle color=#000 wrap=word left_margin=10 right_margin=-10";
+		tag, "br" "\n";
     }
 }
 
 collections {
+    images {
+        image, "entry_frame.png" COMP;
+        image, "joystick.png" COMP;
+    }
+    group {
+      name: "mw";
+      parts {
+          part {
+              name, "bg-overlay";
+              type, SWALLOW;
+              description {
+                  state, "default" 0.0;
+                  rel1 { relative, 0.0 0.0; offset, 0 0; }
+                  rel2 { relative, 1.0 1.0; offset, -1 -1; }
+              }
+          }
+          part {
+              name, "evk-overlay";
+              type, SWALLOW;
+              description {
+                  state, "default" 0.0;
+                  rel1 { relative, 0.0 0.0; offset, 0 0; }
+                  rel2 { relative, 0.35 1.0; offset, -1 -1; }
+              }
+          }
+          part {
+              name, "entry-overlay";
+              type, SWALLOW;
+              description {
+                  state, "default" 0.0;
+                  rel1 { relative, 0.35 0.0; offset, 0 49; }
+                  rel2 { relative, 1.00 0.0; offset, -1 125; }
+              }
+          }
+          part {
+              name, "help-text";
+				type, TEXTBLOCK;
+                multiline, 1;
+				mouse_events, 0;
+				description {
+					state, "default" 0.0;
+					color, 0 0 0 255;
+					rel1 { relative, 0.35 0.0; offset, 10 125; }
+					rel2 { relative, 1.0 0.6; offset, -10 -1; }
+					text {
+						style, "textblock_style";
+						max, 0 1;
+						text, "";
+					}
+				}
+          }
+          part {
+              name, "joystick";
+              type, IMAGE;
+              description {
+                  min, 164 164;
+                  max, 164 164;
+                  state, "default" 0.0;
+                  rel1 { relative, 0.35 0.5; }
+                  image { normal, "joystick.png"; }
+              }
+          }
+      }
+    }
 	group {
 		name: "entrybox";
-		min: 150 60;
 		parts {
 			part {
 				name, "bg";
@@ -16,31 +84,21 @@ collections {
 				mouse_events, 0;
 				description {
 					state, "default" 0.0;
-					color, 0 0 0 255;
-					rel1 { relative, 0.0 0.0; offset, 0 0; }
-					rel2 { relative, 1.0 1.0; offset, 0 0; }
-				}
-			}
-            /*
-			part
-			{
-				name, "entrylabel";
-				type, TEXTBLOCK;
-                multiline, 0;
-				mouse_events, 0;
-				description {
-					state, "default" 0.0;
 					color, 255 255 255 255;
-					rel1 { relative, 0.0 0.0; offset, 10 0; }
-					rel2 { relative, 1.0 0.5; offset, -10 0; }
-					text {
-						style, "textblock_style";
-						max, 0 1;
-						text, "";
-					}
+					rel1 { relative, 0.0 0.0; offset, 0 0; }
+					rel2 { relative, 1.0 0.0; offset, -1 76; }
 				}
 			}
-            */
+            part {
+                name, "entry_frame";
+                type, IMAGE;
+                description {
+                    state, "default" 0.0;
+                    rel1 { to, "bg"; }
+                    rel2 { to, "bg"; }
+                    image { normal, "entry_frame.png"; }
+                }
+            }
 			part
 			{
 				name, "entrytext";
@@ -49,11 +107,11 @@ collections {
 				mouse_events, 0;
 				description {
 					state, "default" 0.0;
-					color, 255 255 255 255;
+					color, 0 0 0 255;
 					rel1 { relative, 0.0 0.0; offset, 10 0; }
 					rel2 { relative, 1.0 1.0; offset, -10 0; }
 					text {
-						style, "textblock_style";
+						style, "entry_style";
 						max, 0 1;
 						text, "";
 					}

@@ -1,3 +1,4 @@
 usr/lib/*.so.*
 usr/share/eoi/themes/default
 usr/share/keys/*
+usr/share/locale

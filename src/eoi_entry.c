@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <libintl.h>
 
 #include <Evas.h>
 #include <Ecore_Evas.h>
@@ -39,10 +40,12 @@
 
 #define UNUSED __attribute__ ((unused))
 
+#define ENTRY_HEIGHT 76
+
 typedef struct entry_info_t entry_info_t;
 struct entry_info_t {
     Evas_Object *o;
-    const Evas_Object *vk;
+    Evas_Object *vk;
 
     const char *title;
     char *text;
@@ -109,15 +112,16 @@ input_handler(const char *input, size_t size, void *data)
     free(t);
 }
 
+/*
 static void
 _entry_resized(Ecore_Evas *win UNUSED, Evas_Object *object, int w, int h,
                void *param UNUSED)
 {
     evas_object_move(object, w / 3, 49);
-    h = (int) evas_object_data_get(object, "_height_");
-    evas_object_resize(object, w * 2 / 3, h);
+    evas_object_resize(object, w * 2 / 3, ENTRY_HEIGHT);
     evas_object_raise(object);
 }
+*/
 
 Evas_Object *
 entry_new(Evas *canvas, entry_handler_t handler,
@@ -133,46 +137,54 @@ entry_new(Evas *canvas, entry_handler_t handler,
     Evas_Object *obj =
         eoi_create_themed_edje(canvas, "eoi-entry", "entrybox");
     evas_object_name_set(obj, name);
+    /*
     evas_object_move(obj, 0, 0);
     evas_object_resize(obj, 600, 800);
+    */
 
     evas_object_data_set(obj, "private-data", l_data);
     evas_object_data_set(obj, "custom-data", data);
     evas_object_data_set(obj, "prev-focus", evas_focus_get(canvas));
 
-    /*
-    char *t;
-    asprintf(&t, "%s: ", text);
-    edje_object_part_text_set(obj, "entrylabel", t);
-    free(t);
-    */
-    edje_object_part_text_set(obj, "entrytext", "ABC");
-
-    Evas_Coord x, y, w, h, w2, h2;
-    evas_object_geometry_get(edje_object_part_object_get
-                             (obj, "entrytext"), &x, &y, &w, &h);
-
-    edje_object_part_text_set(obj, "entrytext", "");
+    Evas_Coord w, h;
+    evas_output_size_get(canvas, &w, &h);
 
     /*
-    h *= 2;
-    h += 20;
+    evas_object_resize(obj, w * 2 / 3, ENTRY_HEIGHT);
+    evas_object_move(obj, w / 3, 49);
     */
-    h += 20;
-    evas_object_data_set(obj, "_height_", (void *) h);
-    evas_output_size_get(canvas, &w2, &h2);
-
-    evas_object_resize(obj, w2 * 2 / 3, h);
-    evas_object_move(obj, w2 / 3, 49);
     evas_object_show(obj);
 
     evas_object_focus_set(obj, 1);
 
     Ecore_Evas *window = ecore_evas_ecore_evas_get(canvas);
-    eoi_resize_object_register(window, obj, _entry_resized, NULL);
+    //eoi_resize_object_register(window, obj, _entry_resized, NULL);
+
+    Evas_Object *mw = eoi_create_themed_edje(canvas, "eoi-entry", "mw");
+    evas_object_move(mw, 0, 0);
+    evas_object_resize(mw, w, h);
+    evas_object_show(mw);
+    eoi_fullwindow_object_register(window, mw);
+
+    Evas_Object *bg = eoi_main_window_create(canvas);
 
     l_data->o = obj;
     l_data->vk = open_vk(canvas, input_handler, l_data->title, l_data);
+
+    edje_object_part_swallow(mw, "bg-overlay", bg);
+    edje_object_part_swallow(mw, "evk-overlay", l_data->vk);
+    edje_object_part_swallow(mw, "entry-overlay", obj);
+
+    setlocale(LC_ALL, "");
+    const char *help_text = dgettext("libeoi",
+        "M - Change layout<br>"
+        "OK - Accept text<br>"
+        "Left - Delete last symbol<br>"
+        "Right - Add space after last symbol<br>"
+        "<br>"
+        "Press number key multiple times to enter the corresponding symbol");
+
+    edje_object_part_text_set(mw, "help-text", help_text);
 
     return obj;
 }
