@@ -36,6 +36,19 @@ images {
 
 }
 
+styles {
+    style {
+        name, "title";
+        base, "font=sans-serif font_size=28 color=#fff ellipsis=left";
+        tag, "fixed" "+ellipsis=none";
+        tag, "/fixed" "-";
+    }
+    style {
+        name, "footer";
+        base, "font=sans-serif font_size=28 color=#fff";
+    }
+}
+
 #define BACKGROUND(LEFT_OFFSET, RIGHT_OFFSET)                    \
     part {                                                       \
     name, "background";                                          \
@@ -124,23 +137,20 @@ images {
 #define FOOTER_TEXT                             \
     part {                                      \
         name, "footer";                         \
-        type, TEXT;                             \
+        type, TEXTBLOCK;                        \
         description {                           \
             state, "default" 0.0;               \
             color, 255 255 255 255;             \
             text {                              \
-                font, sans-serif;               \
-                size, 28;                       \
+                style, "footer";                \
+                max, 1 0;                       \
             }                                   \
             rel1 {                              \
                 to, "footer-rect";              \
-                relative, 0.0 0.0;              \
-                offset, 0 0;                    \
+                offset, 0 7;                    \
             }                                   \
             rel2 {                              \
                 to, "footer-rect";              \
-                relative, 1.0 1.0;              \
-                offset, -1 -1;                  \
             }                                   \
         }                                       \
         description {                           \
@@ -158,16 +168,14 @@ collections {
             HEADER_RECT
             part {
                 name, "title";
-                type, TEXT;
+                type, TEXTBLOCK;
                 description {
                     state, "default" 0.0;
                     color, 255 255 255 255;
                     text {
-                        font, sans-senrif;
-                        size, 28;
-                        align, 0.0 0.5;
+                        style, "title";
                     }
-                    rel1 { to, "header"; relative, 0.0 0.0; offset, 10 0; }
+                    rel1 { to, "header"; offset, 16 7; }
                     rel2 { to, "clock"; relative, 0.0 1.0; offset, 0 0; }
                 }
             }
