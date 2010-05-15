@@ -1,3 +1,10 @@
+libeoi (0.3.22) zelazny; urgency=low
+
+  * Decrease VK timeout
+  * Fix header and footer in default theme
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Sat, 15 May 2010 17:16:00 +0200
+
 libeoi (0.3.21) zelazny; urgency=low
 
   [ Mikhail Gusarov ]
