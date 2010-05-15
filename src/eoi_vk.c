@@ -235,7 +235,7 @@ key_handler(void *data, Evas *evas UNUSED, Evas_Object *obj UNUSED,
     action = get_action(info, event->keyname);
 
     if (action)
-        info->timer = ecore_timer_add(0.7, &timer_callback, info);
+        info->timer = ecore_timer_add(0.5, &timer_callback, info);
 
     if (!info->last_key || strcmp(info->last_key, event->keyname)) {
         free(info->last_key);
