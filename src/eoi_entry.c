@@ -26,6 +26,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <libintl.h>
+#include <locale.h>
 
 #include <Evas.h>
 #include <Ecore_Evas.h>
