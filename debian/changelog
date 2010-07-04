@@ -1,3 +1,9 @@
+libeoi (0.3.24) zelazny; urgency=low
+
+  * Fix default theme (OI #935)
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Mon, 05 Jul 2010 01:16:35 +0200
+
 libeoi (0.3.23) zelazny; urgency=low
 
   * Add missing include
