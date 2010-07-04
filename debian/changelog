@@ -1,3 +1,10 @@
+libeoi (0.3.23) zelazny; urgency=low
+
+  * Add missing include
+  * Adjustment to new ecore API
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Sun, 04 Jul 2010 21:38:55 +0200
+
 libeoi (0.3.22) zelazny; urgency=low
 
   * Decrease VK timeout
