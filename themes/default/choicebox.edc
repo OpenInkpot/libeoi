@@ -628,7 +628,32 @@ collections {
          }
       }
    }
-
+  group {
+       name, "item-settings-fullscreen";
+       parts {
+           /* Big text in the center of item */
+           part {
+               name, "title";
+               type, TEXTBLOCK;
+               multiline, 1;
+               description {
+                   state, "default" 0.0;
+                   text { style, "titles"; max, 0 1; }
+               }
+           }
+           /* Smallish text at the bottom right */
+           part {
+               name, "value";
+               type, TEXTBLOCK;
+               styles {
+               }
+               description {
+                   state, "default" 0.0;
+                    text { style, "values"; }
+               }
+           }
+       }
+   }
    group {
       name, "item-settings";
       parts {
