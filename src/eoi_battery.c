@@ -153,7 +153,7 @@ _detach_battery_timer(void *data, Evas * e, Evas_Object * obj,
         _bound = NULL;
 }
 
-static int
+static Eina_Bool
 _update_batt_cb(void *param)
 {
     eoi_draw_battery_info((Evas_Object *) param);

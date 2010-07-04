@@ -42,7 +42,7 @@ die(const char *fmt, ...)
     exit(EXIT_FAILURE);
 }
 
-static int
+static Eina_Bool
 exit_handler(void *param, int ev_type, void *event)
 {
     ecore_main_loop_quit();

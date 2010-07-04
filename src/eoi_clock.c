@@ -26,7 +26,7 @@
 
 #include "libeoi_clock.h"
 
-static int
+static Eina_Bool
 _update_clock(void *param)
 {
     Evas_Object *edje = (Evas_Object *) param;

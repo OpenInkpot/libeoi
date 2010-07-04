@@ -145,7 +145,7 @@ send_key(vk_info_t *info, const char *key)
     info->i = 0;
 }
 
-static int
+static Eina_Bool
 timer_callback(void *param)
 {
     vk_info_t *info = param;
