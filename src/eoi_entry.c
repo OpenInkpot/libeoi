@@ -100,6 +100,7 @@ input_handler(const char *input, size_t size, void *data)
         while (l_data->text_buf_size - l_data->cnt < size) {
             l_data->text_buf_size += 256;
             l_data->text = realloc(l_data->text, l_data->text_buf_size);
+            memset(l_data->text + l_data->cnt, 0, l_data->text_buf_size - l_data->cnt);
         }
 
         memcpy(&l_data->text[l_data->cnt], input, size);
@@ -122,6 +123,28 @@ _entry_resized(Ecore_Evas *win UNUSED, Evas_Object *object, int w, int h,
     evas_object_raise(object);
 }
 */
+
+void
+entry_text_set(Evas_Object *entry, const char *text)
+{
+    entry_info_t *l_data = evas_object_data_get(entry, "private-data");
+    if (!l_data)
+        return;
+
+    if (l_data->text) {
+        free(l_data->text);
+        l_data->text = NULL;
+    }
+
+    l_data->text = strdup(text);
+    l_data->text_buf_size = strlen(text);
+    l_data->cnt = strlen(text);
+
+    char *t;
+    asprintf(&t, "<ellipsize=left>%s</ellipsize>", l_data->text);
+    edje_object_part_text_set(l_data->o, "entrytext", t);
+    free(t);
+}
 
 Evas_Object *
 entry_new(Evas *canvas, entry_handler_t handler,

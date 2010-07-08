@@ -9,4 +9,5 @@ typedef void (*entry_handler_t) (Evas_Object *entry,
 Evas_Object *entry_new(Evas *canvas, entry_handler_t handler,
                        const char *name, const char *text, void *data);
 
+void entry_text_set(Evas_Object *entry, const char *text);
 #endif
