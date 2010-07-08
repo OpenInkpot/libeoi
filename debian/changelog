@@ -1,3 +1,14 @@
+libeoi (0.3.25) zelazny; urgency=low
+
+  [ Tomasz Długosz ]
+  * l10n: initial Polish translation
+  * Polish layout for virtual keyboard
+
+  [ Alexander Kerner ]
+  * Add function to set entry text
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Thu, 08 Jul 2010 10:58:11 +0200
+
 libeoi (0.3.24) zelazny; urgency=low
 
   * Fix default theme (OI #935)
