@@ -1,3 +1,11 @@
+libeoi (0.3.23.bradbury.1) bradbury; urgency=low
+
+  * Build for bradbury
+  * Fix default theme (OI #935)
+  * Add function to set entry text
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Sat, 10 Jul 2010 21:57:20 +0200
+
 libeoi (0.3.22) zelazny; urgency=low
 
   * Decrease VK timeout
