@@ -144,7 +144,7 @@ run()
     ecore_event_handler_add(ECORE_EVENT_SIGNAL_EXIT, exit_handler, NULL);
 
     Ecore_Evas *main_win =
-        ecore_evas_software_x11_new(0, 0, 0, 0, 600, 800);
+        ecore_evas_software_x11_8_new(0, 0, 0, 0, 600, 800);
     ecore_evas_title_set(main_win, "eoi-test");
     ecore_evas_name_class_set(main_win, "eoi-test", "eoi-test");
 
