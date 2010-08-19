@@ -1,3 +1,9 @@
+libeoi (0.3.26) zelazny; urgency=low
+
+  * Use 8bpp engine
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Thu, 19 Aug 2010 09:44:30 +0200
+
 libeoi (0.3.25) zelazny; urgency=low
 
   [ Tomasz Długosz ]
