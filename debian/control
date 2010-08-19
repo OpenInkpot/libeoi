@@ -2,9 +2,9 @@ Source: libeoi
 Section: gui
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
 Uploaders: Alexander Kerner <lunohod@openinkpot.org>
-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev (>= 0.9.9.49898-5) (>= 0.9.9.49898-5), libevas-dev, libedje-dev, libefreet-dev, libkeys-dev, libedje-bin
+Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libecore-dev (>= 0.9.9.49898-5), libevas-dev, libedje-dev, libefreet-dev, libkeys-dev, libedje-bin
 XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, libtool, pkg-config, libedje-bin
-XCS-Cross-Build-Depends: libecore-dev (>= 0.9.9.49898-5) (>= 0.9.9.49898-5), libevas-dev, libedje-dev, libefreet-dev, libkeys-dev
+XCS-Cross-Build-Depends: libecore-dev (>= 0.9.9.49898-5), libevas-dev, libedje-dev, libefreet-dev, libkeys-dev
 Priority: optional
 Standards-Version: 3.8.3
 
