@@ -1,3 +1,17 @@
+libeoi (0.3.27) zelazny; urgency=low
+
+  [ Tomasz Długosz ]
+  * ukrainian keyboard and po provided by Олександр
+
+  [ Mikhail Gusarov ]
+  * Move translations to Tx.net
+
+  [ Alexander Kerner ]
+  * Update translations
+  * Add settings for eb600
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Fri, 15 Apr 2011 19:57:33 +0200
+
 libeoi (0.3.26) zelazny; urgency=low
 
   * Use 8bpp engine
