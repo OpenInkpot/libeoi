@@ -47,6 +47,12 @@ static battery_loc_t batteries[] = {
      "/sys/class/power_supply/lbookv3_battery/charge_full_design",
      "/sys/class/power_supply/lbookv3_battery/status",
      },
+    {
+     "/sys/class/power_supply/eb600_battery/charge_now",
+     "/sys/class/power_supply/eb600_battery/charge_empty_design",
+     "/sys/class/power_supply/eb600_battery/charge_full_design",
+     "/sys/class/power_supply/eb600_battery/status",
+     },
 };
 
 static int

@@ -101,3 +101,19 @@ Description: OpenInkpot-specific extensions for EFL libraries -- Azbooka support
    - text entry widget with virtual keyboard
  .
  This package contains settings required for normal operation on Azbooka.
+
+Package: libeoi-settings-eb600
+Priority: optional
+Architecture: any
+Conflicts: libchoicebox1, libchoicebox1-settings-eb600
+Replaces: libchoicebox-settings-eb600
+Description: OpenInkpot-specific extensions for EFL libraries -- Netronix EB600 support
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
+ .
+ This package contains settings required for normal operation on Netronix EB600.

@@ -38,7 +38,7 @@ install: build
 	dh_installdirs
 
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-	for i in v3 n516; do \
+	for i in v3 n516 eb600; do \
 	  mkdir -p $(CURDIR)/debian/libeoi-settings-$$i/etc/eoi; \
 	  cp $(CURDIR)/debian/choicebox-numbering-$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/etc/eoi/choicebox-numbering.ini; \
 	  mkdir -p $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys; \
