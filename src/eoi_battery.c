@@ -53,6 +53,12 @@ static battery_loc_t batteries[] = {
      "/sys/class/power_supply/eb600_battery/charge_full_design",
      "/sys/class/power_supply/eb600_battery/status",
      },
+    {
+     "/sys/class/power_supply/prs505-battery/charge_now",
+     "/sys/class/power_supply/prs505-battery/charge_empty_design",
+     "/sys/class/power_supply/prs505-battery/charge_full_design",
+     "/sys/class/power_supply/prs505-battery/status",
+     },
 };
 
 static int
