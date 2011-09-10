@@ -38,13 +38,16 @@ install: build
 	dh_installdirs
 
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-	for i in v3 n516 eb600; do \
+	for i in v3 n516 eb600 prs505; do \
 	  mkdir -p $(CURDIR)/debian/libeoi-settings-$$i/etc/eoi; \
 	  cp $(CURDIR)/debian/choicebox-numbering-$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/etc/eoi/choicebox-numbering.ini; \
 	  mkdir -p $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys; \
 	  cp $(CURDIR)/debian/choicebox-$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys/choicebox.ini; \
 	  cp $(CURDIR)/debian/evk.$$i.ini $(CURDIR)/debian/libeoi-settings-$$i/usr/share/keys/evk.ini; \
 	done
+	mkdir -p $(CURDIR)/debian/libeoi-settings-prs505/etc/keys
+	cp $(CURDIR)/debian/eoi_help.prs505.ini  $(CURDIR)/debian/libeoi-settings-prs505/etc/keys/eoi_help.ini
+	cp $(CURDIR)/debian/eoi_numentry.prs505.ini  $(CURDIR)/debian/libeoi-settings-prs505/etc/keys/eoi_numentry.ini
 
 binary-indep:
 

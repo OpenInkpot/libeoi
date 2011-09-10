@@ -117,3 +117,18 @@ Description: OpenInkpot-specific extensions for EFL libraries -- Netronix EB600 
    - text entry widget with virtual keyboard
  .
  This package contains settings required for normal operation on Netronix EB600.
+
+Package: libeoi-settings-prs505
+Priority: optional
+Architecture: any
+Conflicts: libchoicebox1
+Description: OpenInkpot-specific extensions for EFL libraries -- Sony PRS505 support
+ This package provides EFL-based widgets and tools specific for OpenInkpot:
+   - battery handling and drawing
+   - clock handling
+   - "frame" window
+   - "help" widget
+   - choicebox and frame window glue code
+   - text entry widget with virtual keyboard
+ .
+ This package contains settings required for normal operation on Sony PRS505.
