@@ -1,3 +1,9 @@
+libeoi (0.3.30) zelazny; urgency=low
+
+  * Add settings for PRS505
+
+ -- Alexander Kerner <lunohod@openinkpot.org>  Sat, 10 Sep 2011 21:34:05 +0200
+
 libeoi (0.3.29) zelazny; urgency=low
 
   * Adjust choicebox keybindings for V3
