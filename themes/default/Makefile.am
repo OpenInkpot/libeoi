@@ -1,13 +1,13 @@
-THEMES=$(wildcard *.edc)
+THEMES=$(wildcard $(srcdir)/*.edc)
 COMPILED_THEMES=$(patsubst %.edc,%.edj,$(THEMES)) choicebox_vk.edj
 
 themedir=$(datadir)/eoi/themes/default
 theme_DATA=$(COMPILED_THEMES)
 
 %.edj: %.edc
-	edje_cc -id .. $< $@
+	edje_cc -id $(<D)/.. -id $(<D) $< $@
 
 choicebox_vk.edj: choicebox.edc
-	edje_cc -DMIN_HEIGHT_VALUE=55 -id .. $< $@
+	edje_cc -DMIN_HEIGHT_VALUE=55 -id $(<D)/.. -id $(<D) $< $@
 
 CLEANFILES=$(COMPILED_THEMES)

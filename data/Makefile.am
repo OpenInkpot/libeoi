@@ -6,4 +6,4 @@ helpdir = $(datadir)/keys
 help_DATA = eoi_help.ini eoi_numentry.ini
 
 evkdir = $(datadir)/keys/evk
-evk_DATA = evk/*.ini
+evk_DATA = $(srcdir)/evk/*.ini
