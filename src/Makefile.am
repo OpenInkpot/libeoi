@@ -16,4 +16,4 @@ libeoi_la_LDFLAGS = -no-undefined -version-info 4:0:1 -Wl,--as-needed
 libeoi_la_LIBADD = @EFL_LIBS@ @LIBKEYS_LIBS@ @EFREET_LIBS@ @ECORE_EVAS_LIBS@ @ECORE_LIBS@
 
 eoi_test_SOURCES = eoi_test.c
-eoi_test_LDFLAGS = @EFL_LIBS@ @ECORE_EVAS_LIBS@ libeoi.la
+eoi_test_LDADD = @EFL_LIBS@ @ECORE_EVAS_LIBS@ libeoi.la
