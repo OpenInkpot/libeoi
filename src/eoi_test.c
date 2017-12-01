@@ -25,7 +25,6 @@
 
 #include <Ecore.h>
 #include <Ecore_Evas.h>
-#include <Ecore_X.h>
 #include <Evas.h>
 #include <Edje.h>
 
@@ -51,12 +50,6 @@ exit_handler(void *param, int ev_type, void *event)
 
 static void
 main_win_close_handler(Ecore_Evas * main_win)
-{
-    ecore_main_loop_quit();
-}
-
-static void
-exit_app(void *param)
 {
     ecore_main_loop_quit();
 }
@@ -141,10 +134,14 @@ key_down(void *param, Evas * e, Evas_Object * o, void *event_info)
 static void
 run()
 {
+    int width, height;
+
     ecore_event_handler_add(ECORE_EVENT_SIGNAL_EXIT, exit_handler, NULL);
 
     Ecore_Evas *main_win =
-        ecore_evas_software_x11_8_new(0, 0, 0, 0, 600, 800);
+        ecore_evas_new(NULL, 0, 0, 1, 1, NULL);
+    ecore_evas_screen_geometry_get(main_win, NULL, NULL, &width, &height);
+    ecore_evas_resize(main_win, width, height);
     ecore_evas_title_set(main_win, "eoi-test");
     ecore_evas_name_class_set(main_win, "eoi-test", "eoi-test");
 
@@ -159,7 +156,7 @@ run()
 
     evas_object_name_set(rr, "main-window");
     evas_object_move(rr, 0, 0);
-    evas_object_resize(rr, 600, 800);
+    evas_object_resize(rr, width, height);
     evas_object_show(rr);
 
     evas_object_focus_set(rr, true);
@@ -178,8 +175,6 @@ run()
     ecore_evas_callback_resize_set(main_win, main_win_resize_handler);
     ecore_evas_show(main_win);
 
-    ecore_x_io_error_handler_set(exit_app, NULL);
-
     ecore_main_loop_begin();
 }
 
@@ -188,8 +183,6 @@ main(int argc, char **argv)
 {
     if (!evas_init())
         die("Unable to initialize Evas\n");
-    if (!ecore_init())
-        die("Unable to initialize Ecore\n");
     if (!ecore_evas_init())
         die("Unable to initialize Ecore_Evas\n");
     if (!edje_init())
@@ -199,7 +192,6 @@ main(int argc, char **argv)
 
     edje_shutdown();
     ecore_evas_shutdown();
-    ecore_shutdown();
     evas_shutdown();
     return 0;
 }

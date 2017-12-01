@@ -22,7 +22,6 @@
 #include <Edje.h>
 #include <Eina.h>
 #include <Efreet.h>
-#include <Ecore_X.h>
 
 #include <libchoicebox.h>
 
@@ -70,7 +69,7 @@ static bool numbering_enabled;
 static bool numbering_always;
 static int width;
 static int height;
-static Ecore_X_Randr_Rotation rotation;
+static int rotation;
 
 static void
 _eoi_numbering_read_config()
@@ -99,19 +98,8 @@ _eoi_numbering_read_config()
 static bool
 _is_currently_hinted()
 {
-    if (!numbering_enabled)
-        return false;
-
-    if (numbering_always)
-        return true;
-
-    Ecore_X_Window root = ecore_x_window_root_first_get();
-    ecore_x_randr_get_screen_info_prefetch(root);
-    ecore_x_randr_get_screen_info_fetch();
-    Ecore_X_Randr_Rotation r = ecore_x_randr_screen_rotation_get(root);
-    Ecore_X_Screen_Size s = ecore_x_randr_current_screen_size_get(root);
-
-    return !(width == s.width && height == s.height && rotation == r);
+    /*TODO: reliable & portable rotation detecton */
+    return false;
 }
 
 static void
